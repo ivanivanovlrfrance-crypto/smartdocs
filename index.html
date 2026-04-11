@@ -655,9 +655,9 @@ footer{background:var(--dark);color:rgba(255,255,255,0.55);padding:48px 40px 28p
         <div style="display:flex;gap:20px;flex-wrap:wrap;align-items:flex-start;">
           <!-- POST VISUAL -->
           <div style="flex:1;min-width:280px;">
-            <div id="social-post-preview" style="border-radius:16px;padding:32px 28px;min-height:280px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;position:relative;overflow:hidden;background:linear-gradient(135deg,#6c47ff,#9b7bff);">
-              <div id="social-post-text" style="font-size:16px;line-height:1.7;color:white;font-weight:500;position:relative;z-index:1;"></div>
-              <div id="social-post-hashtags" style="margin-top:16px;font-size:13px;color:rgba(255,255,255,0.7);position:relative;z-index:1;"></div>
+            <div id="social-post-preview" style="border-radius:16px;padding:32px 28px;min-height:360px;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;text-align:center;position:relative;overflow:hidden;background:linear-gradient(135deg,#6c47ff,#9b7bff);box-shadow:0 8px 32px rgba(0,0,0,0.15);">
+              <div id="social-post-text" style="font-size:15px;line-height:1.7;color:white;font-weight:500;position:relative;z-index:1;"></div>
+              <div id="social-post-hashtags" style="margin-top:12px;font-size:12px;color:rgba(255,255,255,0.7);position:relative;z-index:1;"></div>
             </div>
             <div class="dl-row">
               <button class="dl-btn prim" onclick="downloadSocialPNG()">⬇ PNG</button>
@@ -1558,12 +1558,12 @@ function previewSocialPhoto(input){
   if(!input.files||!input.files[0]) return;
   const reader=new FileReader();
   reader.onload=e=>{
-    socialPhotoBase64=e.target.result;
-    document.getElementById('socialPhotoPreview').src=socialPhotoBase64;
+    const full=e.target.result;
+    socialPhotoBase64=full.split(',')[1]; // само base64 без prefix
+    document.getElementById('socialPhotoPreview').src=full;
     document.getElementById('socialPhotoPreview').style.display='block';
     document.getElementById('socialPhotoPlaceholder').style.display='none';
     document.getElementById('socialPhotoActions').style.display='block';
-    // Show photo as background in preview
     updatePostPreview();
   };
   reader.readAsDataURL(input.files[0]);
@@ -1623,31 +1623,42 @@ function updatePostPreview(){
   if(!preview) return;
   const isDark=['gradient4','solid_dark'].includes(currentBg);
   const isLight=['solid_white'].includes(currentBg);
-  const textColor=isLight?'#130f2a':'white';
 
-  // Ако има снимка — използвай я като фон
   if(socialPhotoBase64){
-    preview.style.background=`linear-gradient(rgba(0,0,0,0.45),rgba(0,0,0,0.45)), url('${socialPhotoBase64}') center/cover no-repeat`;
+    // Снимката като фон с overlay
+    preview.style.background=`url('data:image/jpeg;base64,${socialPhotoBase64}') center/cover no-repeat`;
+    preview.style.backgroundSize='cover';
+    // overlay div
+    let overlay=preview.querySelector('.post-overlay');
+    if(!overlay){
+      overlay=document.createElement('div');
+      overlay.className='post-overlay';
+      overlay.style.cssText='position:absolute;inset:0;border-radius:inherit;';
+      preview.insertBefore(overlay,preview.firstChild);
+    }
+    overlay.style.background='linear-gradient(to top, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.2) 60%, rgba(0,0,0,0.1) 100%)';
     document.getElementById('social-post-text').style.color='white';
-    document.getElementById('social-post-hashtags').style.color='rgba(255,255,255,0.75)';
+    document.getElementById('social-post-hashtags').style.color='rgba(255,255,255,0.8)';
   } else {
+    // Премахни overlay ако има
+    const overlay=preview.querySelector('.post-overlay');
+    if(overlay) overlay.remove();
     const bg=BG_STYLES[currentBg]||BG_STYLES.gradient1;
     preview.style.background=bg;
-    document.getElementById('social-post-text').style.color=textColor;
+    document.getElementById('social-post-text').style.color=isLight?'#130f2a':'white';
     document.getElementById('social-post-hashtags').style.color=isLight?'rgba(0,0,0,0.5)':'rgba(255,255,255,0.7)';
   }
 
   // Frame
   const frames={
-    none:{border:'none',boxShadow:'none',outline:'none'},
-    rounded:{border:'4px solid rgba(255,255,255,0.8)',boxShadow:'none'},
-    shadow:{border:'none',boxShadow:'8px 8px 0 rgba(0,0,0,0.2)'},
+    none:{border:'none',boxShadow:'0 8px 32px rgba(0,0,0,0.15)'},
+    rounded:{border:'4px solid rgba(255,255,255,0.8)',boxShadow:'0 8px 32px rgba(0,0,0,0.2)'},
+    shadow:{border:'none',boxShadow:'8px 8px 0 rgba(0,0,0,0.25)'},
     double:{border:'3px solid rgba(255,255,255,0.9)',outline:'4px solid rgba(255,255,255,0.3)',outlineOffset:'3px'},
     gradient_border:{border:'4px solid transparent',boxShadow:'0 0 0 4px rgba(255,255,255,0.5)'},
-    neon:{border:'2px solid #00e5cc',boxShadow:'0 0 20px #00e5cc, inset 0 0 20px rgba(0,229,204,0.1)'},
+    neon:{border:'2px solid #00e5cc',boxShadow:'0 0 25px #00e5cc, inset 0 0 25px rgba(0,229,204,0.1)'},
   };
-  const f=frames[currentFrame]||frames.none;
-  Object.assign(preview.style,f);
+  Object.assign(preview.style, frames[currentFrame]||frames.none);
 }
 
 async function generateSocialPost(){
