@@ -1772,6 +1772,11 @@ ${socialPhotoBase64?'Има качена снимка — напиши текс�
       body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1000,messages:[{role:'user',content:msgContent}]})
     });
     const data=await resp.json();
+    if(data.error){
+      document.getElementById('social-loading').style.display='none';
+      alert('API Грешка: ' + data.error.message);
+      return;
+    }
     const text=data.content[0].text;
     const lines=text.split('\n');
     const hashtagLine=lines.filter(l=>l.includes('#')).join(' ');
@@ -1784,7 +1789,8 @@ ${socialPhotoBase64?'Има качена снимка — напиши текс�
     document.getElementById('social-output').style.display='block';
   }catch(e){
     document.getElementById('social-loading').style.display='none';
-    alert('Грешка. Опитай пак!');
+    console.error('Social post error:', e);
+    alert('Грешка: ' + (e.message||JSON.stringify(e)));
   }
 }
 
