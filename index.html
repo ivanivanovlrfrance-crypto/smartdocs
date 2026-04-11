@@ -118,7 +118,7 @@ textarea.field-input{resize:vertical;}
 .tpl-card{border:2px solid var(--border);border-radius:16px;padding:0;cursor:pointer;transition:all .25s;text-align:center;background:white;overflow:hidden;}
 .tpl-card:hover{border-color:var(--p);transform:translateY(-3px);box-shadow:0 8px 24px rgba(108,71,255,0.15);}
 .tpl-card.active{border-color:var(--p);box-shadow:0 6px 20px rgba(108,71,255,0.25);}
-.tpl-preview{width:100%;height:90px;display:flex;overflow:hidden;position:relative;}
+.tpl-preview{width:100%;height:160px;display:flex;overflow:hidden;position:relative;}
 .tpl-sidebar{width:32%;height:100%;}
 .tpl-main{flex:1;height:100%;display:flex;flex-direction:column;gap:4px;padding:8px 6px;background:#f8f9fa;}
 .tpl-bar{border-radius:3px;height:5px;background:rgba(0,0,0,0.12);}
@@ -328,19 +328,10 @@ footer{background:var(--dark);color:rgba(255,255,255,0.55);padding:48px 40px 28p
 
 <!-- APP SECTION -->
 <div class="app-section" id="app">
-  <div class="app-inner reveal">
-    <div style="text-align:center;">
-      <div class="section-tag" data-t="app_tag">Създай документ</div>
-      <h2 class="section-title" data-t="app_title">Избери и генерирай</h2>
-    </div>
-    <div class="app-tabs">
-      <button class="app-tab active" onclick="showTab('cv')">📄 CV</button>
-      <button class="app-tab" onclick="showTab('letter')">✉️ Писмо</button>
-      <button class="app-tab" onclick="showTab('slide')">🖼️ Слайд</button>
-    </div>
+  <div class="app-inner">
 
     <!-- CV TAB -->
-    <div id="tabCV" class="app-card">
+    <div id="tabCV" class="app-card" style="display:none;">
 
       <!-- TEMPLATE PICKER -->
       <div class="form-section"><span class="form-section-icon">🎨</span><span class="form-section-title" data-t="step1">Стъпка 1 — Избери шаблон</span></div>
@@ -543,6 +534,114 @@ footer{background:var(--dark);color:rgba(255,255,255,0.55);padding:48px 40px 28p
         </div>
       </div>
     </div>
+
+    <!-- SOCIAL TAB -->
+    <div id="tabSocial" class="app-card" style="display:none;">
+      <div style="text-align:center;margin-bottom:24px;padding-bottom:20px;border-bottom:1.5px solid var(--border);">
+        <div style="font-size:32px;margin-bottom:8px;">📱</div>
+        <h2 style="font-family:'Fraunces',serif;font-size:28px;font-weight:300;color:var(--dark);">Пост за социални медии</h2>
+        <p style="color:var(--gray);font-size:14px;margin-top:4px;">Опиши какво искаш — AI пише и дизайнира поста</p>
+      </div>
+
+      <!-- PLATFORM -->
+      <div class="form-section"><span class="form-section-icon">📲</span><span class="form-section-title">Избери платформа</span></div>
+      <div style="display:flex;gap:12px;margin-bottom:20px;flex-wrap:wrap;">
+        <div class="social-platform-btn active" onclick="selectPlatform('facebook',this)" style="flex:1;min-width:120px;border:2.5px solid #1877f2;border-radius:14px;padding:14px 10px;text-align:center;cursor:pointer;background:#e8f0fe;transition:.2s;">
+          <div style="font-size:28px;margin-bottom:4px;">📘</div>
+          <div style="font-size:13px;font-weight:700;color:#1877f2;">Facebook</div>
+        </div>
+        <div class="social-platform-btn" onclick="selectPlatform('instagram',this)" style="flex:1;min-width:120px;border:2.5px solid var(--border);border-radius:14px;padding:14px 10px;text-align:center;cursor:pointer;background:white;transition:.2s;">
+          <div style="font-size:28px;margin-bottom:4px;">📸</div>
+          <div style="font-size:13px;font-weight:700;color:#e1306c;">Instagram</div>
+        </div>
+        <div class="social-platform-btn" onclick="selectPlatform('tiktok',this)" style="flex:1;min-width:120px;border:2.5px solid var(--border);border-radius:14px;padding:14px 10px;text-align:center;cursor:pointer;background:white;transition:.2s;">
+          <div style="font-size:28px;margin-bottom:4px;">🎵</div>
+          <div style="font-size:13px;font-weight:700;color:#010101;">TikTok</div>
+        </div>
+      </div>
+
+      <!-- POST CONTENT -->
+      <div class="form-section"><span class="form-section-icon">✍️</span><span class="form-section-title">Опиши поста</span></div>
+      <textarea class="field-input" id="social-desc" style="min-height:100px;" placeholder="Искам да промотирам моя продукт за красота, да привлека нови клиенти, тон да е весел и приятелски..."></textarea>
+
+      <div class="field-row" style="margin-top:14px;">
+        <div class="field-group">
+          <label class="field-label">Тон на поста</label>
+          <select class="field-input" id="social-tone">
+            <option value="friendly">😊 Приятелски</option>
+            <option value="professional">💼 Професионален</option>
+            <option value="funny">😂 Забавен</option>
+            <option value="inspiring">✨ Вдъхновяващ</option>
+            <option value="urgent">🔥 Спешен / Оферта</option>
+          </select>
+        </div>
+        <div class="field-group">
+          <label class="field-label">Език</label>
+          <select class="field-input" id="social-lang">
+            <option>Български</option><option>English</option><option>Français</option><option>Deutsch</option><option>Español</option><option>Italiano</option><option>Română</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- FRAME & BACKGROUND -->
+      <div class="form-section"><span class="form-section-icon">🎨</span><span class="form-section-title">Избери рамка и фон</span></div>
+
+      <div style="margin-bottom:14px;">
+        <label class="field-label" style="margin-bottom:10px;display:block;">Фон</label>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;">
+          <div class="bg-option active-bg" onclick="selectBg('gradient1',this)" title="Лилав градиент" style="width:44px;height:44px;border-radius:12px;background:linear-gradient(135deg,#6c47ff,#9b7bff);cursor:pointer;border:3px solid #6c47ff;box-shadow:0 0 0 2px white inset;"></div>
+          <div class="bg-option" onclick="selectBg('gradient2',this)" title="Тюркоаз" style="width:44px;height:44px;border-radius:12px;background:linear-gradient(135deg,#00c9b1,#00e5cc);cursor:pointer;border:3px solid transparent;"></div>
+          <div class="bg-option" onclick="selectBg('gradient3',this)" title="Залез" style="width:44px;height:44px;border-radius:12px;background:linear-gradient(135deg,#ff6b6b,#ffd93d);cursor:pointer;border:3px solid transparent;"></div>
+          <div class="bg-option" onclick="selectBg('gradient4',this)" title="Нощ" style="width:44px;height:44px;border-radius:12px;background:linear-gradient(135deg,#0f0c29,#302b63,#24243e);cursor:pointer;border:3px solid transparent;"></div>
+          <div class="bg-option" onclick="selectBg('gradient5',this)" title="Розов" style="width:44px;height:44px;border-radius:12px;background:linear-gradient(135deg,#f093fb,#f5576c);cursor:pointer;border:3px solid transparent;"></div>
+          <div class="bg-option" onclick="selectBg('gradient6',this)" title="Океан" style="width:44px;height:44px;border-radius:12px;background:linear-gradient(135deg,#4facfe,#00f2fe);cursor:pointer;border:3px solid transparent;"></div>
+          <div class="bg-option" onclick="selectBg('gradient7',this)" title="Злато" style="width:44px;height:44px;border-radius:12px;background:linear-gradient(135deg,#f7971e,#ffd200);cursor:pointer;border:3px solid transparent;"></div>
+          <div class="bg-option" onclick="selectBg('solid_white',this)" title="Бял" style="width:44px;height:44px;border-radius:12px;background:white;cursor:pointer;border:3px solid transparent;box-shadow:0 0 0 1px rgba(0,0,0,0.1);"></div>
+          <div class="bg-option" onclick="selectBg('solid_dark',this)" title="Тъмен" style="width:44px;height:44px;border-radius:12px;background:#1a1a2e;cursor:pointer;border:3px solid transparent;"></div>
+          <div class="bg-option" onclick="selectBg('pattern1',this)" title="Точки" style="width:44px;height:44px;border-radius:12px;background:#f0ebff radial-gradient(circle,#6c47ff33 1px,transparent 1px) 0 0/20px 20px;cursor:pointer;border:3px solid transparent;"></div>
+          <div class="bg-option" onclick="selectBg('pattern2',this)" title="Линии" style="width:44px;height:44px;border-radius:12px;background:#e8f4ff repeating-linear-gradient(45deg,#4facfe22 0,#4facfe22 1px,transparent 0,transparent 50%) 0/10px 10px;cursor:pointer;border:3px solid transparent;"></div>
+        </div>
+      </div>
+
+      <div style="margin-bottom:20px;">
+        <label class="field-label" style="margin-bottom:10px;display:block;">Рамка</label>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;">
+          <div class="frame-option active-frame" onclick="selectFrame('none',this)" style="width:56px;height:44px;border-radius:10px;background:#f5f5f5;cursor:pointer;border:2.5px solid #6c47ff;display:flex;align-items:center;justify-content:center;font-size:11px;color:#6c47ff;font-weight:700;">Без</div>
+          <div class="frame-option" onclick="selectFrame('rounded',this)" style="width:56px;height:44px;border-radius:10px;background:white;cursor:pointer;border:2.5px solid var(--border);display:flex;align-items:center;justify-content:center;"><div style="width:36px;height:28px;border:3px solid #6c47ff;border-radius:8px;"></div></div>
+          <div class="frame-option" onclick="selectFrame('shadow',this)" style="width:56px;height:44px;border-radius:10px;background:white;cursor:pointer;border:2.5px solid var(--border);display:flex;align-items:center;justify-content:center;"><div style="width:36px;height:28px;background:#ede8ff;border-radius:6px;box-shadow:3px 3px 0 #6c47ff;"></div></div>
+          <div class="frame-option" onclick="selectFrame('double',this)" style="width:56px;height:44px;border-radius:10px;background:white;cursor:pointer;border:2.5px solid var(--border);display:flex;align-items:center;justify-content:center;"><div style="width:36px;height:28px;border:2px solid #6c47ff;border-radius:4px;outline:3px solid #9b7bff;outline-offset:2px;"></div></div>
+          <div class="frame-option" onclick="selectFrame('gradient_border',this)" style="width:56px;height:44px;border-radius:10px;background:white;cursor:pointer;border:2.5px solid var(--border);display:flex;align-items:center;justify-content:center;"><div style="width:36px;height:28px;border-radius:6px;background:linear-gradient(white,white) padding-box, linear-gradient(135deg,#6c47ff,#00c9b1) border-box;border:3px solid transparent;"></div></div>
+          <div class="frame-option" onclick="selectFrame('neon',this)" style="width:56px;height:44px;border-radius:10px;background:#1a1a2e;cursor:pointer;border:2.5px solid var(--border);display:flex;align-items:center;justify-content:center;"><div style="width:36px;height:28px;border:2px solid #00e5cc;border-radius:4px;box-shadow:0 0 8px #00e5cc,inset 0 0 8px rgba(0,229,204,0.1);"></div></div>
+        </div>
+      </div>
+
+      <button class="generate-btn" onclick="generateSocialPost()">✦ Генерирай поста с AI</button>
+      <div class="ai-loading" id="social-loading"><div class="ai-loading-dots"><div class="ai-dot"></div><div class="ai-dot"></div><div class="ai-dot"></div></div><p style="color:var(--gray);font-size:14px;">AI създава поста...</p></div>
+
+      <!-- PREVIEW -->
+      <div class="output-wrap" id="social-output">
+        <div class="output-label">Преглед на поста</div>
+        <div style="display:flex;gap:20px;flex-wrap:wrap;align-items:flex-start;">
+          <!-- POST VISUAL -->
+          <div style="flex:1;min-width:280px;">
+            <div id="social-post-preview" style="border-radius:16px;padding:32px 28px;min-height:280px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;position:relative;overflow:hidden;background:linear-gradient(135deg,#6c47ff,#9b7bff);">
+              <div id="social-post-text" style="font-size:16px;line-height:1.7;color:white;font-weight:500;position:relative;z-index:1;"></div>
+              <div id="social-post-hashtags" style="margin-top:16px;font-size:13px;color:rgba(255,255,255,0.7);position:relative;z-index:1;"></div>
+            </div>
+            <div class="dl-row">
+              <button class="dl-btn prim" onclick="downloadSocialPNG()">⬇ PNG</button>
+              <button class="dl-btn sec" onclick="copySocialText()">📋 Копирай текст</button>
+              <button class="dl-btn sec" onclick="generateSocialPost()">🔄 Нов вариант</button>
+            </div>
+          </div>
+          <!-- TEXT OUTPUT -->
+          <div style="flex:1;min-width:260px;">
+            <div class="output-label">Текст за копиране</div>
+            <div id="social-text-output" style="background:#f8f9fa;border:1.5px solid var(--border);border-radius:14px;padding:20px;font-size:14px;line-height:1.8;color:var(--dark);white-space:pre-wrap;"></div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -553,22 +652,22 @@ footer{background:var(--dark);color:rgba(255,255,255,0.55);padding:48px 40px 28p
     <h2 class="section-title">Всичко от което се нуждаеш</h2>
     <p style="color:var(--gray);font-size:16px;margin-top:10px;">Избери какво искаш да направиш — AI се грижи за останалото</p>
   </div>
-  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:24px;margin-bottom:48px;">
-    <div onclick="showTab('cv')" style="cursor:pointer;border-radius:24px;background:linear-gradient(135deg,#6c47ff,#9b7bff);padding:36px 28px;transition:all .3s;box-shadow:0 8px 32px rgba(108,71,255,0.3);position:relative;overflow:hidden;" onmouseenter="this.style.transform='translateY(-6px)'" onmouseleave="this.style.transform=''">
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;margin-bottom:50px;">
+    <div onclick="var t=document.getElementById('tabCV');var l=document.getElementById('tabLetter');var s=document.getElementById('tabSlide');t.style.display='block';l.style.display='none';s.style.display='none';setTimeout(function(){t.scrollIntoView({behavior:'smooth',block:'start'});},50);" style="cursor:pointer;border-radius:24px;background:linear-gradient(135deg,#6c47ff,#9b7bff);padding:36px 28px;transition:all .3s;box-shadow:0 8px 32px rgba(108,71,255,0.3);position:relative;overflow:hidden;" onmouseenter="this.style.transform='translateY(-6px)'" onmouseleave="this.style.transform=''">
       <div style="position:absolute;top:-20px;right:-20px;width:120px;height:120px;background:rgba(255,255,255,0.07);border-radius:50%;"></div>
       <div style="font-size:40px;margin-bottom:16px;">📄</div>
       <h3 style="font-family:'Fraunces',serif;font-size:26px;font-weight:300;color:white;margin-bottom:10px;">Направи CV</h3>
-      <p style="color:rgba(255,255,255,0.75);font-size:14px;line-height:1.7;margin-bottom:24px;">Разкажи за себе си с твои думи — AI прави красиво професионално CV за секунди. 12 дизайна, 50+ езика.</p>
+      <p style="color:rgba(255,255,255,0.75);font-size:14px;line-height:1.7;margin-bottom:24px;">Разкажи за себе си с твои думи — AI прави красиво CV за секунди. 12 дизайна, 50+ езика.</p>
       <div style="display:inline-flex;align-items:center;gap:8px;background:white;color:#6c47ff;font-size:13px;font-weight:700;padding:10px 20px;border-radius:12px;">✦ Започни сега →</div>
     </div>
-    <div onclick="showTab('letter')" style="cursor:pointer;border-radius:24px;background:linear-gradient(135deg,#00c9b1,#00e5cc);padding:36px 28px;transition:all .3s;box-shadow:0 8px 32px rgba(0,201,177,0.3);position:relative;overflow:hidden;" onmouseenter="this.style.transform='translateY(-6px)'" onmouseleave="this.style.transform=''">
+    <div onclick="var t=document.getElementById('tabCV');var l=document.getElementById('tabLetter');var s=document.getElementById('tabSlide');t.style.display='none';l.style.display='block';s.style.display='none';setTimeout(function(){l.scrollIntoView({behavior:'smooth',block:'start'});},50);" style="cursor:pointer;border-radius:24px;background:linear-gradient(135deg,#00c9b1,#00e5cc);padding:36px 28px;transition:all .3s;box-shadow:0 8px 32px rgba(0,201,177,0.3);position:relative;overflow:hidden;" onmouseenter="this.style.transform='translateY(-6px)'" onmouseleave="this.style.transform=''">
       <div style="position:absolute;top:-20px;right:-20px;width:120px;height:120px;background:rgba(255,255,255,0.07);border-radius:50%;"></div>
       <div style="font-size:40px;margin-bottom:16px;">✉️</div>
       <h3 style="font-family:'Fraunces',serif;font-size:26px;font-weight:300;color:white;margin-bottom:10px;">Напиши писмо</h3>
       <p style="color:rgba(255,255,255,0.75);font-size:14px;line-height:1.7;margin-bottom:24px;">Официално писмо до институция, работодател или община — AI го пише на правилния език и тон.</p>
       <div style="display:inline-flex;align-items:center;gap:8px;background:white;color:#00856f;font-size:13px;font-weight:700;padding:10px 20px;border-radius:12px;">✦ Пиши писмо →</div>
     </div>
-    <div onclick="showTab('slide')" style="cursor:pointer;border-radius:24px;background:linear-gradient(135deg,#ff6b6b,#ff9a6c);padding:36px 28px;transition:all .3s;box-shadow:0 8px 32px rgba(255,107,107,0.3);position:relative;overflow:hidden;" onmouseenter="this.style.transform='translateY(-6px)'" onmouseleave="this.style.transform=''">
+    <div onclick="var t=document.getElementById('tabCV');var l=document.getElementById('tabLetter');var s=document.getElementById('tabSlide');t.style.display='none';l.style.display='none';s.style.display='block';setTimeout(function(){s.scrollIntoView({behavior:'smooth',block:'start'});},50);" style="cursor:pointer;border-radius:24px;background:linear-gradient(135deg,#ff6b6b,#ff9a6c);padding:36px 28px;transition:all .3s;box-shadow:0 8px 32px rgba(255,107,107,0.3);position:relative;overflow:hidden;" onmouseenter="this.style.transform='translateY(-6px)'" onmouseleave="this.style.transform=''">
       <div style="position:absolute;top:-20px;right:-20px;width:120px;height:120px;background:rgba(255,255,255,0.07);border-radius:50%;"></div>
       <div style="font-size:40px;margin-bottom:16px;">🖼️</div>
       <h3 style="font-family:'Fraunces',serif;font-size:26px;font-weight:300;color:white;margin-bottom:10px;">Създай слайд</h3>
@@ -576,13 +675,19 @@ footer{background:var(--dark);color:rgba(255,255,255,0.55);padding:48px 40px 28p
       <div style="display:inline-flex;align-items:center;gap:8px;background:white;color:#c0392b;font-size:13px;font-weight:700;padding:10px 20px;border-radius:12px;">✦ Направи слайд →</div>
     </div>
   </div>
-  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:16px;">
+    <div onclick="showSocial()" style="cursor:pointer;border-radius:24px;background:linear-gradient(135deg,#f093fb,#f5576c);padding:36px 28px;transition:all .3s;box-shadow:0 8px 32px rgba(240,147,251,0.3);position:relative;overflow:hidden;" onmouseenter="this.style.transform='translateY(-6px)'" onmouseleave="this.style.transform=''">
+      <div style="position:absolute;top:-20px;right:-20px;width:120px;height:120px;background:rgba(255,255,255,0.07);border-radius:50%;"></div>
+      <div style="font-size:40px;margin-bottom:16px;">📱</div>
+      <h3 style="font-family:'Fraunces',serif;font-size:26px;font-weight:300;color:white;margin-bottom:10px;">Пост за соц. медии</h3>
+      <p style="color:rgba(255,255,255,0.75);font-size:14px;line-height:1.7;margin-bottom:24px;">Facebook, Instagram, TikTok — AI пише поста и го дизайнира с рамки, фонове и стилове.</p>
+      <div style="display:inline-flex;align-items:center;gap:8px;background:white;color:#f5576c;font-size:13px;font-weight:700;padding:10px 20px;border-radius:12px;">✦ Създай пост →</div>
+    </div>
     <div style="text-align:center;padding:20px;border:1.5px solid var(--border);border-radius:16px;background:white;"><div style="font-size:28px;margin-bottom:8px;">🌍</div><div style="font-size:14px;font-weight:600;color:var(--dark);">50+ езика</div><div style="font-size:12px;color:var(--gray);margin-top:4px;">CV на всеки език</div></div>
     <div style="text-align:center;padding:20px;border:1.5px solid var(--border);border-radius:16px;background:white;"><div style="font-size:28px;margin-bottom:8px;">⬇️</div><div style="font-size:14px;font-weight:600;color:var(--dark);">PDF и Word</div><div style="font-size:12px;color:var(--gray);margin-top:4px;">Свали с 1 клик</div></div>
     <div style="text-align:center;padding:20px;border:1.5px solid var(--border);border-radius:16px;background:white;"><div style="font-size:28px;margin-bottom:8px;">⚡</div><div style="font-size:14px;font-weight:600;color:var(--dark);">2 минути</div><div style="font-size:12px;color:var(--gray);margin-top:4px;">Готово за секунди</div></div>
     <div style="text-align:center;padding:20px;border:1.5px solid var(--border);border-radius:16px;background:white;"><div style="font-size:28px;margin-bottom:8px;">🤖</div><div style="font-size:14px;font-weight:600;color:var(--dark);">AI асистент</div><div style="font-size:12px;color:var(--gray);margin-top:4px;">Помага 24/7</div></div>
     <div style="text-align:center;padding:20px;border:1.5px solid var(--border);border-radius:16px;background:white;"><div style="font-size:28px;margin-bottom:8px;">🔒</div><div style="font-size:14px;font-weight:600;color:var(--dark);">100% сигурно</div><div style="font-size:12px;color:var(--gray);margin-top:4px;">GDPR защита</div></div>
-    <div style="text-align:center;padding:20px;border:1.5px solid var(--border);border-radius:16px;background:white;"><div style="font-size:28px;margin-bottom:8px;">💶</div><div style="font-size:14px;font-weight:600;color:var(--dark);">Безплатно</div><div style="font-size:12px;color:var(--gray);margin-top:4px;">Без карта</div></div>
+    <div style="text-align:center;padding:20px;border:1.5px solid var(--border);border-radius:16px;background:white;"><div style="font-size:28px;margin-bottom:8px;">💶</div><div style="font-size:14px;font-weight:600;color:var(--dark);">Безплатно</div><div style="font-size:12px;color:var(--gray);margin-top:4px;">Без кредитна карта</div></div>
   </div>
 </div>
 
@@ -684,67 +789,144 @@ footer{background:var(--dark);color:rgba(255,255,255,0.55);padding:48px 40px 28p
 const _k=['sk-ant-api03-FM619pz','ANexRCJkQ30KEESVf2ng','wB0KKpIt__STkAGK0MTK','gsi7RbUEOlG3p24qvNvw','WxpN5gn3DGCwc1k9KOQ-','6DoelQAA'];const API_KEY=_k.join('');
 // Tavily Search API — реално уеб търсене
 let TAVILY_KEY = localStorage.getItem('tavily_key') || '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';
-
-
-// ===== TEMPLATES =====
-const TEMPLATES=[
-  {id:1,names:{bg:'Лилав',en:'Purple',fr:'Violet',de:'Lila',es:'Morado',it:'Viola',ro:'Mov'},c1:'#6c47ff',c2:'#9b7bff',sidebar:'#ede8ff',text:'#6c47ff'},
-  {id:2,names:{bg:'Тъмен',en:'Dark',fr:'Sombre',de:'Dunkel',es:'Oscuro',it:'Scuro',ro:'Închis'},c1:'#130f2a',c2:'#1a1a2e',sidebar:'#0d0b1e',text:'#00c9b1'},
-  {id:3,names:{bg:'Корал',en:'Coral',fr:'Corail',de:'Koralle',es:'Coral',it:'Corallo',ro:'Coral'},c1:'#ff6b6b',c2:'#ff9a6c',sidebar:'#ff6b6b',text:'#ff6b6b'},
-  {id:4,names:{bg:'Тюркоаз',en:'Teal',fr:'Turquoise',de:'Türkis',es:'Turquesa',it:'Turchese',ro:'Turcoaz'},c1:'#00c9b1',c2:'#00e5cc',sidebar:'#e0faf7',text:'#00856f'},
-  {id:5,names:{bg:'Злато',en:'Gold',fr:'Or',de:'Gold',es:'Oro',it:'Oro',ro:'Auriu'},c1:'#1a1a2e',c2:'#2a2a4e',sidebar:'#1a1a2e',text:'#c9a96e'},
-  {id:6,names:{bg:'Зелен',en:'Green',fr:'Vert',de:'Grün',es:'Verde',it:'Verde',ro:'Verde'},c1:'#1b4332',c2:'#2d6a4f',sidebar:'#d8f3dc',text:'#1b4332'},
-  {id:7,names:{bg:'Розов',en:'Pink',fr:'Rose',de:'Rosa',es:'Rosa',it:'Rosa',ro:'Roz'},c1:'#e63946',c2:'#ff6b9d',sidebar:'#fff0f5',text:'#e63946'},
-  {id:8,names:{bg:'Морски',en:'Navy',fr:'Marine',de:'Marine',es:'Marino',it:'Marino',ro:'Marin'},c1:'#023e8a',c2:'#0096c7',sidebar:'#03045e',text:'#0096c7'},
-  {id:9,names:{bg:'Виолетов',en:'Violet',fr:'Violet foncé',de:'Violett',es:'Violeta',it:'Viola scuro',ro:'Violet'},c1:'#7b2d8b',c2:'#c77dff',sidebar:'#f3e8ff',text:'#7b2d8b'},
-  {id:10,names:{bg:'Портокал',en:'Orange',fr:'Orange',de:'Orange',es:'Naranja',it:'Arancione',ro:'Portocaliu'},c1:'#f77f00',c2:'#fcbf49',sidebar:'#fff7ed',text:'#c2410c'},
-  {id:11,names:{bg:'Сив',en:'Gray',fr:'Gris',de:'Grau',es:'Gris',it:'Grigio',ro:'Gri'},c1:'#495057',c2:'#868e96',sidebar:'#f8f9fa',text:'#495057'},
-  {id:12,names:{bg:'Природен',en:'Natural',fr:'Naturel',de:'Natürlich',es:'Natural',it:'Naturale',ro:'Natural'},c1:'#1b4332',c2:'#40916c',sidebar:'#f0fdf4',text:'#1b4332'},
-];
-
 let currentTemplate=1, usedFree=false;
 
-// Build template grid
-window.addEventListener('DOMContentLoaded',()=>{
-  applyTranslations('bg');
-  const grid=document.getElementById('templateGrid');
-  TEMPLATES.forEach(t=>{
-    const card=document.createElement('div');
-    card.className='tpl-card'+(t.id===1?' active':'');
-    card.onclick=()=>{
-      document.querySelectorAll('.tpl-card').forEach(c=>c.classList.remove('active'));
-      card.classList.add('active');
-      currentTemplate=t.id;
-    };
-    // Generate realistic CV preview
-    const sidebarBg = t.sidebar || t.c1;
-    const isLightSidebar = ['#ede8ff','#e0faf7','#fff0f5','#f3e8ff','#fff7ed','#f8f9fa','#f0fdf4','#d8f3dc'].includes(sidebarBg);
-    const textOnSidebar = isLightSidebar ? t.c1 : 'rgba(255,255,255,0.9)';
-    card.innerHTML=`
-      <div class="tpl-preview">
-        <div class="tpl-sidebar" style="background:${sidebarBg};display:flex;flex-direction:column;padding:6px 4px;gap:3px;">
-          <div style="width:22px;height:22px;border-radius:50%;background:${t.c1};margin:0 auto 3px;opacity:0.8;"></div>
-          <div style="height:3px;border-radius:2px;background:${t.c1};opacity:0.5;width:80%;margin:0 auto;"></div>
-          <div style="height:2px;border-radius:2px;background:${t.c1};opacity:0.3;width:60%;margin:0 auto;"></div>
-          <div style="height:2px;border-radius:2px;background:${t.c1};opacity:0.3;width:70%;margin:0 auto;"></div>
-        </div>
-        <div class="tpl-main">
-          <div class="tpl-bar dark" style="background:${t.c1};opacity:0.7;width:70%;"></div>
-          <div class="tpl-bar" style="width:50%;"></div>
-          <div style="height:1px;background:${t.c1};opacity:0.2;margin:2px 0;"></div>
-          <div class="tpl-bar dark" style="background:${t.c1};opacity:0.5;width:40%;"></div>
-          <div class="tpl-bar short"></div>
-          <div class="tpl-bar short" style="width:75%;"></div>
-        </div>
-      </div>
-      <div class="tpl-name" data-tpl-id="${t.id}">${t.names[currentLang]||t.names.en}</div>`;
-    grid.appendChild(card);
-  });
 
-  document.querySelectorAll('.reveal').forEach(el=>{
-    new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');});},{threshold:0.1}).observe(el);
+// ===== TEMPLATES NEW =====
+const TEMPLATES=[
+  {id:1,names:{bg:'Лилав Classic'},c1:'#6c47ff',sidebar:'#ede8ff',layout:'sidebar'},
+  {id:2,names:{bg:'Тъмен Pro'},c1:'#130f2a',sidebar:'#0d0b1e',layout:'sidebar'},
+  {id:3,names:{bg:'Корал Header'},c1:'#ff6b6b',sidebar:'#ff6b6b',layout:'header'},
+  {id:4,names:{bg:'Тюркоаз Split'},c1:'#00c9b1',sidebar:'#e0faf7',layout:'twocol'},
+  {id:5,names:{bg:'Злато Header'},c1:'#1a1a2e',sidebar:'#1a1a2e',layout:'header'},
+  {id:6,names:{bg:'Зелен Minimal'},c1:'#1b4332',sidebar:'#d8f3dc',layout:'minimal'},
+  {id:7,names:{bg:'Розов Classic'},c1:'#e63946',sidebar:'#fff0f5',layout:'sidebar'},
+  {id:8,names:{bg:'Морски Split'},c1:'#023e8a',sidebar:'#03045e',layout:'twocol'},
+  {id:9,names:{bg:'Виолетов Soft'},c1:'#7b2d8b',sidebar:'#f3e8ff',layout:'minimal'},
+  {id:10,names:{bg:'Портокал Header'},c1:'#f77f00',sidebar:'#fff7ed',layout:'header'},
+  {id:11,names:{bg:'Сив Clean'},c1:'#495057',sidebar:'#f8f9fa',layout:'sidebar'},
+  {id:12,names:{bg:'Природен Split'},c1:'#1b4332',sidebar:'#f0fdf4',layout:'twocol'},
+];
+const PEOPLE=[
+  {n:'Мария Георгиева',j:'Маркетинг мениджър',c:'София',i:'МГ',b:'#e8d5ff'},
+  {n:'Димитър Стоянов',j:'Инженер производство',c:'Пловдив',i:'ДС',b:'#d5f0ff'},
+  {n:'Андрей Тодоров',j:'Шофьор / Логистика',c:'Варна',i:'АТ',b:'#d5ffe8'},
+  {n:'Елена Петрова',j:'Медицинска сестра',c:'Бургас',i:'ЕП',b:'#ffd5d5'},
+  {n:'Георги Иванов',j:'Счетоводител',c:'Стара Загора',i:'ГИ',b:'#fff3d5'},
+  {n:'Ивана Христова',j:'Учителка',c:'Русе',i:'ИХ',b:'#ffd5f0'},
+  {n:'Николай Димитров',j:'IT специалист',c:'София',i:'НД',b:'#d5e8ff'},
+  {n:'Силвия Колева',j:'Готвач',c:'Несебър',i:'СК',b:'#d5fff0'},
+  {n:'Петър Атанасов',j:'Строителен работник',c:'Благоевград',i:'ПА',b:'#ffe8d5'},
+  {n:'Деница Маринова',j:'Козметик',c:'Плевен',i:'ДМ',b:'#f0d5ff'},
+  {n:'Стефан Николов',j:'Електротехник',c:'В. Търново',i:'СН',b:'#d5f5ff'},
+  {n:'Мила Тодорова',j:'Администратор',c:'Шумен',i:'МТ',b:'#e8ffd5'},
+];
+function buildCV(t,idx){
+  var p=PEOPLE[idx];
+  var c=t.c1, sb=t.sidebar||t.c1;
+  var dark=['#0d0b1e','#1a1a2e','#03045e'].indexOf(sb)>-1;
+  var tc=dark?'rgba(255,255,255,0.9)':c;
+  var tl=dark?'rgba(255,255,255,0.5)':'rgba(0,0,0,0.4)';
+  var av='<div style="width:30px;height:30px;border-radius:50%;background:'+p.b+';display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:'+c+';border:2px solid '+(dark?'rgba(255,255,255,0.3)':c)+';flex-shrink:0;">'+p.i+'</div>';
+  var L=function(w){return '<div style="height:3px;border-radius:2px;background:rgba(0,0,0,0.1);width:'+w+';margin-bottom:3px;"></div>';};
+  var S=function(txt){return '<div style="font-size:7px;font-weight:700;color:'+c+';text-transform:uppercase;letter-spacing:.5px;margin:5px 0 3px;">'+txt+'</div>';};
+  var divider='<div style="height:1px;background:'+(dark?'rgba(255,255,255,0.15)':'rgba(0,0,0,0.1)')+';margin:4px 0;"></div>';
+
+  if(t.layout==='sidebar') return '<div style="display:flex;height:160px;font-family:sans-serif;overflow:hidden;">'+
+    '<div style="width:37%;background:'+sb+';padding:10px 7px;display:flex;flex-direction:column;align-items:center;gap:3px;overflow:hidden;">'+
+    av+
+    '<div style="font-size:8px;font-weight:700;color:'+tc+';text-align:center;line-height:1.2;margin-top:3px;">'+p.n+'</div>'+
+    '<div style="font-size:6px;color:'+tl+';text-align:center;">'+p.j+'</div>'+
+    divider+
+    '<div style="font-size:6px;color:'+tl+';width:100%;">📞 +359 88 123 456</div>'+
+    '<div style="font-size:6px;color:'+tl+';width:100%;">📍 '+p.c+'</div>'+
+    divider+
+    '<div style="font-size:6px;font-weight:700;color:'+tc+';">УМЕНИЯ</div>'+
+    '<div style="height:3px;border-radius:2px;background:'+tc+';width:80%;opacity:0.5;margin-bottom:2px;"></div>'+
+    '<div style="height:3px;border-radius:2px;background:'+tc+';width:60%;opacity:0.35;"></div>'+
+    '</div>'+
+    '<div style="flex:1;background:#f9f9fb;padding:10px 9px;overflow:hidden;">'+
+    '<div style="font-size:9px;font-weight:700;color:'+c+';margin-bottom:1px;">'+p.n+'</div>'+
+    '<div style="font-size:7px;color:rgba(0,0,0,0.45);margin-bottom:5px;">'+p.j+' · '+p.c+'</div>'+
+    S('Профил')+L('95%')+L('82%')+L('70%')+
+    S('Трудов опит')+
+    '<div style="font-size:7px;font-weight:600;color:rgba(0,0,0,0.6);margin-bottom:1px;">'+p.j+'</div>'+
+    '<div style="font-size:6px;color:rgba(0,0,0,0.4);margin-bottom:2px;">2020 – 2024</div>'+
+    L('90%')+L('75%')+
+    '</div></div>';
+
+  if(t.layout==='header') return '<div style="display:flex;flex-direction:column;height:160px;font-family:sans-serif;overflow:hidden;">'+
+    '<div style="background:'+c+';padding:11px 12px;display:flex;align-items:center;gap:9px;flex-shrink:0;">'+
+    av+
+    '<div><div style="font-size:10px;font-weight:700;color:white;">'+p.n+'</div>'+
+    '<div style="font-size:7px;color:rgba(255,255,255,0.75);margin-top:1px;">'+p.j+' · '+p.c+'</div></div>'+
+    '</div>'+
+    '<div style="flex:1;background:#f9f9fb;padding:9px 12px;overflow:hidden;">'+
+    S('Профил')+L('95%')+L('80%')+
+    S('Трудов опит')+
+    '<div style="font-size:7px;font-weight:600;color:rgba(0,0,0,0.6);margin-bottom:1px;">'+p.j+' · 2020–2024</div>'+
+    L('88%')+L('70%')+
+    '</div></div>';
+
+  if(t.layout==='twocol') return '<div style="display:flex;height:160px;font-family:sans-serif;overflow:hidden;">'+
+    '<div style="width:42%;background:'+sb+';padding:10px 8px;overflow:hidden;">'+
+    av+
+    '<div style="font-size:8px;font-weight:700;color:'+tc+';margin-top:4px;">'+p.n+'</div>'+
+    '<div style="font-size:6px;color:'+tl+';">'+p.j+'</div>'+
+    divider+
+    '<div style="font-size:6px;color:'+tl+';">📞 +359 88 456 789</div>'+
+    '<div style="font-size:6px;color:'+tl+';margin-top:2px;">📍 '+p.c+'</div>'+
+    divider+
+    '<div style="font-size:6px;font-weight:700;color:'+tc+';">ЕЗИЦИ</div>'+
+    '<div style="font-size:6px;color:'+tl+';">Български · Английски</div>'+
+    '</div>'+
+    '<div style="flex:1;background:#f9f9fb;padding:10px 9px;overflow:hidden;">'+
+    S('За мен')+L('95%')+L('80%')+L('88%')+
+    S('Опит')+
+    '<div style="font-size:7px;font-weight:600;color:rgba(0,0,0,0.6);margin-bottom:1px;">'+p.j+'</div>'+
+    '<div style="font-size:6px;color:rgba(0,0,0,0.4);margin-bottom:2px;">2019–2024</div>'+
+    L('85%')+L('68%')+
+    '</div></div>';
+
+  return '<div style="height:160px;background:white;padding:12px 14px;font-family:sans-serif;overflow:hidden;">'+
+    '<div style="display:flex;align-items:center;gap:9px;margin-bottom:6px;">'+av+
+    '<div><div style="font-size:9px;font-weight:700;color:'+c+';">'+p.n+'</div>'+
+    '<div style="font-size:7px;color:rgba(0,0,0,0.45);">'+p.j+'</div></div></div>'+
+    '<div style="height:1px;background:'+c+';opacity:0.2;margin-bottom:5px;"></div>'+
+    S('Профил')+L('95%')+L('80%')+
+    S('Опит')+
+    '<div style="font-size:7px;font-weight:600;color:rgba(0,0,0,0.55);margin-bottom:1px;">'+p.j+' · 2020–2024</div>'+
+    L('88%')+L('70%')+
+    '</div>';
+}
+window.addEventListener('DOMContentLoaded',function(){
+  applyTranslations('bg');
+  var grid=document.getElementById('templateGrid');
+  if(grid){
+    TEMPLATES.forEach(function(t,idx){
+      var card=document.createElement('div');
+      card.className='tpl-card'+(idx===0?' active':'');
+      card.onclick=function(){
+        document.querySelectorAll('.tpl-card').forEach(function(c){c.classList.remove('active');});
+        card.classList.add('active');
+        currentTemplate=t.id;
+        var body=document.getElementById('cvFormBody');
+        var hint=document.getElementById('formRevealHint');
+        if(body&&body.style.display!=='block'){
+          body.style.display='block';
+          if(hint)hint.style.display='none';
+          setTimeout(function(){body.scrollIntoView({behavior:'smooth',block:'start'});},100);
+        }
+      };
+      card.innerHTML=buildCV(t,idx)+'<div class="tpl-name">'+t.names['bg']+'</div>';
+      grid.appendChild(card);
+    });
+  }
+  document.querySelectorAll('.reveal').forEach(function(el){
+    new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting)e.target.classList.add('visible');});},{threshold:0.1}).observe(el);
   });
 });
+
 
 // ===== LANG =====
 const T={
@@ -1321,20 +1503,153 @@ function applyTranslations(lang){
 
 // ===== TABS =====
 function showTab(tab){
-  ['CV','Letter','Slide'].forEach(t=>{
-    const el=document.getElementById('tab'+t);
-    if(el) el.style.display='none';
-  });
+  ['CV','Letter','Slide'].forEach(t=>{const el=document.getElementById('tab'+t);if(el)el.style.display='none';});
+  document.querySelectorAll('.app-tab').forEach(el=>el.classList.remove('active'));
   const map={cv:'CV',letter:'Letter',slide:'Slide'};
-  const target=document.getElementById('tab'+map[tab]);
-  if(target){
-    target.style.display='block';
-    setTimeout(()=>target.scrollIntoView({behavior:'smooth',block:'start'}),100);
-  }
+  document.getElementById('tab'+map[tab]).style.display='block';
+  event.target.classList.add('active');
 }
 function scrollToApp(){document.getElementById('app').scrollIntoView({behavior:'smooth'});}
 
-// ===== PHOTO =====
+// ===== SOCIAL MEDIA =====
+let currentPlatform='facebook', currentBg='gradient1', currentFrame='none';
+
+function showSocial(){
+  ['tabCV','tabLetter','tabSlide','tabSocial'].forEach(id=>{
+    const el=document.getElementById(id);
+    if(el) el.style.display='none';
+  });
+  const t=document.getElementById('tabSocial');
+  if(t){t.style.display='block';setTimeout(()=>t.scrollIntoView({behavior:'smooth',block:'start'}),100);}
+}
+
+function selectPlatform(p, el){
+  currentPlatform=p;
+  document.querySelectorAll('.social-platform-btn').forEach(b=>{
+    b.style.border='2.5px solid rgba(108,71,255,0.13)';
+    b.style.background='white';
+  });
+  const colors={facebook:'#1877f2',instagram:'#e1306c',tiktok:'#010101'};
+  el.style.border=`2.5px solid ${colors[p]}`;
+  el.style.background=p==='facebook'?'#e8f0fe':p==='instagram'?'#fce4ec':'#f5f5f5';
+}
+
+const BG_STYLES={
+  gradient1:'linear-gradient(135deg,#6c47ff,#9b7bff)',
+  gradient2:'linear-gradient(135deg,#00c9b1,#00e5cc)',
+  gradient3:'linear-gradient(135deg,#ff6b6b,#ffd93d)',
+  gradient4:'linear-gradient(135deg,#0f0c29,#302b63)',
+  gradient5:'linear-gradient(135deg,#f093fb,#f5576c)',
+  gradient6:'linear-gradient(135deg,#4facfe,#00f2fe)',
+  gradient7:'linear-gradient(135deg,#f7971e,#ffd200)',
+  solid_white:'#ffffff',
+  solid_dark:'#1a1a2e',
+  pattern1:'radial-gradient(circle,#6c47ff33 1px,transparent 1px) 0 0/20px 20px, #f0ebff',
+  pattern2:'repeating-linear-gradient(45deg,#4facfe22 0,#4facfe22 1px,transparent 0,transparent 50%) 0/10px 10px, #e8f4ff',
+};
+
+function selectBg(bg, el){
+  currentBg=bg;
+  document.querySelectorAll('.bg-option').forEach(b=>b.style.border='3px solid transparent');
+  el.style.border='3px solid #6c47ff';
+  updatePostPreview();
+}
+
+function selectFrame(frame, el){
+  currentFrame=frame;
+  document.querySelectorAll('.frame-option').forEach(b=>b.style.border='2.5px solid rgba(108,71,255,0.13)');
+  el.style.border='2.5px solid #6c47ff';
+  updatePostPreview();
+}
+
+function updatePostPreview(){
+  const preview=document.getElementById('social-post-preview');
+  if(!preview) return;
+  const bg=BG_STYLES[currentBg]||BG_STYLES.gradient1;
+  const isDark=['gradient4','solid_dark'].includes(currentBg);
+  const isLight=['solid_white'].includes(currentBg);
+  const textColor = isLight?'#130f2a':isDark?'white':'white';
+  preview.style.background=bg;
+  // Frame
+  const frames={
+    none:{border:'none',boxShadow:'none',outline:'none'},
+    rounded:{border:'4px solid rgba(255,255,255,0.8)',boxShadow:'none'},
+    shadow:{border:'none',boxShadow:'8px 8px 0 rgba(0,0,0,0.2)'},
+    double:{border:'3px solid rgba(255,255,255,0.9)',outline:'4px solid rgba(255,255,255,0.3)',outlineOffset:'3px'},
+    gradient_border:{border:'4px solid transparent',boxShadow:'0 0 0 4px rgba(255,255,255,0.5)'},
+    neon:{border:'2px solid #00e5cc',boxShadow:'0 0 20px #00e5cc, inset 0 0 20px rgba(0,229,204,0.1)'},
+  };
+  const f=frames[currentFrame]||frames.none;
+  Object.assign(preview.style, f);
+  // Text color
+  document.getElementById('social-post-text').style.color=textColor;
+  document.getElementById('social-post-hashtags').style.color=isLight?'rgba(0,0,0,0.5)':'rgba(255,255,255,0.7)';
+}
+
+async function generateSocialPost(){
+  const desc=document.getElementById('social-desc').value.trim();
+  if(!desc){alert('Опиши поста!');return;}
+  const tone=document.getElementById('social-tone').value;
+  const lang=document.getElementById('social-lang').value;
+  const platformNames={facebook:'Facebook',instagram:'Instagram',tiktok:'TikTok'};
+  document.getElementById('social-loading').style.display='block';
+  document.getElementById('social-output').style.display='none';
+
+  const toneMap={friendly:'приятелски и топъл',professional:'професионален',funny:'забавен и с хумор',inspiring:'вдъхновяващ и мотивиращ',urgent:'спешен с усещане за оферта'};
+  const platformGuide={
+    facebook:'Пиши по-дълъг пост подходящ за Facebook, с емоджи, 3-5 хаштага накрая.',
+    instagram:'Пиши кратък вдъхновяващ пост за Instagram, много емоджи, 10+ хаштага накрая.',
+    tiktok:'Пиши много кратък закачлив текст за TikTok caption, 3-5 хаштага, трендови думи.',
+  };
+
+  const prompt=`Ти си експерт по социални медии. Напиши пост за ${platformNames[currentPlatform]}.
+Тема: ${desc}
+Тон: ${toneMap[tone]}
+Език: ${lang}
+${platformGuide[currentPlatform]}
+Върни САМО текста на поста, без обяснения. Включи подходящи емоджи и хаштагове.`;
+
+  try{
+    const resp=await fetch('https://api.anthropic.com/v1/messages',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1000,messages:[{role:'user',content:prompt}]})
+    });
+    const data=await resp.json();
+    const text=data.content[0].text;
+    // Split text and hashtags
+    const lines=text.split('\n');
+    const hashtagLine=lines.filter(l=>l.includes('#')).join(' ');
+    const mainText=lines.filter(l=>!l.startsWith('#')).join('\n').trim();
+    document.getElementById('social-post-text').textContent=mainText;
+    document.getElementById('social-post-hashtags').textContent=hashtagLine;
+    document.getElementById('social-text-output').textContent=text;
+    updatePostPreview();
+    document.getElementById('social-loading').style.display='none';
+    document.getElementById('social-output').style.display='block';
+  }catch(e){
+    document.getElementById('social-loading').style.display='none';
+    alert('Грешка. Опитай пак!');
+  }
+}
+
+function copySocialText(){
+  const text=document.getElementById('social-text-output').textContent;
+  navigator.clipboard.writeText(text).then(()=>alert('✅ Текстът е копиран!'));
+}
+
+async function downloadSocialPNG(){
+  const preview=document.getElementById('social-post-preview');
+  if(!preview) return;
+  if(typeof html2canvas==='undefined'){
+    const s=document.createElement('script');
+    s.src='https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js';
+    s.onload=()=>html2canvas(preview,{scale:2}).then(c=>{const a=document.createElement('a');a.download='post.png';a.href=c.toDataURL();a.click();});
+    document.head.appendChild(s);
+  } else {
+    html2canvas(preview,{scale:2}).then(c=>{const a=document.createElement('a');a.download='post.png';a.href=c.toDataURL();a.click();});
+  }
+}
 function previewPhoto(input){
   if(input.files&&input.files[0]){
     const r=new FileReader();
