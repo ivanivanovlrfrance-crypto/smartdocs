@@ -1653,9 +1653,23 @@ function updatePostPreview(){
   const isDark=['gradient4','solid_dark','gradient1','gradient2','gradient3','gradient5','gradient6','gradient7'].includes(currentBg);
 
   if(socialPhotoBase64){
-    if(imgArea) imgArea.style.display='block';
+    if(imgArea){
+      imgArea.style.display='block';
+      imgArea.style.background=bg; // Фонът зад снимката
+      imgArea.style.padding='20px';
+      imgArea.style.display='flex';
+      imgArea.style.justifyContent='center';
+      imgArea.style.alignItems='center';
+    }
     if(bgArea) bgArea.style.display='none';
-    if(imgInPost) imgInPost.src='data:image/jpeg;base64,'+socialPhotoBase64;
+    if(imgInPost){
+      imgInPost.src='data:image/jpeg;base64,'+socialPhotoBase64;
+      imgInPost.style.maxHeight='280px';
+      imgInPost.style.width='auto';
+      imgInPost.style.maxWidth='100%';
+      imgInPost.style.borderRadius='10px';
+      imgInPost.style.objectFit='contain';
+    }
     // Фонът се прилага към текстовата зона
     if(textZone){
       textZone.style.background=bg;
