@@ -1579,8 +1579,12 @@ function showSocial(){
   if(t){t.style.display='block';setTimeout(()=>t.scrollIntoView({behavior:'smooth',block:'start'}),100);}
 }
 
+let socialPhotoBase64='', socialMediaType='image/jpeg';
+
 function previewSocialPhoto(input){
   if(!input.files||!input.files[0]) return;
+  const file=input.files[0];
+  socialMediaType=file.type||'image/jpeg'; // Запазваме оригиналния тип
   const reader=new FileReader();
   reader.onload=async e=>{
     const full=e.target.result;
@@ -1610,6 +1614,7 @@ function previewSocialPhoto(input){
         const r2=new FileReader();
         r2.onload=ev=>{
           socialPhotoBase64=ev.target.result.split(',')[1];
+          socialMediaType='image/png'; // remove.bg връща винаги PNG
           updatePostPreview();
         };
         r2.readAsDataURL(blob);
@@ -1760,17 +1765,8 @@ ${socialPhotoBase64?'Има качена снимка — напиши текс�
 Върни САМО текста на поста, без обяснения. Включи подходящи емоджи и хаштагове.`;
 
   // Build message content
-  let mediaType='image/jpeg';
-  if(socialPhotoBase64){
-    // Открий типа от base64 header
-    const header=atob(socialPhotoBase64.substring(0,16));
-    if(header.charCodeAt(0)===137) mediaType='image/png';
-    else if(header.substring(0,4)==='RIFF') mediaType='image/webp';
-    else mediaType='image/jpeg';
-  }
-
   const msgContent = socialPhotoBase64 ? [
-    {type:'image',source:{type:'base64',media_type:mediaType,data:socialPhotoBase64}},
+    {type:'image',source:{type:'base64',media_type:socialMediaType,data:socialPhotoBase64}},
     {type:'text',text:prompt}
   ] : [{type:'text',text:prompt}];
 
