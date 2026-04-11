@@ -328,11 +328,7 @@ footer{background:var(--dark);color:rgba(255,255,255,0.55);padding:48px 40px 28p
 <!-- APP SECTION -->
 <div class="app-section" id="app">
   <div class="app-inner reveal">
-    <div style="text-align:center;">
-      <div class="section-tag" data-t="app_tag">Създай документ</div>
-      <h2 class="section-title" data-t="app_title">Избери и генерирай</h2>
-    </div>
-    <div class="app-tabs">
+    <div class="app-tabs" style="display:none;">
       <button class="app-tab active" onclick="showTab('cv')">📄 CV</button>
       <button class="app-tab" onclick="showTab('letter')">✉️ Писмо</button>
       <button class="app-tab" onclick="showTab('slide')">🖼️ Слайд</button>
@@ -340,6 +336,11 @@ footer{background:var(--dark);color:rgba(255,255,255,0.55);padding:48px 40px 28p
 
     <!-- CV TAB -->
     <div id="tabCV" class="app-card">
+      <div style="text-align:center;margin-bottom:24px;padding-bottom:20px;border-bottom:1.5px solid var(--border);">
+        <div style="font-size:32px;margin-bottom:8px;">📄</div>
+        <h2 style="font-family:'Fraunces',serif;font-size:28px;font-weight:300;color:var(--dark);">Направи CV</h2>
+        <p style="color:var(--gray);font-size:14px;margin-top:4px;">Попълни информацията — AI прави красиво CV за секунди</p>
+      </div>
 
       <!-- TEMPLATE PICKER -->
       <div class="form-section"><span class="form-section-icon">🎨</span><span class="form-section-title" data-t="step1">Стъпка 1 — Избери шаблон</span></div>
@@ -488,6 +489,11 @@ footer{background:var(--dark);color:rgba(255,255,255,0.55);padding:48px 40px 28p
 
     <!-- LETTER TAB -->
     <div id="tabLetter" class="app-card" style="display:none;">
+      <div style="text-align:center;margin-bottom:24px;padding-bottom:20px;border-bottom:1.5px solid var(--border);">
+        <div style="font-size:32px;margin-bottom:8px;">✉️</div>
+        <h2 style="font-family:'Fraunces',serif;font-size:28px;font-weight:300;color:var(--dark);">Напиши писмо</h2>
+        <p style="color:var(--gray);font-size:14px;margin-top:4px;">Опиши какво искаш — AI пише официалното писмо вместо теб</p>
+      </div>
       <div class="form-section"><span class="form-section-icon">✉️</span><span class="form-section-title" data-t="letter_section">Опиши с твои думи — за какво е писмото?</span></div>
       <textarea class="field-input" id="letter-desc" style="min-height:110px;" placeholder="Искам да пиша до Общината за проблем с улично осветление..."></textarea>
       <div class="field-row" style="margin-top:14px;">
@@ -508,6 +514,11 @@ footer{background:var(--dark);color:rgba(255,255,255,0.55);padding:48px 40px 28p
 
     <!-- SLIDE TAB -->
     <div id="tabSlide" class="app-card" style="display:none;">
+      <div style="text-align:center;margin-bottom:24px;padding-bottom:20px;border-bottom:1.5px solid var(--border);">
+        <div style="font-size:32px;margin-bottom:8px;">🖼️</div>
+        <h2 style="font-family:'Fraunces',serif;font-size:28px;font-weight:300;color:var(--dark);">Създай слайд</h2>
+        <p style="color:var(--gray);font-size:14px;margin-top:4px;">Качи снимка на продукт — AI прави красив рекламен слайд</p>
+      </div>
       <div class="form-section"><span class="form-section-icon">🖼️</span><span class="form-section-title">Качи снимка на продукта</span></div>
       <div class="photo-upload" style="position:relative;" id="slideDropZone">
         <input type="file" id="slideImgInput" accept="image/*" onchange="previewSlideImg(this)" style="position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%;">
