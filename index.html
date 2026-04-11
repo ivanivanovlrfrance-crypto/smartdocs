@@ -666,8 +666,20 @@ footer{background:var(--dark);color:rgba(255,255,255,0.55);padding:48px 40px 28p
                 </div>
               </div>
               <!-- Снимката -->
-              <div id="social-img-area" style="display:none;width:100%;background:#f5f5f5;">
-                <img id="social-img-in-post" style="width:100%;max-height:300px;object-fit:cover;display:block;">
+              <div id="social-img-area" style="display:none;width:100%;position:relative;overflow:hidden;">
+                <img id="social-img-in-post" style="width:100%;height:320px;object-fit:contain;object-position:center center;display:block;transition:all .3s;">
+                <!-- Overlay за скриване на края — автоматично -->
+                <div id="img-edge-overlay" style="position:absolute;inset:0;pointer-events:none;"></div>
+                <!-- Бутони за стил -->
+                <div style="position:absolute;bottom:8px;left:8px;right:8px;display:flex;gap:4px;flex-wrap:wrap;">
+                  <button onclick="applyImgStyle(0)" style="background:rgba(0,0,0,0.65);color:white;border:none;border-radius:8px;padding:4px 8px;font-size:10px;cursor:pointer;">✨ Избледняване</button>
+                  <button onclick="applyImgStyle(1)" style="background:rgba(0,0,0,0.65);color:white;border:none;border-radius:8px;padding:4px 8px;font-size:10px;cursor:pointer;">🌊 Вълна</button>
+                  <button onclick="applyImgStyle(2)" style="background:rgba(0,0,0,0.65);color:white;border:none;border-radius:8px;padding:4px 8px;font-size:10px;cursor:pointer;">⭕ Кръг</button>
+                  <button onclick="applyImgStyle(3)" style="background:rgba(0,0,0,0.65);color:white;border:none;border-radius:8px;padding:4px 8px;font-size:10px;cursor:pointer;">🔷 Диамант</button>
+                  <button onclick="applyImgStyle(4)" style="background:rgba(0,0,0,0.65);color:white;border:none;border-radius:8px;padding:4px 8px;font-size:10px;cursor:pointer;">🎨 Ъгли</button>
+                  <button onclick="applyImgStyle(Math.floor(Math.random()*5))" style="background:rgba(108,71,255,0.85);color:white;border:none;border-radius:8px;padding:4px 8px;font-size:10px;cursor:pointer;">🎲 Случаен</button>
+                </div>
+              </div>
               </div>
               <!-- Фон (ако няма снимка) -->
               <div id="social-bg-area" style="min-height:140px;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#6c47ff,#9b7bff);"></div>
@@ -1568,8 +1580,7 @@ function showTab(tab){
 function scrollToApp(){document.getElementById('app').scrollIntoView({behavior:'smooth'});}
 
 // ===== SOCIAL MEDIA =====
-let currentPlatform='facebook', currentBg='gradient1', currentFrame='none', socialPhotoBase64='';
-
+let currentPlatform='facebook', currentBg='gradient1', currentFrame='none', socialPhotoBase64='', socialMediaType='image/jpeg';
 function showSocial(){
   ['tabCV','tabLetter','tabSlide','tabSocial'].forEach(id=>{
     const el=document.getElementById(id);
@@ -1578,8 +1589,6 @@ function showSocial(){
   const t=document.getElementById('tabSocial');
   if(t){t.style.display='block';setTimeout(()=>t.scrollIntoView({behavior:'smooth',block:'start'}),100);}
 }
-
-let socialPhotoBase64='', socialMediaType='image/jpeg';
 
 function previewSocialPhoto(input){
   if(!input.files||!input.files[0]) return;
@@ -1629,8 +1638,89 @@ function previewSocialPhoto(input){
   reader.readAsDataURL(input.files[0]);
 }
 
+let currentImgStyle=0;
+
+function applyImgStyle(styleIdx){
+  currentImgStyle=styleIdx;
+  const img=document.getElementById('social-img-in-post');
+  const overlay=document.getElementById('img-edge-overlay');
+  const imgArea=document.getElementById('social-img-area');
+  if(!img||!overlay) return;
+
+  // Вземи цвета на фона
+  const bg=BG_STYLES[currentBg]||BG_STYLES.gradient1;
+  // За градиент вземаме приблизителен цвят
+  const bgColor = currentBg==='solid_white'?'white':
+                  currentBg==='solid_dark'?'#1a1a2e':
+                  currentBg.startsWith('gradient')?'transparent':'transparent';
+
+  // Ресетни всичко
+  img.style.clipPath='none';
+  img.style.borderRadius='0';
+  img.style.objectFit='contain';
+  img.style.objectPosition='center center';
+  img.style.height='320px';
+  img.style.width='100%';
+  imgArea.style.background=bg;
+  imgArea.style.padding='0';
+
+  const styles=[
+    // 0: Плавно избледняване отдолу
+    ()=>{
+      overlay.style.cssText=`position:absolute;inset:0;pointer-events:none;
+        background:linear-gradient(to bottom, transparent 40%, ${bgColor==='transparent'?'rgba(0,0,0,0)':bgColor} 100%);`;
+      img.style.objectPosition='center top';
+    },
+    // 1: Вълна отдолу
+    ()=>{
+      overlay.style.cssText=`position:absolute;inset:0;pointer-events:none;`;
+      img.style.clipPath='ellipse(100% 90% at 50% 5%)';
+      imgArea.style.padding='10px 10px 0';
+    },
+    // 2: Кръг/овал
+    ()=>{
+      overlay.style.cssText=`position:absolute;inset:0;pointer-events:none;`;
+      img.style.clipPath='ellipse(45% 48% at 50% 45%)';
+      img.style.objectPosition='center top';
+      imgArea.style.padding='10px';
+      img.style.height='300px';
+    },
+    // 3: Диамант/ромб
+    ()=>{
+      overlay.style.cssText=`position:absolute;inset:0;pointer-events:none;`;
+      img.style.clipPath='polygon(50% 0%, 100% 38%, 80% 100%, 20% 100%, 0% 38%)';
+      img.style.objectPosition='center top';
+      imgArea.style.padding='10px';
+    },
+    // 4: Заоблени ъгли с избледняване
+    ()=>{
+      overlay.style.cssText=`position:absolute;inset:0;pointer-events:none;
+        background:radial-gradient(ellipse at 50% 110%, transparent 50%, ${bgColor==='transparent'?'rgba(0,0,0,0.01)':bgColor} 75%);`;
+      img.style.borderRadius='24px 24px 0 0';
+      img.style.objectPosition='center top';
+      imgArea.style.padding='10px 10px 0';
+    },
+  ];
+
+  if(styles[styleIdx]) styles[styleIdx]();
+}
+
+function setImgPos(pos){
+  const img=document.getElementById('social-img-in-post');
+  if(!img) return;
+  const posMap={top:'center top',center:'center center',bottom:'center bottom'};
+  img.style.objectPosition=posMap[pos]||'center center';
+}
+
+function setImgContain(){
+  const img=document.getElementById('social-img-in-post');
+  if(!img) return;
+  img.style.objectFit='contain';
+  img.style.objectPosition='center center';
+}
 function removeSocialPhoto(){
   socialPhotoBase64='';
+  socialMediaType='image/jpeg';
   document.getElementById('socialPhotoPreview').style.display='none';
   document.getElementById('socialPhotoPlaceholder').style.display='block';
   document.getElementById('socialPhotoActions').style.display='none';
@@ -1699,12 +1789,10 @@ function updatePostPreview(){
     }
     if(bgArea) bgArea.style.display='none';
     if(imgInPost){
-      imgInPost.src='data:image/jpeg;base64,'+socialPhotoBase64;
-      imgInPost.style.maxHeight='280px';
-      imgInPost.style.width='auto';
-      imgInPost.style.maxWidth='100%';
-      imgInPost.style.borderRadius='10px';
+      imgInPost.src='data:image/png;base64,'+socialPhotoBase64;
       imgInPost.style.objectFit='contain';
+      imgInPost.style.height='320px';
+      imgInPost.style.objectPosition='center center';
     }
     // Фонът се прилага към текстовата зона
     if(textZone){
@@ -1790,6 +1878,8 @@ ${socialPhotoBase64?'Има качена снимка — напиши текс�
     document.getElementById('social-post-hashtags').textContent=hashtagLine;
     document.getElementById('social-text-output').textContent=text;
     updatePostPreview();
+    // Автоматично прилагаме случаен стил за снимката
+    if(socialPhotoBase64) applyImgStyle(Math.floor(Math.random()*5));
     document.getElementById('social-loading').style.display='none';
     document.getElementById('social-output').style.display='block';
   }catch(e){
