@@ -114,16 +114,42 @@ textarea.field-input{resize:vertical;}
 .photo-upload:hover{border-color:var(--p);background:var(--p3);}
 
 /* TEMPLATE PICKER */
-.tpl-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:10px;margin-bottom:20px;}
-.tpl-card{border:2px solid var(--border);border-radius:12px;padding:12px 10px;cursor:pointer;transition:all .2s;text-align:center;background:white;}
-.tpl-card:hover{border-color:var(--p);transform:translateY(-2px);}
-.tpl-card.active{border-color:var(--p);background:var(--p4);box-shadow:0 4px 14px rgba(108,71,255,0.15);}
-.tpl-preview{width:100%;height:50px;border-radius:6px;margin-bottom:8px;display:flex;overflow:hidden;}
-.tpl-sidebar{width:35%;height:100%;}
-.tpl-main{flex:1;height:100%;display:flex;flex-direction:column;gap:3px;padding:4px;}
-.tpl-bar{border-radius:2px;height:4px;background:rgba(0,0,0,0.15);}
-.tpl-bar.dark{background:rgba(0,0,0,0.3);}
-.tpl-name{font-size:11px;font-weight:600;color:var(--dark);}
+.tpl-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:8px;}
+.tpl-card{border:2.5px solid var(--border);border-radius:18px;padding:0;cursor:pointer;transition:all .25s;text-align:center;background:white;overflow:hidden;position:relative;}
+.tpl-card:hover{border-color:var(--p);transform:translateY(-4px);box-shadow:0 10px 30px rgba(108,71,255,0.18);}
+.tpl-card.active{border-color:var(--p);box-shadow:0 6px 24px rgba(108,71,255,0.3);}
+.tpl-card.active::after{content:'✓';position:absolute;top:6px;right:8px;background:var(--p);color:white;border-radius:50%;width:18px;height:18px;font-size:10px;display:flex;align-items:center;justify-content:center;font-weight:700;line-height:18px;}
+.tpl-preview{width:100%;height:110px;display:flex;overflow:hidden;position:relative;}
+.tpl-name{font-size:11px;font-weight:700;color:var(--dark);padding:7px 4px 8px;}
+
+/* Layout: sidebar-left */
+.layout-sidebar .tpl-sidebar{width:35%;height:100%;display:flex;flex-direction:column;padding:7px 5px;gap:4px;align-items:center;}
+.layout-sidebar .tpl-main{flex:1;height:100%;display:flex;flex-direction:column;gap:4px;padding:7px 6px;background:#f8f9fa;}
+
+/* Layout: header-top */
+.layout-header .tpl-header{width:100%;height:34px;display:flex;align-items:center;padding:0 8px;gap:6px;}
+.layout-header .tpl-body{flex:1;display:flex;flex-direction:column;gap:3px;padding:6px 8px;background:#f8f9fa;}
+
+/* Layout: two-col */
+.layout-twocol .tpl-left{width:42%;height:100%;display:flex;flex-direction:column;gap:3px;padding:7px 5px;}
+.layout-twocol .tpl-right{flex:1;height:100%;display:flex;flex-direction:column;gap:3px;padding:7px 6px;background:#f8f9fa;}
+
+/* Layout: minimal */
+.layout-minimal .tpl-min{width:100%;height:100%;display:flex;flex-direction:column;gap:4px;padding:9px 10px;background:#fafafa;}
+
+.tpl-bar{border-radius:3px;height:4px;background:rgba(0,0,0,0.1);}
+.tpl-bar.bold{height:6px;background:rgba(0,0,0,0.22);}
+.tpl-bar.accent{height:5px;}
+.tpl-bar.short{width:55%;}
+.tpl-bar.mid{width:75%;}
+.tpl-avatar{width:22px;height:22px;border-radius:50%;margin:0 auto 3px;}
+.tpl-dot-row{display:flex;gap:3px;align-items:center;}
+.tpl-dot{width:5px;height:5px;border-radius:50%;}
+.tpl-section-line{height:1px;background:rgba(0,0,0,0.08);margin:3px 0;}
+
+/* Form reveal after template pick */
+#cvFormBody{display:none;}
+#formRevealHint{text-align:center;padding:22px 0 6px;color:var(--gray);font-size:13px;}
 
 /* GENERATE BTN */
 .generate-btn{width:100%;padding:15px;background:linear-gradient(135deg,var(--p),var(--p2));color:white;border:none;border-radius:14px;font-size:15px;font-weight:600;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;transition:all .2s;margin-top:10px;box-shadow:0 4px 18px rgba(108,71,255,0.35);}
@@ -260,7 +286,7 @@ footer{background:var(--dark);color:rgba(255,255,255,0.55);padding:48px 40px 28p
   .plans-grid{grid-template-columns:1fr;}
   .hero-stats{border-radius:14px;}
   .stat{padding:14px 18px;}
-  .tpl-grid{grid-template-columns:repeat(3,1fr);}
+  .tpl-grid{grid-template-columns:repeat(2,1fr);}
   .app-card{padding:20px;}
   .footer-top{flex-direction:column;}
 }
@@ -343,7 +369,9 @@ footer{background:var(--dark);color:rgba(255,255,255,0.55);padding:48px 40px 28p
       <!-- TEMPLATE PICKER -->
       <div class="form-section"><span class="form-section-icon">🎨</span><span class="form-section-title" data-t="step1">Стъпка 1 — Избери шаблон</span></div>
       <div class="tpl-grid" id="templateGrid"></div>
+      <div id="formRevealHint">👆 Избери шаблон за да продължиш</div>
 
+      <div id="cvFormBody">
       <!-- PHOTO -->
       <div class="form-section"><span class="form-section-icon">📷</span><span class="form-section-title" data-t="step2">Стъпка 2 — Снимка (незадължително)</span></div>
       <div class="photo-upload" onclick="document.getElementById('photoInput').click()">
@@ -481,7 +509,7 @@ footer{background:var(--dark);color:rgba(255,255,255,0.55);padding:48px 40px 28p
         </div>
         <button class="generate-btn" onclick="openModal('register')" data-t="subscribe">Абонирай се →</button>
       </div>
-    </div>
+      </div><!-- end cvFormBody -->
 
     <!-- LETTER TAB -->
     <div id="tabLetter" class="app-card" style="display:none;">
@@ -657,26 +685,114 @@ footer{background:var(--dark);color:rgba(255,255,255,0.55);padding:48px 40px 28p
 <script>
 const _k=['sk-ant-api03-FM619pz','ANexRCJkQ30KEESVf2ng','wB0KKpIt__STkAGK0MTK','gsi7RbUEOlG3p24qvNvw','WxpN5gn3DGCwc1k9KOQ-','6DoelQAA'];const API_KEY=_k.join('');
 // Tavily Search API — реално уеб търсене
+
 let TAVILY_KEY = localStorage.getItem('tavily_key') || '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';
+let currentTemplate=1, usedFree=false;
 
-
-// ===== TEMPLATES =====
+// 12 templates with different layouts
 const TEMPLATES=[
-  {id:1,names:{bg:'Лилав',en:'Purple',fr:'Violet',de:'Lila',es:'Morado',it:'Viola',ro:'Mov'},c1:'#6c47ff',c2:'#9b7bff',sidebar:'#ede8ff',text:'#6c47ff'},
-  {id:2,names:{bg:'Тъмен',en:'Dark',fr:'Sombre',de:'Dunkel',es:'Oscuro',it:'Scuro',ro:'Închis'},c1:'#130f2a',c2:'#1a1a2e',sidebar:'#0d0b1e',text:'#00c9b1'},
-  {id:3,names:{bg:'Корал',en:'Coral',fr:'Corail',de:'Koralle',es:'Coral',it:'Corallo',ro:'Coral'},c1:'#ff6b6b',c2:'#ff9a6c',sidebar:'#ff6b6b',text:'#ff6b6b'},
-  {id:4,names:{bg:'Тюркоаз',en:'Teal',fr:'Turquoise',de:'Türkis',es:'Turquesa',it:'Turchese',ro:'Turcoaz'},c1:'#00c9b1',c2:'#00e5cc',sidebar:'#e0faf7',text:'#00856f'},
-  {id:5,names:{bg:'Злато',en:'Gold',fr:'Or',de:'Gold',es:'Oro',it:'Oro',ro:'Auriu'},c1:'#1a1a2e',c2:'#2a2a4e',sidebar:'#1a1a2e',text:'#c9a96e'},
-  {id:6,names:{bg:'Зелен',en:'Green',fr:'Vert',de:'Grün',es:'Verde',it:'Verde',ro:'Verde'},c1:'#1b4332',c2:'#2d6a4f',sidebar:'#d8f3dc',text:'#1b4332'},
-  {id:7,names:{bg:'Розов',en:'Pink',fr:'Rose',de:'Rosa',es:'Rosa',it:'Rosa',ro:'Roz'},c1:'#e63946',c2:'#ff6b9d',sidebar:'#fff0f5',text:'#e63946'},
-  {id:8,names:{bg:'Морски',en:'Navy',fr:'Marine',de:'Marine',es:'Marino',it:'Marino',ro:'Marin'},c1:'#023e8a',c2:'#0096c7',sidebar:'#03045e',text:'#0096c7'},
-  {id:9,names:{bg:'Виолетов',en:'Violet',fr:'Violet foncé',de:'Violett',es:'Violeta',it:'Viola scuro',ro:'Violet'},c1:'#7b2d8b',c2:'#c77dff',sidebar:'#f3e8ff',text:'#7b2d8b'},
-  {id:10,names:{bg:'Портокал',en:'Orange',fr:'Orange',de:'Orange',es:'Naranja',it:'Arancione',ro:'Portocaliu'},c1:'#f77f00',c2:'#fcbf49',sidebar:'#fff7ed',text:'#c2410c'},
-  {id:11,names:{bg:'Сив',en:'Gray',fr:'Gris',de:'Grau',es:'Gris',it:'Grigio',ro:'Gri'},c1:'#495057',c2:'#868e96',sidebar:'#f8f9fa',text:'#495057'},
-  {id:12,names:{bg:'Природен',en:'Natural',fr:'Naturel',de:'Natürlich',es:'Natural',it:'Naturale',ro:'Natural'},c1:'#1b4332',c2:'#40916c',sidebar:'#f0fdf4',text:'#1b4332'},
+  {id:1,names:{bg:'Лилав Classic',en:'Purple Classic'},c1:'#6c47ff',c2:'#9b7bff',sidebar:'#ede8ff',layout:'sidebar'},
+  {id:2,names:{bg:'Тъмен Pro',en:'Dark Pro'},c1:'#130f2a',c2:'#1a1a2e',sidebar:'#0d0b1e',layout:'sidebar'},
+  {id:3,names:{bg:'Корал Header',en:'Coral Header'},c1:'#ff6b6b',c2:'#ff9a6c',sidebar:'#ff6b6b',layout:'header'},
+  {id:4,names:{bg:'Тюркоаз Split',en:'Teal Split'},c1:'#00c9b1',c2:'#00e5cc',sidebar:'#e0faf7',layout:'twocol'},
+  {id:5,names:{bg:'Злато Elegant',en:'Gold Elegant'},c1:'#1a1a2e',c2:'#2a2a4e',sidebar:'#1a1a2e',layout:'header'},
+  {id:6,names:{bg:'Зелен Minimal',en:'Green Minimal'},c1:'#1b4332',c2:'#2d6a4f',sidebar:'#d8f3dc',layout:'minimal'},
+  {id:7,names:{bg:'Розов Modern',en:'Pink Modern'},c1:'#e63946',c2:'#ff6b9d',sidebar:'#fff0f5',layout:'sidebar'},
+  {id:8,names:{bg:'Морски Bold',en:'Navy Bold'},c1:'#023e8a',c2:'#0096c7',sidebar:'#03045e',layout:'twocol'},
+  {id:9,names:{bg:'Виолетов Soft',en:'Violet Soft'},c1:'#7b2d8b',c2:'#c77dff',sidebar:'#f3e8ff',layout:'minimal'},
+  {id:10,names:{bg:'Портокал Pop',en:'Orange Pop'},c1:'#f77f00',c2:'#fcbf49',sidebar:'#fff7ed',layout:'header'},
+  {id:11,names:{bg:'Сив Clean',en:'Gray Clean'},c1:'#495057',c2:'#868e96',sidebar:'#f8f9fa',layout:'sidebar'},
+  {id:12,names:{bg:'Природен Bio',en:'Natural Bio'},c1:'#1b4332',c2:'#40916c',sidebar:'#f0fdf4',layout:'twocol'},
 ];
 
-let currentTemplate=1, usedFree=false;
+function buildTemplatePreview(t){
+  const c=t.c1, c2=t.c2, sb=t.sidebar||t.c1;
+  const isDarkSb=['#0d0b1e','#1a1a2e','#03045e'].includes(sb);
+  const txt=isDarkSb?'rgba(255,255,255,0.85)':c;
+  const txtLight=isDarkSb?'rgba(255,255,255,0.4)':'rgba(0,0,0,0.15)';
+
+  if(t.layout==='sidebar'){
+    return `<div class="tpl-preview layout-sidebar">
+      <div class="tpl-sidebar" style="background:${sb};flex-direction:column;padding:8px 5px;gap:4px;align-items:center;display:flex;">
+        <div style="width:24px;height:24px;border-radius:50%;background:${c};opacity:${isDarkSb?0.9:0.7};margin-bottom:4px;border:2px solid ${isDarkSb?'rgba(255,255,255,0.3)':c2};"></div>
+        <div style="height:4px;border-radius:2px;background:${txt};opacity:0.7;width:80%;"></div>
+        <div style="height:2px;border-radius:2px;background:${txt};opacity:0.4;width:65%;"></div>
+        <div style="height:1px;background:${isDarkSb?'rgba(255,255,255,0.15)':'rgba(0,0,0,0.1)'};width:90%;margin:3px 0;"></div>
+        <div style="height:3px;border-radius:2px;background:${txt};opacity:0.5;width:75%;"></div>
+        <div style="height:2px;border-radius:2px;background:${txt};opacity:0.3;width:55%;"></div>
+        <div style="height:2px;border-radius:2px;background:${txt};opacity:0.3;width:70%;"></div>
+      </div>
+      <div class="tpl-main" style="background:#f8f9fa;">
+        <div style="height:6px;border-radius:3px;background:${c};opacity:0.8;width:65%;"></div>
+        <div style="height:3px;border-radius:2px;background:rgba(0,0,0,0.15);width:45%;margin-top:2px;"></div>
+        <div style="height:1px;background:${c};opacity:0.2;margin:4px 0;"></div>
+        <div style="height:4px;border-radius:2px;background:${c};opacity:0.6;width:40%;"></div>
+        <div style="height:3px;border-radius:2px;background:rgba(0,0,0,0.1);width:90%;margin-top:2px;"></div>
+        <div style="height:3px;border-radius:2px;background:rgba(0,0,0,0.1);width:80%;margin-top:2px;"></div>
+        <div style="height:4px;border-radius:2px;background:${c};opacity:0.6;width:40%;margin-top:4px;"></div>
+        <div style="height:3px;border-radius:2px;background:rgba(0,0,0,0.1);width:85%;margin-top:2px;"></div>
+      </div>
+    </div>`;
+  } else if(t.layout==='header'){
+    return `<div class="tpl-preview layout-header" style="flex-direction:column;">
+      <div class="tpl-header" style="background:${c};width:100%;display:flex;align-items:center;padding:0 8px;gap:7px;height:36px;flex-shrink:0;">
+        <div style="width:22px;height:22px;border-radius:50%;background:rgba(255,255,255,0.3);border:2px solid rgba(255,255,255,0.6);"></div>
+        <div style="display:flex;flex-direction:column;gap:3px;">
+          <div style="height:5px;border-radius:2px;background:rgba(255,255,255,0.9);width:60px;"></div>
+          <div style="height:3px;border-radius:2px;background:rgba(255,255,255,0.5);width:40px;"></div>
+        </div>
+      </div>
+      <div style="flex:1;display:flex;gap:0;background:#f8f9fa;padding:7px 8px;flex-direction:column;gap:3px;">
+        <div style="height:4px;border-radius:2px;background:${c};opacity:0.7;width:38%;"></div>
+        <div style="height:3px;border-radius:2px;background:rgba(0,0,0,0.1);width:92%;"></div>
+        <div style="height:3px;border-radius:2px;background:rgba(0,0,0,0.1);width:78%;"></div>
+        <div style="height:1px;background:${c};opacity:0.15;margin:3px 0;"></div>
+        <div style="height:4px;border-radius:2px;background:${c};opacity:0.7;width:38%;"></div>
+        <div style="height:3px;border-radius:2px;background:rgba(0,0,0,0.1);width:88%;"></div>
+        <div style="height:3px;border-radius:2px;background:rgba(0,0,0,0.1);width:70%;"></div>
+      </div>
+    </div>`;
+  } else if(t.layout==='twocol'){
+    const isDark2=['#03045e','#1a1a2e'].includes(sb);
+    return `<div class="tpl-preview layout-twocol">
+      <div style="width:42%;background:${sb};height:100%;display:flex;flex-direction:column;gap:3px;padding:7px 6px;">
+        <div style="height:5px;border-radius:2px;background:${isDark2?'rgba(255,255,255,0.8)':c};opacity:0.8;width:80%;"></div>
+        <div style="height:3px;border-radius:2px;background:${isDark2?'rgba(255,255,255,0.4)':'rgba(0,0,0,0.15)'};width:60%;"></div>
+        <div style="height:1px;background:${isDark2?'rgba(255,255,255,0.15)':c};opacity:0.2;margin:3px 0;"></div>
+        <div style="height:4px;border-radius:2px;background:${isDark2?'rgba(255,255,255,0.6)':c};opacity:0.7;width:70%;"></div>
+        <div style="height:3px;border-radius:2px;background:${isDark2?'rgba(255,255,255,0.3)':'rgba(0,0,0,0.12)'};width:85%;"></div>
+        <div style="height:3px;border-radius:2px;background:${isDark2?'rgba(255,255,255,0.3)':'rgba(0,0,0,0.12)'};width:65%;"></div>
+      </div>
+      <div style="flex:1;background:#f8f9fa;height:100%;display:flex;flex-direction:column;gap:3px;padding:7px 6px;">
+        <div style="height:4px;border-radius:2px;background:${c};opacity:0.7;width:55%;"></div>
+        <div style="height:3px;border-radius:2px;background:rgba(0,0,0,0.1);width:95%;"></div>
+        <div style="height:3px;border-radius:2px;background:rgba(0,0,0,0.1);width:80%;"></div>
+        <div style="height:1px;background:${c};opacity:0.15;margin:3px 0;"></div>
+        <div style="height:4px;border-radius:2px;background:${c};opacity:0.7;width:55%;"></div>
+        <div style="height:3px;border-radius:2px;background:rgba(0,0,0,0.1);width:90%;"></div>
+      </div>
+    </div>`;
+  } else { // minimal
+    return `<div class="tpl-preview layout-minimal">
+      <div style="width:100%;background:white;height:100%;display:flex;flex-direction:column;gap:3px;padding:9px 10px;">
+        <div style="display:flex;align-items:center;gap:7px;margin-bottom:3px;">
+          <div style="width:20px;height:20px;border-radius:50%;background:${c};opacity:0.2;flex-shrink:0;"></div>
+          <div style="display:flex;flex-direction:column;gap:2px;flex:1;">
+            <div style="height:5px;border-radius:2px;background:${c};opacity:0.8;width:55%;"></div>
+            <div style="height:3px;border-radius:2px;background:rgba(0,0,0,0.12);width:35%;"></div>
+          </div>
+        </div>
+        <div style="height:2px;border-radius:1px;background:${c};opacity:0.15;"></div>
+        <div style="height:3px;border-radius:2px;background:${c};opacity:0.5;width:30%;margin-top:2px;"></div>
+        <div style="height:2px;border-radius:2px;background:rgba(0,0,0,0.08);width:90%;"></div>
+        <div style="height:2px;border-radius:2px;background:rgba(0,0,0,0.08);width:75%;"></div>
+        <div style="height:3px;border-radius:2px;background:${c};opacity:0.5;width:30%;margin-top:2px;"></div>
+        <div style="height:2px;border-radius:2px;background:rgba(0,0,0,0.08);width:85%;"></div>
+        <div style="height:2px;border-radius:2px;background:rgba(0,0,0,0.08);width:65%;"></div>
+      </div>
+    </div>`;
+  }
+}
 
 // Build template grid
 window.addEventListener('DOMContentLoaded',()=>{
@@ -689,8 +805,16 @@ window.addEventListener('DOMContentLoaded',()=>{
       document.querySelectorAll('.tpl-card').forEach(c=>c.classList.remove('active'));
       card.classList.add('active');
       currentTemplate=t.id;
+      // Reveal form on first pick
+      const body=document.getElementById('cvFormBody');
+      const hint=document.getElementById('formRevealHint');
+      if(body.style.display==='none'||body.style.display===''){
+        body.style.display='block';
+        hint.style.display='none';
+        setTimeout(()=>body.scrollIntoView({behavior:'smooth',block:'start'}),100);
+      }
     };
-    card.innerHTML=`<div class="tpl-preview"><div class="tpl-sidebar" style="background:${t.c1};"></div><div class="tpl-main"><div class="tpl-bar dark"></div><div class="tpl-bar"></div><div class="tpl-bar"></div><div class="tpl-bar dark"></div><div class="tpl-bar"></div></div></div><div class="tpl-name" data-tpl-id="${t.id}">${t.names[currentLang]||t.names.en}</div>`;
+    card.innerHTML=buildTemplatePreview(t)+`<div class="tpl-name">${t.names['bg']}</div>`;
     grid.appendChild(card);
   });
 
