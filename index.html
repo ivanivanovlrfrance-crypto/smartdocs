@@ -344,8 +344,8 @@ footer{background:var(--dark);color:rgba(255,255,255,0.55);padding:48px 40px 28p
 
       <!-- TEMPLATE PICKER -->
       <div class="form-section"><span class="form-section-icon">🎨</span><span class="form-section-title" data-t="step1">Стъпка 1 — Избери шаблон</span></div>
-      <div class="tpl-grid" id="templateGrid"></div>
       <div id="formRevealHint">👆 Избери шаблон за да продължиш</div>
+      <div class="tpl-grid" id="templateGrid"></div>
 
       <div id="cvFormBody">
       <!-- PHOTO -->
@@ -750,9 +750,126 @@ const TEMPLATES=[
   {id:12,names:{bg:'Природен Bio',en:'Natural Bio'},c1:'#1b4332',c2:'#40916c',sidebar:'#f0fdf4',layout:'twocol'},
 ];
 
-function buildTemplatePreview(t){
+// Fake people for CV previews
+const FAKE_PEOPLE=[
+  {name:'Мария Георгиева',job:'Маркетинг мениджър',city:'София',initials:'МГ',color:'#e8d5ff'},
+  {name:'Димитър Стоянов',job:'Инженер производство',city:'Пловдив',initials:'ДС',color:'#d5f0ff'},
+  {name:'Андрей Тодоров',job:'Шофьор / Логистика',city:'Варна',initials:'АТ',color:'#d5ffe8'},
+  {name:'Елена Петрова',job:'Медицинска сестра',city:'Бургас',initials:'ЕП',color:'#ffd5d5'},
+  {name:'Георги Иванов',job:'Счетоводител',city:'Стара Загора',initials:'ГИ',color:'#fff3d5'},
+  {name:'Ивана Христова',job:'Учителка / Педагог',city:'Русе',initials:'ИХ',color:'#ffd5f0'},
+  {name:'Николай Димитров',job:'IT специалист',city:'София',initials:'НД',color:'#d5e8ff'},
+  {name:'Силвия Колева',job:'Готвач / Сервитьор',city:'Несебър',initials:'СК',color:'#d5fff0'},
+  {name:'Петър Атанасов',job:'Строителен работник',city:'Благоевград',initials:'ПА',color:'#ffe8d5'},
+  {name:'Деница Маринова',job:'Козметик / Естетист',city:'Плевен',initials:'ДМ',color:'#f0d5ff'},
+  {name:'Стефан Николов',job:'Електротехник',city:'Велико Търново',initials:'СН',color:'#d5f5ff'},
+  {name:'Мила Тодорова',job:'Администратор офис',city:'Шумен',initials:'МТ',color:'#e8ffd5'},
+];
+
+function buildTemplatePreview(t, idx){
+  const p = FAKE_PEOPLE[idx % FAKE_PEOPLE.length];
   const c=t.c1, sb=t.sidebar||t.c1;
   const isDarkSb=['#0d0b1e','#1a1a2e','#03045e'].includes(sb);
+  const textC = isDarkSb ? 'rgba(255,255,255,0.9)' : c;
+  const textLight = isDarkSb ? 'rgba(255,255,255,0.5)' : 'rgba(0,0,0,0.4)';
+  const avatarBg = p.color;
+
+  // Avatar SVG (initials)
+  const avatar = `<div style="width:38px;height:38px;border-radius:50%;background:${avatarBg};display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:${c};border:2px solid ${isDarkSb?'rgba(255,255,255,0.4)':c};flex-shrink:0;">${p.initials}</div>`;
+  const avatarSm = `<div style="width:28px;height:28px;border-radius:50%;background:${avatarBg};display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:${c};border:2px solid ${isDarkSb?'rgba(255,255,255,0.4)':c};flex-shrink:0;">${p.initials}</div>`;
+
+  const nameBar = `<div style="font-size:8px;font-weight:700;color:${isDarkSb?'rgba(255,255,255,0.95)':c};margin-bottom:1px;white-space:nowrap;overflow:hidden;">${p.name}</div>`;
+  const jobBar = `<div style="font-size:7px;color:${textLight};white-space:nowrap;overflow:hidden;">${p.job}</div>`;
+  const cityBar = `<div style="font-size:6px;color:${textLight};margin-top:1px;">📍 ${p.city}</div>`;
+
+  const lines = (color='rgba(0,0,0,0.1)', widths=['95%','80%','88%']) => widths.map(w=>
+    `<div style="height:3px;border-radius:2px;background:${color};width:${w};margin-bottom:3px;"></div>`).join('');
+  const sectionTitle = (label) =>
+    `<div style="font-size:7px;font-weight:700;color:${c};text-transform:uppercase;letter-spacing:.5px;margin:5px 0 3px;">${label}</div>`;
+
+  if(t.layout==='sidebar'){
+    return `<div style="display:flex;height:160px;font-family:sans-serif;">
+      <div style="width:38%;background:${sb};padding:10px 7px;display:flex;flex-direction:column;align-items:center;gap:4px;overflow:hidden;">
+        ${avatarSm}
+        ${nameBar}
+        ${jobBar}
+        <div style="height:1px;background:${isDarkSb?'rgba(255,255,255,0.15)':'rgba(0,0,0,0.1)'};width:90%;margin:3px 0;"></div>
+        ${sectionTitle('Контакти').replace(c, isDarkSb?'rgba(255,255,255,0.6)':c)}
+        <div style="font-size:6px;color:${textLight};width:100%;">📞 +359 88 123 456</div>
+        <div style="font-size:6px;color:${textLight};width:100%;">✉️ ${p.name.split(' ')[0].toLowerCase()}@mail.com</div>
+        <div style="font-size:6px;color:${textLight};width:100%;">📍 ${p.city}</div>
+        <div style="height:1px;background:${isDarkSb?'rgba(255,255,255,0.15)':'rgba(0,0,0,0.1)'};width:90%;margin:3px 0;"></div>
+        ${sectionTitle('Умения').replace(c, isDarkSb?'rgba(255,255,255,0.6)':c)}
+        <div style="height:3px;border-radius:2px;background:${isDarkSb?'rgba(255,255,255,0.4)':c};width:80%;opacity:0.7;margin-bottom:2px;"></div>
+        <div style="height:3px;border-radius:2px;background:${isDarkSb?'rgba(255,255,255,0.3)':c};width:60%;opacity:0.5;margin-bottom:2px;"></div>
+        <div style="height:3px;border-radius:2px;background:${isDarkSb?'rgba(255,255,255,0.2)':c};width:70%;opacity:0.4;"></div>
+      </div>
+      <div style="flex:1;background:#f9f9fb;padding:10px 9px;overflow:hidden;">
+        <div style="font-size:9px;font-weight:700;color:${c};margin-bottom:1px;">${p.name}</div>
+        <div style="font-size:7px;color:rgba(0,0,0,0.45);margin-bottom:5px;">${p.job}</div>
+        ${sectionTitle('Профил')}
+        ${lines('rgba(0,0,0,0.1)',['95%','85%','70%'])}
+        ${sectionTitle('Опит')}
+        <div style="font-size:7px;font-weight:600;color:rgba(0,0,0,0.6);margin-bottom:2px;">2020 – 2024</div>
+        ${lines('rgba(0,0,0,0.08)',['90%','75%'])}
+      </div>
+    </div>`;
+  } else if(t.layout==='header'){
+    return `<div style="display:flex;flex-direction:column;height:160px;font-family:sans-serif;">
+      <div style="background:${c};padding:10px 12px;display:flex;align-items:center;gap:9px;flex-shrink:0;">
+        ${avatar}
+        <div style="overflow:hidden;">
+          <div style="font-size:10px;font-weight:700;color:white;white-space:nowrap;">${p.name}</div>
+          <div style="font-size:7px;color:rgba(255,255,255,0.75);margin-top:1px;">${p.job} · ${p.city}</div>
+        </div>
+      </div>
+      <div style="flex:1;background:#f9f9fb;padding:9px 12px;overflow:hidden;">
+        ${sectionTitle('Профил')}
+        ${lines('rgba(0,0,0,0.1)',['95%','82%'])}
+        ${sectionTitle('Трудов опит')}
+        <div style="font-size:7px;font-weight:600;color:rgba(0,0,0,0.6);margin-bottom:2px;">2021 – 2024 · ${p.job}</div>
+        ${lines('rgba(0,0,0,0.08)',['88%','70%'])}
+      </div>
+    </div>`;
+  } else if(t.layout==='twocol'){
+    return `<div style="display:flex;height:160px;font-family:sans-serif;">
+      <div style="width:42%;background:${sb};padding:10px 8px;overflow:hidden;">
+        ${avatarSm}
+        <div style="margin-top:5px;">${nameBar}${jobBar}${cityBar}</div>
+        <div style="height:1px;background:${isDarkSb?'rgba(255,255,255,0.15)':'rgba(0,0,0,0.1)'};margin:5px 0;"></div>
+        <div style="font-size:6px;color:${textLight};">📞 +359 88 456 789</div>
+        <div style="font-size:6px;color:${textLight};margin-top:2px;">✉️ ${p.initials.toLowerCase()}@mail.com</div>
+        <div style="height:1px;background:${isDarkSb?'rgba(255,255,255,0.15)':'rgba(0,0,0,0.1)'};margin:5px 0;"></div>
+        <div style="font-size:6px;font-weight:700;color:${textC};margin-bottom:2px;">ЕЗИЦИ</div>
+        <div style="font-size:6px;color:${textLight};">Български · Английски</div>
+      </div>
+      <div style="flex:1;background:#f9f9fb;padding:10px 9px;overflow:hidden;">
+        ${sectionTitle('За мен')}
+        ${lines('rgba(0,0,0,0.1)',['95%','80%','88%'])}
+        ${sectionTitle('Опит')}
+        <div style="font-size:7px;font-weight:600;color:rgba(0,0,0,0.6);margin-bottom:1px;">${p.job}</div>
+        <div style="font-size:6px;color:rgba(0,0,0,0.4);margin-bottom:2px;">2019 – 2024</div>
+        ${lines('rgba(0,0,0,0.08)',['85%','68%'])}
+      </div>
+    </div>`;
+  } else {
+    return `<div style="height:160px;background:white;padding:12px 14px;font-family:sans-serif;overflow:hidden;">
+      <div style="display:flex;align-items:center;gap:9px;margin-bottom:7px;">
+        ${avatarSm}
+        <div>
+          <div style="font-size:9px;font-weight:700;color:${c};">${p.name}</div>
+          <div style="font-size:7px;color:rgba(0,0,0,0.45);">${p.job}</div>
+        </div>
+      </div>
+      <div style="height:1px;background:${c};opacity:0.2;margin-bottom:5px;"></div>
+      ${sectionTitle('Профил')}
+      ${lines('rgba(0,0,0,0.09)',['95%','80%'])}
+      ${sectionTitle('Опит')}
+      <div style="font-size:7px;font-weight:600;color:rgba(0,0,0,0.55);margin-bottom:1px;">${p.job} · 2020–2024</div>
+      ${lines('rgba(0,0,0,0.07)',['88%','70%'])}
+    </div>`;
+  }
+}
 
   if(t.layout==='sidebar'){
     return `<div class="tpl-preview" style="display:flex;height:150px;">
@@ -846,7 +963,7 @@ function buildTemplatePreview(t){
 window.addEventListener('DOMContentLoaded',()=>{
   applyTranslations('bg');
   const grid=document.getElementById('templateGrid');
-  TEMPLATES.forEach(t=>{
+  TEMPLATES.forEach((t, idx)=>{
     const card=document.createElement('div');
     card.className='tpl-card'+(t.id===1?' active':'');
     card.onclick=()=>{
@@ -861,9 +978,16 @@ window.addEventListener('DOMContentLoaded',()=>{
         setTimeout(()=>body.scrollIntoView({behavior:'smooth',block:'start'}),100);
       }
     };
-    card.innerHTML=buildTemplatePreview(t)+`<div class="tpl-name">${t.names['bg']}</div>`;
+    card.innerHTML=buildTemplatePreview(t, idx)+`<div class="tpl-name">${t.names['bg']}</div>`;
     grid.appendChild(card);
   });
+
+  // Move template grid BELOW the hint
+  const hint=document.getElementById('formRevealHint');
+  const gridEl=document.getElementById('templateGrid');
+  if(hint&&gridEl&&hint.parentNode){
+    hint.parentNode.insertBefore(gridEl, hint.nextSibling);
+  }
 
   document.querySelectorAll('.reveal').forEach(el=>{
     new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');});},{threshold:0.1}).observe(el);
@@ -1447,7 +1571,6 @@ function showTab(tab){
   document.querySelectorAll('.app-tab').forEach(el=>el.classList.remove('active'));
   const map={cv:'CV',letter:'Letter',slide:'Slide'};
   document.getElementById('tab'+map[tab]).style.display='block';
-  event.target.classList.add('active');
 }
 function scrollToApp(){document.getElementById('app').scrollIntoView({behavior:'smooth'});}
 
