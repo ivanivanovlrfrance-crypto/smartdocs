@@ -335,7 +335,7 @@ footer{background:var(--dark);color:rgba(255,255,255,0.55);padding:48px 40px 28p
     </div>
 
     <!-- CV TAB -->
-    <div id="tabCV" class="app-card">
+    <div id="tabCV" class="app-card" style="display:none;">
       <div style="text-align:center;margin-bottom:24px;padding-bottom:20px;border-bottom:1.5px solid var(--border);">
         <div style="font-size:32px;margin-bottom:8px;">📄</div>
         <h2 style="font-family:'Fraunces',serif;font-size:28px;font-weight:300;color:var(--dark);">Направи CV</h2>
@@ -570,7 +570,7 @@ footer{background:var(--dark);color:rgba(255,255,255,0.55);padding:48px 40px 28p
   <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;margin-bottom:60px;">
 
     <!-- CV CARD -->
-    <div onclick="showTab('cv')" style="cursor:pointer;border-radius:24px;overflow:hidden;position:relative;background:linear-gradient(135deg,#6c47ff,#9b7bff);padding:36px 28px;transition:all .3s;box-shadow:0 8px 32px rgba(108,71,255,0.3);" onmouseenter="this.style.transform='translateY(-6px)';this.style.boxShadow='0 18px 48px rgba(108,71,255,0.45)'" onmouseleave="this.style.transform='';this.style.boxShadow='0 8px 32px rgba(108,71,255,0.3)'">
+    <div onclick="showTab('cv')" style="cursor:pointer;border-radius:24px;overflow:hidden;position:relative;background:linear-gradient(135deg,#6c47ff,#9b7bff);padding:36px 28px;transition:all .3s;box-shadow:0 8px 32px rgba(108,71,255,0.3);" onmouseenter="this.style.transform='translateY(-6px)';this.style.boxShadow='0 18px 48px rgba(108,71,255,0.45)'" onmouseleave="this.style.transform='';this.style.boxShadow='0 8px 32px rgba(108,71,255,0.3)'"> onmouseleave="this.style.transform='';this.style.boxShadow='0 8px 32px rgba(108,71,255,0.3)'">
       <div style="position:absolute;top:-20px;right:-20px;width:120px;height:120px;background:rgba(255,255,255,0.07);border-radius:50%;"></div>
       <div style="position:absolute;bottom:-30px;right:20px;width:80px;height:80px;background:rgba(255,255,255,0.05);border-radius:50%;"></div>
       <div style="font-size:40px;margin-bottom:16px;">📄</div>
@@ -580,7 +580,7 @@ footer{background:var(--dark);color:rgba(255,255,255,0.55);padding:48px 40px 28p
     </div>
 
     <!-- LETTER CARD -->
-    <div onclick="showTab('letter')" style="cursor:pointer;border-radius:24px;overflow:hidden;position:relative;background:linear-gradient(135deg,#00c9b1,#00e5cc);padding:36px 28px;transition:all .3s;box-shadow:0 8px 32px rgba(0,201,177,0.3);" onmouseenter="this.style.transform='translateY(-6px)';this.style.boxShadow='0 18px 48px rgba(0,201,177,0.45)'" onmouseleave="this.style.transform='';this.style.boxShadow='0 8px 32px rgba(0,201,177,0.3)'">
+    <div onclick="showTab('letter')" style="cursor:pointer;border-radius:24px;overflow:hidden;position:relative;background:linear-gradient(135deg,#00c9b1,#00e5cc);padding:36px 28px;transition:all .3s;box-shadow:0 8px 32px rgba(0,201,177,0.3);" onmouseenter="this.style.transform='translateY(-6px)';this.style.boxShadow='0 18px 48px rgba(0,201,177,0.45)'" onmouseleave="this.style.transform='';this.style.boxShadow='0 8px 32px rgba(0,201,177,0.3)'">>
       <div style="position:absolute;top:-20px;right:-20px;width:120px;height:120px;background:rgba(255,255,255,0.07);border-radius:50%;"></div>
       <div style="font-size:40px;margin-bottom:16px;">✉️</div>
       <h3 style="font-family:'Fraunces',serif;font-size:26px;font-weight:300;color:white;margin-bottom:10px;line-height:1.2;">Напиши писмо</h3>
@@ -589,7 +589,7 @@ footer{background:var(--dark);color:rgba(255,255,255,0.55);padding:48px 40px 28p
     </div>
 
     <!-- SLIDE CARD -->
-    <div onclick="showTab('slide')" style="cursor:pointer;border-radius:24px;overflow:hidden;position:relative;background:linear-gradient(135deg,#ff6b6b,#ff9a6c);padding:36px 28px;transition:all .3s;box-shadow:0 8px 32px rgba(255,107,107,0.3);" onmouseenter="this.style.transform='translateY(-6px)';this.style.boxShadow='0 18px 48px rgba(255,107,107,0.45)'" onmouseleave="this.style.transform='';this.style.boxShadow='0 8px 32px rgba(255,107,107,0.3)'">
+    <div onclick="showTab('slide')" style="cursor:pointer;border-radius:24px;overflow:hidden;position:relative;background:linear-gradient(135deg,#ff6b6b,#ff9a6c);padding:36px 28px;transition:all .3s;box-shadow:0 8px 32px rgba(255,107,107,0.3);" onmouseenter="this.style.transform='translateY(-6px)';this.style.boxShadow='0 18px 48px rgba(255,107,107,0.45)'" onmouseleave="this.style.transform='';this.style.boxShadow='0 8px 32px rgba(255,107,107,0.3)'">>
       <div style="position:absolute;top:-20px;right:-20px;width:120px;height:120px;background:rgba(255,255,255,0.07);border-radius:50%;"></div>
       <div style="font-size:40px;margin-bottom:16px;">🖼️</div>
       <h3 style="font-family:'Fraunces',serif;font-size:26px;font-weight:300;color:white;margin-bottom:10px;line-height:1.2;">Създай слайд</h3>
@@ -1479,18 +1479,26 @@ function applyTranslations(lang){
 
 // ===== TABS =====
 function showTab(tab){
-  const tabs={cv:'tabCV',letter:'tabLetter',slide:'tabSlide'};
-  Object.values(tabs).forEach(id=>{
+  // Скрий всички табове
+  ['tabCV','tabLetter','tabSlide'].forEach(id=>{
     const el=document.getElementById(id);
     if(el) el.style.display='none';
   });
-  const target=document.getElementById(tabs[tab]);
+  // Покажи избрания
+  const ids={cv:'tabCV',letter:'tabLetter',slide:'tabSlide'};
+  const target=document.getElementById(ids[tab]);
   if(target){
     target.style.display='block';
-    setTimeout(()=>target.scrollIntoView({behavior:'smooth',block:'start'}),80);
+    // Скролирай до него
+    setTimeout(()=>{
+      target.scrollIntoView({behavior:'smooth',block:'start'});
+    },100);
   }
 }
-function scrollToApp(){const el=document.getElementById('app');if(el)el.scrollIntoView({behavior:'smooth'});}
+function scrollToApp(){
+  const el=document.getElementById('app');
+  if(el) el.scrollIntoView({behavior:'smooth'});
+}
 
 // ===== PHOTO =====
 function previewPhoto(input){
