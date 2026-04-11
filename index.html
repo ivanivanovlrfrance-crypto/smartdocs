@@ -671,7 +671,7 @@ footer{background:var(--dark);color:rgba(255,255,255,0.55);padding:48px 40px 28p
               <!-- Фон (ако няма снимка) -->
               <div id="social-bg-area" style="min-height:140px;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#6c47ff,#9b7bff);"></div>
               <!-- Текст под снимката -->
-              <div style="padding:16px 14px;">
+              <div id="social-text-zone" style="padding:16px 14px;background:white;transition:background .3s;">
                 <div id="social-post-text" style="font-size:14px;line-height:1.7;color:#130f2a;white-space:pre-wrap;"></div>
                 <div id="social-post-hashtags" style="margin-top:8px;font-size:13px;color:#1877f2;font-weight:500;"></div>
               </div>
@@ -1646,29 +1646,37 @@ function updatePostPreview(){
   const imgArea=document.getElementById('social-img-area');
   const bgArea=document.getElementById('social-bg-area');
   const imgInPost=document.getElementById('social-img-in-post');
+  const textZone=document.getElementById('social-text-zone');
   if(!bgArea) return;
 
+  const bg=BG_STYLES[currentBg]||BG_STYLES.gradient1;
+  const isDark=['gradient4','solid_dark','gradient1','gradient2','gradient3','gradient5','gradient6','gradient7'].includes(currentBg);
+
   if(socialPhotoBase64){
-    // Показвай снимката горе
     if(imgArea) imgArea.style.display='block';
     if(bgArea) bgArea.style.display='none';
     if(imgInPost) imgInPost.src='data:image/jpeg;base64,'+socialPhotoBase64;
+    // Фонът се прилага към текстовата зона
+    if(textZone){
+      textZone.style.background=bg;
+      const postText=document.getElementById('social-post-text');
+      const postHash=document.getElementById('social-post-hashtags');
+      if(postText) postText.style.color=isDark?'white':'#130f2a';
+      if(postHash) postHash.style.color=isDark?'rgba(255,255,255,0.8)':'#1877f2';
+    }
   } else {
-    // Показвай цветен фон
     if(imgArea) imgArea.style.display='none';
     if(bgArea){
       bgArea.style.display='flex';
-      bgArea.style.background=BG_STYLES[currentBg]||BG_STYLES.gradient1;
+      bgArea.style.background=bg;
     }
+    if(textZone) textZone.style.background='white';
+    const postText=document.getElementById('social-post-text');
+    const postHash=document.getElementById('social-post-hashtags');
+    if(postText) postText.style.color='#130f2a';
+    if(postHash) postHash.style.color='#1877f2';
   }
 
-  // Текст цвят — винаги тъмен (под снимката)
-  const postText=document.getElementById('social-post-text');
-  const postHash=document.getElementById('social-post-hashtags');
-  if(postText) postText.style.color='#130f2a';
-  if(postHash) postHash.style.color='#1877f2';
-
-  // Frame към целия пост
   const preview=document.getElementById('social-post-preview');
   if(!preview) return;
   const frames={
