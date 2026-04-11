@@ -114,17 +114,18 @@ textarea.field-input{resize:vertical;}
 .photo-upload:hover{border-color:var(--p);background:var(--p3);}
 
 /* TEMPLATE PICKER */
-.tpl-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:8px;}
-.tpl-card{border:2.5px solid var(--border);border-radius:18px;padding:0;cursor:pointer;transition:all .25s;text-align:center;background:white;overflow:hidden;position:relative;}
-.tpl-card:hover{border-color:var(--p);transform:translateY(-4px);box-shadow:0 10px 30px rgba(108,71,255,0.18);}
-.tpl-card.active{border-color:var(--p);box-shadow:0 6px 24px rgba(108,71,255,0.3);}
-.tpl-card.active::after{content:'✓';position:absolute;top:6px;right:8px;background:var(--p);color:white;border-radius:50%;width:20px;height:20px;font-size:11px;display:flex;align-items:center;justify-content:center;font-weight:700;line-height:20px;}
-.tpl-preview{width:100%;height:150px;display:flex;overflow:hidden;position:relative;}
-.tpl-name{font-size:11px;font-weight:700;color:var(--dark);padding:7px 4px 8px;}
-
-/* Form reveal after template pick */
-#cvFormBody{display:none;}
-#formRevealHint{text-align:center;padding:22px 0 6px;color:var(--gray);font-size:13px;}
+.tpl-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:24px;}
+.tpl-card{border:2px solid var(--border);border-radius:16px;padding:0;cursor:pointer;transition:all .25s;text-align:center;background:white;overflow:hidden;}
+.tpl-card:hover{border-color:var(--p);transform:translateY(-3px);box-shadow:0 8px 24px rgba(108,71,255,0.15);}
+.tpl-card.active{border-color:var(--p);box-shadow:0 6px 20px rgba(108,71,255,0.25);}
+.tpl-preview{width:100%;height:90px;display:flex;overflow:hidden;position:relative;}
+.tpl-sidebar{width:32%;height:100%;}
+.tpl-main{flex:1;height:100%;display:flex;flex-direction:column;gap:4px;padding:8px 6px;background:#f8f9fa;}
+.tpl-bar{border-radius:3px;height:5px;background:rgba(0,0,0,0.12);}
+.tpl-bar.dark{background:rgba(0,0,0,0.25);height:6px;}
+.tpl-bar.short{width:60%;}
+.tpl-name{font-size:11px;font-weight:700;color:var(--dark);padding:6px 4px;}
+.tpl-badge{position:absolute;top:4px;right:4px;background:rgba(255,255,255,0.9);border-radius:4px;font-size:8px;padding:1px 4px;font-weight:700;color:var(--p);}
 
 /* GENERATE BTN */
 .generate-btn{width:100%;padding:15px;background:linear-gradient(135deg,var(--p),var(--p2));color:white;border:none;border-radius:14px;font-size:15px;font-weight:600;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;transition:all .2s;margin-top:10px;box-shadow:0 4px 18px rgba(108,71,255,0.35);}
@@ -328,26 +329,23 @@ footer{background:var(--dark);color:rgba(255,255,255,0.55);padding:48px 40px 28p
 <!-- APP SECTION -->
 <div class="app-section" id="app">
   <div class="app-inner reveal">
-    <div class="app-tabs" style="display:none;">
+    <div style="text-align:center;">
+      <div class="section-tag" data-t="app_tag">Създай документ</div>
+      <h2 class="section-title" data-t="app_title">Избери и генерирай</h2>
+    </div>
+    <div class="app-tabs">
       <button class="app-tab active" onclick="showTab('cv')">📄 CV</button>
       <button class="app-tab" onclick="showTab('letter')">✉️ Писмо</button>
       <button class="app-tab" onclick="showTab('slide')">🖼️ Слайд</button>
     </div>
 
     <!-- CV TAB -->
-    <div id="tabCV" class="app-card" style="display:none;">
-      <div style="text-align:center;margin-bottom:24px;padding-bottom:20px;border-bottom:1.5px solid var(--border);">
-        <div style="font-size:32px;margin-bottom:8px;">📄</div>
-        <h2 style="font-family:'Fraunces',serif;font-size:28px;font-weight:300;color:var(--dark);">Направи CV</h2>
-        <p style="color:var(--gray);font-size:14px;margin-top:4px;">Попълни информацията — AI прави красиво CV за секунди</p>
-      </div>
+    <div id="tabCV" class="app-card">
 
       <!-- TEMPLATE PICKER -->
       <div class="form-section"><span class="form-section-icon">🎨</span><span class="form-section-title" data-t="step1">Стъпка 1 — Избери шаблон</span></div>
-      <div id="formRevealHint">👆 Избери шаблон за да продължиш</div>
       <div class="tpl-grid" id="templateGrid"></div>
 
-      <div id="cvFormBody">
       <!-- PHOTO -->
       <div class="form-section"><span class="form-section-icon">📷</span><span class="form-section-title" data-t="step2">Стъпка 2 — Снимка (незадължително)</span></div>
       <div class="photo-upload" onclick="document.getElementById('photoInput').click()">
@@ -485,15 +483,10 @@ footer{background:var(--dark);color:rgba(255,255,255,0.55);padding:48px 40px 28p
         </div>
         <button class="generate-btn" onclick="openModal('register')" data-t="subscribe">Абонирай се →</button>
       </div>
-      </div><!-- end cvFormBody -->
+    </div>
 
     <!-- LETTER TAB -->
-    <div id="tabLetter" class="app-card" style="display:none;margin-top:20px;">
-      <div style="text-align:center;margin-bottom:24px;padding-bottom:20px;border-bottom:1.5px solid var(--border);">
-        <div style="font-size:32px;margin-bottom:8px;">✉️</div>
-        <h2 style="font-family:'Fraunces',serif;font-size:28px;font-weight:300;color:var(--dark);">Напиши писмо</h2>
-        <p style="color:var(--gray);font-size:14px;margin-top:4px;">Опиши какво искаш — AI пише официалното писмо вместо теб</p>
-      </div>
+    <div id="tabLetter" class="app-card" style="display:none;">
       <div class="form-section"><span class="form-section-icon">✉️</span><span class="form-section-title" data-t="letter_section">Опиши с твои думи — за какво е писмото?</span></div>
       <textarea class="field-input" id="letter-desc" style="min-height:110px;" placeholder="Искам да пиша до Общината за проблем с улично осветление..."></textarea>
       <div class="field-row" style="margin-top:14px;">
@@ -513,12 +506,7 @@ footer{background:var(--dark);color:rgba(255,255,255,0.55);padding:48px 40px 28p
     </div>
 
     <!-- SLIDE TAB -->
-    <div id="tabSlide" class="app-card" style="display:none;margin-top:20px;">
-      <div style="text-align:center;margin-bottom:24px;padding-bottom:20px;border-bottom:1.5px solid var(--border);">
-        <div style="font-size:32px;margin-bottom:8px;">🖼️</div>
-        <h2 style="font-family:'Fraunces',serif;font-size:28px;font-weight:300;color:var(--dark);">Създай слайд</h2>
-        <p style="color:var(--gray);font-size:14px;margin-top:4px;">Качи снимка на продукт — AI прави красив рекламен слайд</p>
-      </div>
+    <div id="tabSlide" class="app-card" style="display:none;">
       <div class="form-section"><span class="form-section-icon">🖼️</span><span class="form-section-title">Качи снимка на продукта</span></div>
       <div class="photo-upload" style="position:relative;" id="slideDropZone">
         <input type="file" id="slideImgInput" accept="image/*" onchange="previewSlideImg(this)" style="position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%;">
@@ -565,71 +553,36 @@ footer{background:var(--dark);color:rgba(255,255,255,0.55);padding:48px 40px 28p
     <h2 class="section-title">Всичко от което се нуждаеш</h2>
     <p style="color:var(--gray);font-size:16px;margin-top:10px;">Избери какво искаш да направиш — AI се грижи за останалото</p>
   </div>
-
-  <!-- 3 BIG ACTION CARDS -->
-  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;margin-bottom:60px;">
-
-    <!-- CV CARD -->
-    <div onclick="showTab('cv')" style="cursor:pointer;border-radius:24px;overflow:hidden;position:relative;background:linear-gradient(135deg,#6c47ff,#9b7bff);padding:36px 28px;transition:all .3s;box-shadow:0 8px 32px rgba(108,71,255,0.3);" onmouseenter="this.style.transform='translateY(-6px)';this.style.boxShadow='0 18px 48px rgba(108,71,255,0.45)'" onmouseleave="this.style.transform='';this.style.boxShadow='0 8px 32px rgba(108,71,255,0.3)'"> onmouseleave="this.style.transform='';this.style.boxShadow='0 8px 32px rgba(108,71,255,0.3)'">
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:24px;margin-bottom:48px;">
+    <div onclick="showTab('cv')" style="cursor:pointer;border-radius:24px;background:linear-gradient(135deg,#6c47ff,#9b7bff);padding:36px 28px;transition:all .3s;box-shadow:0 8px 32px rgba(108,71,255,0.3);position:relative;overflow:hidden;" onmouseenter="this.style.transform='translateY(-6px)'" onmouseleave="this.style.transform=''">
       <div style="position:absolute;top:-20px;right:-20px;width:120px;height:120px;background:rgba(255,255,255,0.07);border-radius:50%;"></div>
-      <div style="position:absolute;bottom:-30px;right:20px;width:80px;height:80px;background:rgba(255,255,255,0.05);border-radius:50%;"></div>
       <div style="font-size:40px;margin-bottom:16px;">📄</div>
-      <h3 style="font-family:'Fraunces',serif;font-size:26px;font-weight:300;color:white;margin-bottom:10px;line-height:1.2;">Направи CV</h3>
+      <h3 style="font-family:'Fraunces',serif;font-size:26px;font-weight:300;color:white;margin-bottom:10px;">Направи CV</h3>
       <p style="color:rgba(255,255,255,0.75);font-size:14px;line-height:1.7;margin-bottom:24px;">Разкажи за себе си с твои думи — AI прави красиво професионално CV за секунди. 12 дизайна, 50+ езика.</p>
       <div style="display:inline-flex;align-items:center;gap:8px;background:white;color:#6c47ff;font-size:13px;font-weight:700;padding:10px 20px;border-radius:12px;">✦ Започни сега →</div>
     </div>
-
-    <!-- LETTER CARD -->
-    <div onclick="showTab('letter')" style="cursor:pointer;border-radius:24px;overflow:hidden;position:relative;background:linear-gradient(135deg,#00c9b1,#00e5cc);padding:36px 28px;transition:all .3s;box-shadow:0 8px 32px rgba(0,201,177,0.3);" onmouseenter="this.style.transform='translateY(-6px)';this.style.boxShadow='0 18px 48px rgba(0,201,177,0.45)'" onmouseleave="this.style.transform='';this.style.boxShadow='0 8px 32px rgba(0,201,177,0.3)'">>
+    <div onclick="showTab('letter')" style="cursor:pointer;border-radius:24px;background:linear-gradient(135deg,#00c9b1,#00e5cc);padding:36px 28px;transition:all .3s;box-shadow:0 8px 32px rgba(0,201,177,0.3);position:relative;overflow:hidden;" onmouseenter="this.style.transform='translateY(-6px)'" onmouseleave="this.style.transform=''">
       <div style="position:absolute;top:-20px;right:-20px;width:120px;height:120px;background:rgba(255,255,255,0.07);border-radius:50%;"></div>
       <div style="font-size:40px;margin-bottom:16px;">✉️</div>
-      <h3 style="font-family:'Fraunces',serif;font-size:26px;font-weight:300;color:white;margin-bottom:10px;line-height:1.2;">Напиши писмо</h3>
+      <h3 style="font-family:'Fraunces',serif;font-size:26px;font-weight:300;color:white;margin-bottom:10px;">Напиши писмо</h3>
       <p style="color:rgba(255,255,255,0.75);font-size:14px;line-height:1.7;margin-bottom:24px;">Официално писмо до институция, работодател или община — AI го пише на правилния език и тон.</p>
       <div style="display:inline-flex;align-items:center;gap:8px;background:white;color:#00856f;font-size:13px;font-weight:700;padding:10px 20px;border-radius:12px;">✦ Пиши писмо →</div>
     </div>
-
-    <!-- SLIDE CARD -->
-    <div onclick="showTab('slide')" style="cursor:pointer;border-radius:24px;overflow:hidden;position:relative;background:linear-gradient(135deg,#ff6b6b,#ff9a6c);padding:36px 28px;transition:all .3s;box-shadow:0 8px 32px rgba(255,107,107,0.3);" onmouseenter="this.style.transform='translateY(-6px)';this.style.boxShadow='0 18px 48px rgba(255,107,107,0.45)'" onmouseleave="this.style.transform='';this.style.boxShadow='0 8px 32px rgba(255,107,107,0.3)'">>
+    <div onclick="showTab('slide')" style="cursor:pointer;border-radius:24px;background:linear-gradient(135deg,#ff6b6b,#ff9a6c);padding:36px 28px;transition:all .3s;box-shadow:0 8px 32px rgba(255,107,107,0.3);position:relative;overflow:hidden;" onmouseenter="this.style.transform='translateY(-6px)'" onmouseleave="this.style.transform=''">
       <div style="position:absolute;top:-20px;right:-20px;width:120px;height:120px;background:rgba(255,255,255,0.07);border-radius:50%;"></div>
       <div style="font-size:40px;margin-bottom:16px;">🖼️</div>
-      <h3 style="font-family:'Fraunces',serif;font-size:26px;font-weight:300;color:white;margin-bottom:10px;line-height:1.2;">Създай слайд</h3>
+      <h3 style="font-family:'Fraunces',serif;font-size:26px;font-weight:300;color:white;margin-bottom:10px;">Създай слайд</h3>
       <p style="color:rgba(255,255,255,0.75);font-size:14px;line-height:1.7;margin-bottom:24px;">Качи снимка на продукт — AI премахва фона и прави красив рекламен слайд за социалните мрежи.</p>
       <div style="display:inline-flex;align-items:center;gap:8px;background:white;color:#c0392b;font-size:13px;font-weight:700;padding:10px 20px;border-radius:12px;">✦ Направи слайд →</div>
     </div>
   </div>
-
-  <!-- BOTTOM MINI FEATURES -->
-  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px;">
-    <div style="text-align:center;padding:20px;border:1.5px solid var(--border);border-radius:16px;background:white;">
-      <div style="font-size:28px;margin-bottom:8px;">🌍</div>
-      <div style="font-size:14px;font-weight:600;color:var(--dark);">50+ езика</div>
-      <div style="font-size:12px;color:var(--gray);margin-top:4px;">CV на всеки език</div>
-    </div>
-    <div style="text-align:center;padding:20px;border:1.5px solid var(--border);border-radius:16px;background:white;">
-      <div style="font-size:28px;margin-bottom:8px;">⬇️</div>
-      <div style="font-size:14px;font-weight:600;color:var(--dark);">PDF и Word</div>
-      <div style="font-size:12px;color:var(--gray);margin-top:4px;">Свали с 1 клик</div>
-    </div>
-    <div style="text-align:center;padding:20px;border:1.5px solid var(--border);border-radius:16px;background:white;">
-      <div style="font-size:28px;margin-bottom:8px;">⚡</div>
-      <div style="font-size:14px;font-weight:600;color:var(--dark);">2 минути</div>
-      <div style="font-size:12px;color:var(--gray);margin-top:4px;">Готово за секунди</div>
-    </div>
-    <div style="text-align:center;padding:20px;border:1.5px solid var(--border);border-radius:16px;background:white;">
-      <div style="font-size:28px;margin-bottom:8px;">🤖</div>
-      <div style="font-size:14px;font-weight:600;color:var(--dark);">AI асистент</div>
-      <div style="font-size:12px;color:var(--gray);margin-top:4px;">Помага 24/7</div>
-    </div>
-    <div style="text-align:center;padding:20px;border:1.5px solid var(--border);border-radius:16px;background:white;">
-      <div style="font-size:28px;margin-bottom:8px;">🔒</div>
-      <div style="font-size:14px;font-weight:600;color:var(--dark);">100% сигурно</div>
-      <div style="font-size:12px;color:var(--gray);margin-top:4px;">GDPR защита</div>
-    </div>
-    <div style="text-align:center;padding:20px;border:1.5px solid var(--border);border-radius:16px;background:white;">
-      <div style="font-size:28px;margin-bottom:8px;">💶</div>
-      <div style="font-size:14px;font-weight:600;color:var(--dark);">Безплатно</div>
-      <div style="font-size:12px;color:var(--gray);margin-top:4px;">Без кредитна карта</div>
-    </div>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:16px;">
+    <div style="text-align:center;padding:20px;border:1.5px solid var(--border);border-radius:16px;background:white;"><div style="font-size:28px;margin-bottom:8px;">🌍</div><div style="font-size:14px;font-weight:600;color:var(--dark);">50+ езика</div><div style="font-size:12px;color:var(--gray);margin-top:4px;">CV на всеки език</div></div>
+    <div style="text-align:center;padding:20px;border:1.5px solid var(--border);border-radius:16px;background:white;"><div style="font-size:28px;margin-bottom:8px;">⬇️</div><div style="font-size:14px;font-weight:600;color:var(--dark);">PDF и Word</div><div style="font-size:12px;color:var(--gray);margin-top:4px;">Свали с 1 клик</div></div>
+    <div style="text-align:center;padding:20px;border:1.5px solid var(--border);border-radius:16px;background:white;"><div style="font-size:28px;margin-bottom:8px;">⚡</div><div style="font-size:14px;font-weight:600;color:var(--dark);">2 минути</div><div style="font-size:12px;color:var(--gray);margin-top:4px;">Готово за секунди</div></div>
+    <div style="text-align:center;padding:20px;border:1.5px solid var(--border);border-radius:16px;background:white;"><div style="font-size:28px;margin-bottom:8px;">🤖</div><div style="font-size:14px;font-weight:600;color:var(--dark);">AI асистент</div><div style="font-size:12px;color:var(--gray);margin-top:4px;">Помага 24/7</div></div>
+    <div style="text-align:center;padding:20px;border:1.5px solid var(--border);border-radius:16px;background:white;"><div style="font-size:28px;margin-bottom:8px;">🔒</div><div style="font-size:14px;font-weight:600;color:var(--dark);">100% сигурно</div><div style="font-size:12px;color:var(--gray);margin-top:4px;">GDPR защита</div></div>
+    <div style="text-align:center;padding:20px;border:1.5px solid var(--border);border-radius:16px;background:white;"><div style="font-size:28px;margin-bottom:8px;">💶</div><div style="font-size:14px;font-weight:600;color:var(--dark);">Безплатно</div><div style="font-size:12px;color:var(--gray);margin-top:4px;">Без карта</div></div>
   </div>
 </div>
 
@@ -730,181 +683,70 @@ footer{background:var(--dark);color:rgba(255,255,255,0.55);padding:48px 40px 28p
 <script>
 const _k=['sk-ant-api03-FM619pz','ANexRCJkQ30KEESVf2ng','wB0KKpIt__STkAGK0MTK','gsi7RbUEOlG3p24qvNvw','WxpN5gn3DGCwc1k9KOQ-','6DoelQAA'];const API_KEY=_k.join('');
 // Tavily Search API — реално уеб търсене
-
 let TAVILY_KEY = localStorage.getItem('tavily_key') || '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';
-let currentTemplate=1, usedFree=false;
 
-// 12 templates with different layouts
+
+// ===== TEMPLATES =====
 const TEMPLATES=[
-  {id:1,names:{bg:'Лилав Classic',en:'Purple Classic'},c1:'#6c47ff',c2:'#9b7bff',sidebar:'#ede8ff',layout:'sidebar'},
-  {id:2,names:{bg:'Тъмен Pro',en:'Dark Pro'},c1:'#130f2a',c2:'#1a1a2e',sidebar:'#0d0b1e',layout:'sidebar'},
-  {id:3,names:{bg:'Корал Header',en:'Coral Header'},c1:'#ff6b6b',c2:'#ff9a6c',sidebar:'#ff6b6b',layout:'header'},
-  {id:4,names:{bg:'Тюркоаз Split',en:'Teal Split'},c1:'#00c9b1',c2:'#00e5cc',sidebar:'#e0faf7',layout:'twocol'},
-  {id:5,names:{bg:'Злато Elegant',en:'Gold Elegant'},c1:'#1a1a2e',c2:'#2a2a4e',sidebar:'#1a1a2e',layout:'header'},
-  {id:6,names:{bg:'Зелен Minimal',en:'Green Minimal'},c1:'#1b4332',c2:'#2d6a4f',sidebar:'#d8f3dc',layout:'minimal'},
-  {id:7,names:{bg:'Розов Modern',en:'Pink Modern'},c1:'#e63946',c2:'#ff6b9d',sidebar:'#fff0f5',layout:'sidebar'},
-  {id:8,names:{bg:'Морски Bold',en:'Navy Bold'},c1:'#023e8a',c2:'#0096c7',sidebar:'#03045e',layout:'twocol'},
-  {id:9,names:{bg:'Виолетов Soft',en:'Violet Soft'},c1:'#7b2d8b',c2:'#c77dff',sidebar:'#f3e8ff',layout:'minimal'},
-  {id:10,names:{bg:'Портокал Pop',en:'Orange Pop'},c1:'#f77f00',c2:'#fcbf49',sidebar:'#fff7ed',layout:'header'},
-  {id:11,names:{bg:'Сив Clean',en:'Gray Clean'},c1:'#495057',c2:'#868e96',sidebar:'#f8f9fa',layout:'sidebar'},
-  {id:12,names:{bg:'Природен Bio',en:'Natural Bio'},c1:'#1b4332',c2:'#40916c',sidebar:'#f0fdf4',layout:'twocol'},
+  {id:1,names:{bg:'Лилав',en:'Purple',fr:'Violet',de:'Lila',es:'Morado',it:'Viola',ro:'Mov'},c1:'#6c47ff',c2:'#9b7bff',sidebar:'#ede8ff',text:'#6c47ff'},
+  {id:2,names:{bg:'Тъмен',en:'Dark',fr:'Sombre',de:'Dunkel',es:'Oscuro',it:'Scuro',ro:'Închis'},c1:'#130f2a',c2:'#1a1a2e',sidebar:'#0d0b1e',text:'#00c9b1'},
+  {id:3,names:{bg:'Корал',en:'Coral',fr:'Corail',de:'Koralle',es:'Coral',it:'Corallo',ro:'Coral'},c1:'#ff6b6b',c2:'#ff9a6c',sidebar:'#ff6b6b',text:'#ff6b6b'},
+  {id:4,names:{bg:'Тюркоаз',en:'Teal',fr:'Turquoise',de:'Türkis',es:'Turquesa',it:'Turchese',ro:'Turcoaz'},c1:'#00c9b1',c2:'#00e5cc',sidebar:'#e0faf7',text:'#00856f'},
+  {id:5,names:{bg:'Злато',en:'Gold',fr:'Or',de:'Gold',es:'Oro',it:'Oro',ro:'Auriu'},c1:'#1a1a2e',c2:'#2a2a4e',sidebar:'#1a1a2e',text:'#c9a96e'},
+  {id:6,names:{bg:'Зелен',en:'Green',fr:'Vert',de:'Grün',es:'Verde',it:'Verde',ro:'Verde'},c1:'#1b4332',c2:'#2d6a4f',sidebar:'#d8f3dc',text:'#1b4332'},
+  {id:7,names:{bg:'Розов',en:'Pink',fr:'Rose',de:'Rosa',es:'Rosa',it:'Rosa',ro:'Roz'},c1:'#e63946',c2:'#ff6b9d',sidebar:'#fff0f5',text:'#e63946'},
+  {id:8,names:{bg:'Морски',en:'Navy',fr:'Marine',de:'Marine',es:'Marino',it:'Marino',ro:'Marin'},c1:'#023e8a',c2:'#0096c7',sidebar:'#03045e',text:'#0096c7'},
+  {id:9,names:{bg:'Виолетов',en:'Violet',fr:'Violet foncé',de:'Violett',es:'Violeta',it:'Viola scuro',ro:'Violet'},c1:'#7b2d8b',c2:'#c77dff',sidebar:'#f3e8ff',text:'#7b2d8b'},
+  {id:10,names:{bg:'Портокал',en:'Orange',fr:'Orange',de:'Orange',es:'Naranja',it:'Arancione',ro:'Portocaliu'},c1:'#f77f00',c2:'#fcbf49',sidebar:'#fff7ed',text:'#c2410c'},
+  {id:11,names:{bg:'Сив',en:'Gray',fr:'Gris',de:'Grau',es:'Gris',it:'Grigio',ro:'Gri'},c1:'#495057',c2:'#868e96',sidebar:'#f8f9fa',text:'#495057'},
+  {id:12,names:{bg:'Природен',en:'Natural',fr:'Naturel',de:'Natürlich',es:'Natural',it:'Naturale',ro:'Natural'},c1:'#1b4332',c2:'#40916c',sidebar:'#f0fdf4',text:'#1b4332'},
 ];
 
-// Fake people for CV previews
-const FAKE_PEOPLE=[
-  {name:'Мария Георгиева',job:'Маркетинг мениджър',city:'София',initials:'МГ',color:'#e8d5ff'},
-  {name:'Димитър Стоянов',job:'Инженер производство',city:'Пловдив',initials:'ДС',color:'#d5f0ff'},
-  {name:'Андрей Тодоров',job:'Шофьор / Логистика',city:'Варна',initials:'АТ',color:'#d5ffe8'},
-  {name:'Елена Петрова',job:'Медицинска сестра',city:'Бургас',initials:'ЕП',color:'#ffd5d5'},
-  {name:'Георги Иванов',job:'Счетоводител',city:'Стара Загора',initials:'ГИ',color:'#fff3d5'},
-  {name:'Ивана Христова',job:'Учителка / Педагог',city:'Русе',initials:'ИХ',color:'#ffd5f0'},
-  {name:'Николай Димитров',job:'IT специалист',city:'София',initials:'НД',color:'#d5e8ff'},
-  {name:'Силвия Колева',job:'Готвач / Сервитьор',city:'Несебър',initials:'СК',color:'#d5fff0'},
-  {name:'Петър Атанасов',job:'Строителен работник',city:'Благоевград',initials:'ПА',color:'#ffe8d5'},
-  {name:'Деница Маринова',job:'Козметик / Естетист',city:'Плевен',initials:'ДМ',color:'#f0d5ff'},
-  {name:'Стефан Николов',job:'Електротехник',city:'Велико Търново',initials:'СН',color:'#d5f5ff'},
-  {name:'Мила Тодорова',job:'Администратор офис',city:'Шумен',initials:'МТ',color:'#e8ffd5'},
-];
-
-function buildTemplatePreview(t, idx){
-  const p = FAKE_PEOPLE[idx % FAKE_PEOPLE.length];
-  const c=t.c1, sb=t.sidebar||t.c1;
-  const isDarkSb=['#0d0b1e','#1a1a2e','#03045e'].includes(sb);
-  const textC = isDarkSb ? 'rgba(255,255,255,0.9)' : c;
-  const textLight = isDarkSb ? 'rgba(255,255,255,0.5)' : 'rgba(0,0,0,0.4)';
-  const avatarBg = p.color;
-
-  // Avatar SVG (initials)
-  const avatar = `<div style="width:38px;height:38px;border-radius:50%;background:${avatarBg};display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:${c};border:2px solid ${isDarkSb?'rgba(255,255,255,0.4)':c};flex-shrink:0;">${p.initials}</div>`;
-  const avatarSm = `<div style="width:28px;height:28px;border-radius:50%;background:${avatarBg};display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:${c};border:2px solid ${isDarkSb?'rgba(255,255,255,0.4)':c};flex-shrink:0;">${p.initials}</div>`;
-
-  const nameBar = `<div style="font-size:8px;font-weight:700;color:${isDarkSb?'rgba(255,255,255,0.95)':c};margin-bottom:1px;white-space:nowrap;overflow:hidden;">${p.name}</div>`;
-  const jobBar = `<div style="font-size:7px;color:${textLight};white-space:nowrap;overflow:hidden;">${p.job}</div>`;
-  const cityBar = `<div style="font-size:6px;color:${textLight};margin-top:1px;">📍 ${p.city}</div>`;
-
-  const lines = (color='rgba(0,0,0,0.1)', widths=['95%','80%','88%']) => widths.map(w=>
-    `<div style="height:3px;border-radius:2px;background:${color};width:${w};margin-bottom:3px;"></div>`).join('');
-  const sectionTitle = (label) =>
-    `<div style="font-size:7px;font-weight:700;color:${c};text-transform:uppercase;letter-spacing:.5px;margin:5px 0 3px;">${label}</div>`;
-
-  if(t.layout==='sidebar'){
-    return `<div style="display:flex;height:160px;font-family:sans-serif;">
-      <div style="width:38%;background:${sb};padding:10px 7px;display:flex;flex-direction:column;align-items:center;gap:4px;overflow:hidden;">
-        ${avatarSm}
-        ${nameBar}
-        ${jobBar}
-        <div style="height:1px;background:${isDarkSb?'rgba(255,255,255,0.15)':'rgba(0,0,0,0.1)'};width:90%;margin:3px 0;"></div>
-        ${sectionTitle('Контакти').replace(c, isDarkSb?'rgba(255,255,255,0.6)':c)}
-        <div style="font-size:6px;color:${textLight};width:100%;">📞 +359 88 123 456</div>
-        <div style="font-size:6px;color:${textLight};width:100%;">✉️ ${p.name.split(' ')[0].toLowerCase()}@mail.com</div>
-        <div style="font-size:6px;color:${textLight};width:100%;">📍 ${p.city}</div>
-        <div style="height:1px;background:${isDarkSb?'rgba(255,255,255,0.15)':'rgba(0,0,0,0.1)'};width:90%;margin:3px 0;"></div>
-        ${sectionTitle('Умения').replace(c, isDarkSb?'rgba(255,255,255,0.6)':c)}
-        <div style="height:3px;border-radius:2px;background:${isDarkSb?'rgba(255,255,255,0.4)':c};width:80%;opacity:0.7;margin-bottom:2px;"></div>
-        <div style="height:3px;border-radius:2px;background:${isDarkSb?'rgba(255,255,255,0.3)':c};width:60%;opacity:0.5;margin-bottom:2px;"></div>
-        <div style="height:3px;border-radius:2px;background:${isDarkSb?'rgba(255,255,255,0.2)':c};width:70%;opacity:0.4;"></div>
-      </div>
-      <div style="flex:1;background:#f9f9fb;padding:10px 9px;overflow:hidden;">
-        <div style="font-size:9px;font-weight:700;color:${c};margin-bottom:1px;">${p.name}</div>
-        <div style="font-size:7px;color:rgba(0,0,0,0.45);margin-bottom:5px;">${p.job}</div>
-        ${sectionTitle('Профил')}
-        ${lines('rgba(0,0,0,0.1)',['95%','85%','70%'])}
-        ${sectionTitle('Опит')}
-        <div style="font-size:7px;font-weight:600;color:rgba(0,0,0,0.6);margin-bottom:2px;">2020 – 2024</div>
-        ${lines('rgba(0,0,0,0.08)',['90%','75%'])}
-      </div>
-    </div>`;
-  } else if(t.layout==='header'){
-    return `<div style="display:flex;flex-direction:column;height:160px;font-family:sans-serif;">
-      <div style="background:${c};padding:10px 12px;display:flex;align-items:center;gap:9px;flex-shrink:0;">
-        ${avatar}
-        <div style="overflow:hidden;">
-          <div style="font-size:10px;font-weight:700;color:white;white-space:nowrap;">${p.name}</div>
-          <div style="font-size:7px;color:rgba(255,255,255,0.75);margin-top:1px;">${p.job} · ${p.city}</div>
-        </div>
-      </div>
-      <div style="flex:1;background:#f9f9fb;padding:9px 12px;overflow:hidden;">
-        ${sectionTitle('Профил')}
-        ${lines('rgba(0,0,0,0.1)',['95%','82%'])}
-        ${sectionTitle('Трудов опит')}
-        <div style="font-size:7px;font-weight:600;color:rgba(0,0,0,0.6);margin-bottom:2px;">2021 – 2024 · ${p.job}</div>
-        ${lines('rgba(0,0,0,0.08)',['88%','70%'])}
-      </div>
-    </div>`;
-  } else if(t.layout==='twocol'){
-    return `<div style="display:flex;height:160px;font-family:sans-serif;">
-      <div style="width:42%;background:${sb};padding:10px 8px;overflow:hidden;">
-        ${avatarSm}
-        <div style="margin-top:5px;">${nameBar}${jobBar}${cityBar}</div>
-        <div style="height:1px;background:${isDarkSb?'rgba(255,255,255,0.15)':'rgba(0,0,0,0.1)'};margin:5px 0;"></div>
-        <div style="font-size:6px;color:${textLight};">📞 +359 88 456 789</div>
-        <div style="font-size:6px;color:${textLight};margin-top:2px;">✉️ ${p.initials.toLowerCase()}@mail.com</div>
-        <div style="height:1px;background:${isDarkSb?'rgba(255,255,255,0.15)':'rgba(0,0,0,0.1)'};margin:5px 0;"></div>
-        <div style="font-size:6px;font-weight:700;color:${textC};margin-bottom:2px;">ЕЗИЦИ</div>
-        <div style="font-size:6px;color:${textLight};">Български · Английски</div>
-      </div>
-      <div style="flex:1;background:#f9f9fb;padding:10px 9px;overflow:hidden;">
-        ${sectionTitle('За мен')}
-        ${lines('rgba(0,0,0,0.1)',['95%','80%','88%'])}
-        ${sectionTitle('Опит')}
-        <div style="font-size:7px;font-weight:600;color:rgba(0,0,0,0.6);margin-bottom:1px;">${p.job}</div>
-        <div style="font-size:6px;color:rgba(0,0,0,0.4);margin-bottom:2px;">2019 – 2024</div>
-        ${lines('rgba(0,0,0,0.08)',['85%','68%'])}
-      </div>
-    </div>`;
-  } else {
-    return `<div style="height:160px;background:white;padding:12px 14px;font-family:sans-serif;overflow:hidden;">
-      <div style="display:flex;align-items:center;gap:9px;margin-bottom:7px;">
-        ${avatarSm}
-        <div>
-          <div style="font-size:9px;font-weight:700;color:${c};">${p.name}</div>
-          <div style="font-size:7px;color:rgba(0,0,0,0.45);">${p.job}</div>
-        </div>
-      </div>
-      <div style="height:1px;background:${c};opacity:0.2;margin-bottom:5px;"></div>
-      ${sectionTitle('Профил')}
-      ${lines('rgba(0,0,0,0.09)',['95%','80%'])}
-      ${sectionTitle('Опит')}
-      <div style="font-size:7px;font-weight:600;color:rgba(0,0,0,0.55);margin-bottom:1px;">${p.job} · 2020–2024</div>
-      ${lines('rgba(0,0,0,0.07)',['88%','70%'])}
-    </div>`;
-  }
-}
+let currentTemplate=1, usedFree=false;
 
 // Build template grid
 window.addEventListener('DOMContentLoaded',()=>{
   applyTranslations('bg');
   const grid=document.getElementById('templateGrid');
-  TEMPLATES.forEach((t, idx)=>{
+  TEMPLATES.forEach(t=>{
     const card=document.createElement('div');
     card.className='tpl-card'+(t.id===1?' active':'');
     card.onclick=()=>{
       document.querySelectorAll('.tpl-card').forEach(c=>c.classList.remove('active'));
       card.classList.add('active');
       currentTemplate=t.id;
-      const body=document.getElementById('cvFormBody');
-      const hint=document.getElementById('formRevealHint');
-      if(body&&(body.style.display==='none'||body.style.display==='')){
-        body.style.display='block';
-        if(hint) hint.style.display='none';
-        setTimeout(()=>body.scrollIntoView({behavior:'smooth',block:'start'}),100);
-      }
     };
-    card.innerHTML=buildTemplatePreview(t, idx)+`<div class="tpl-name">${t.names['bg']}</div>`;
+    // Generate realistic CV preview
+    const sidebarBg = t.sidebar || t.c1;
+    const isLightSidebar = ['#ede8ff','#e0faf7','#fff0f5','#f3e8ff','#fff7ed','#f8f9fa','#f0fdf4','#d8f3dc'].includes(sidebarBg);
+    const textOnSidebar = isLightSidebar ? t.c1 : 'rgba(255,255,255,0.9)';
+    card.innerHTML=`
+      <div class="tpl-preview">
+        <div class="tpl-sidebar" style="background:${sidebarBg};display:flex;flex-direction:column;padding:6px 4px;gap:3px;">
+          <div style="width:22px;height:22px;border-radius:50%;background:${t.c1};margin:0 auto 3px;opacity:0.8;"></div>
+          <div style="height:3px;border-radius:2px;background:${t.c1};opacity:0.5;width:80%;margin:0 auto;"></div>
+          <div style="height:2px;border-radius:2px;background:${t.c1};opacity:0.3;width:60%;margin:0 auto;"></div>
+          <div style="height:2px;border-radius:2px;background:${t.c1};opacity:0.3;width:70%;margin:0 auto;"></div>
+        </div>
+        <div class="tpl-main">
+          <div class="tpl-bar dark" style="background:${t.c1};opacity:0.7;width:70%;"></div>
+          <div class="tpl-bar" style="width:50%;"></div>
+          <div style="height:1px;background:${t.c1};opacity:0.2;margin:2px 0;"></div>
+          <div class="tpl-bar dark" style="background:${t.c1};opacity:0.5;width:40%;"></div>
+          <div class="tpl-bar short"></div>
+          <div class="tpl-bar short" style="width:75%;"></div>
+        </div>
+      </div>
+      <div class="tpl-name" data-tpl-id="${t.id}">${t.names[currentLang]||t.names.en}</div>`;
     grid.appendChild(card);
   });
-
-  // Move template grid BELOW the hint
-  const hint=document.getElementById('formRevealHint');
-  const gridEl=document.getElementById('templateGrid');
-  if(hint&&gridEl&&hint.parentNode){
-    hint.parentNode.insertBefore(gridEl, hint.nextSibling);
-  }
 
   document.querySelectorAll('.reveal').forEach(el=>{
     new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');});},{threshold:0.1}).observe(el);
   });
 });
+
+// ===== LANG =====
 const T={
   bg:{
     nav_login:'Вход',nav_register:'Безплатно начало',
@@ -1479,26 +1321,18 @@ function applyTranslations(lang){
 
 // ===== TABS =====
 function showTab(tab){
-  // Скрий всички табове
-  ['tabCV','tabLetter','tabSlide'].forEach(id=>{
-    const el=document.getElementById(id);
+  ['CV','Letter','Slide'].forEach(t=>{
+    const el=document.getElementById('tab'+t);
     if(el) el.style.display='none';
   });
-  // Покажи избрания
-  const ids={cv:'tabCV',letter:'tabLetter',slide:'tabSlide'};
-  const target=document.getElementById(ids[tab]);
+  const map={cv:'CV',letter:'Letter',slide:'Slide'};
+  const target=document.getElementById('tab'+map[tab]);
   if(target){
     target.style.display='block';
-    // Скролирай до него
-    setTimeout(()=>{
-      target.scrollIntoView({behavior:'smooth',block:'start'});
-    },100);
+    setTimeout(()=>target.scrollIntoView({behavior:'smooth',block:'start'}),100);
   }
 }
-function scrollToApp(){
-  const el=document.getElementById('app');
-  if(el) el.scrollIntoView({behavior:'smooth'});
-}
+function scrollToApp(){document.getElementById('app').scrollIntoView({behavior:'smooth'});}
 
 // ===== PHOTO =====
 function previewPhoto(input){
