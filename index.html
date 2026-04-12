@@ -508,13 +508,13 @@ footer{background:var(--dark);color:rgba(255,255,255,0.55);padding:48px 40px 28p
 
   </div>
 
-  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:14px;">
-    <div style="text-align:center;padding:18px;border:1.5px solid #e2e8f0;border-radius:14px;background:white;"><div style="font-size:20px;margin-bottom:6px;">🌍</div><div style="font-size:13px;font-weight:700;color:#0f172a;">50+ езика</div><div style="font-size:11px;color:#94a3b8;margin-top:3px;">CV на всеки език</div></div>
-    <div style="text-align:center;padding:18px;border:1.5px solid #e2e8f0;border-radius:14px;background:white;"><div style="font-size:20px;margin-bottom:6px;">⬇️</div><div style="font-size:13px;font-weight:700;color:#0f172a;">PDF и Word</div><div style="font-size:11px;color:#94a3b8;margin-top:3px;">Свали с 1 клик</div></div>
-    <div style="text-align:center;padding:18px;border:1.5px solid #e2e8f0;border-radius:14px;background:white;"><div style="font-size:20px;margin-bottom:6px;">⚡</div><div style="font-size:13px;font-weight:700;color:#0f172a;">2 минути</div><div style="font-size:11px;color:#94a3b8;margin-top:3px;">Готово за секунди</div></div>
-    <div style="text-align:center;padding:18px;border:1.5px solid #e2e8f0;border-radius:14px;background:white;"><div style="font-size:20px;margin-bottom:6px;">🤖</div><div style="font-size:13px;font-weight:700;color:#0f172a;">AI асистент</div><div style="font-size:11px;color:#94a3b8;margin-top:3px;">Помага 24/7</div></div>
-    <div style="text-align:center;padding:18px;border:1.5px solid #e2e8f0;border-radius:14px;background:white;"><div style="font-size:20px;margin-bottom:6px;">🔒</div><div style="font-size:13px;font-weight:700;color:#0f172a;">100% сигурно</div><div style="font-size:11px;color:#94a3b8;margin-top:3px;">GDPR защита</div></div>
-    <div style="text-align:center;padding:18px;border:1.5px solid #e2e8f0;border-radius:14px;background:white;"><div style="font-size:20px;margin-bottom:6px;">💶</div><div style="font-size:13px;font-weight:700;color:#0f172a;">Безплатно</div><div style="font-size:11px;color:#94a3b8;margin-top:3px;">Без кредитна карта</div></div>
+  <div style="display:grid;grid-template-columns:repeat(6,1fr);gap:14px;margin-top:32px;">
+    <div style="text-align:center;padding:18px 12px;border:1.5px solid #e2e8f0;border-radius:14px;background:white;"><div style="font-size:18px;margin-bottom:6px;">🌍</div><div style="font-size:12px;font-weight:700;color:#0f172a;">50+ езика</div><div style="font-size:11px;color:#94a3b8;margin-top:3px;">CV на всеки език</div></div>
+    <div style="text-align:center;padding:18px 12px;border:1.5px solid #e2e8f0;border-radius:14px;background:white;"><div style="font-size:18px;margin-bottom:6px;">⬇️</div><div style="font-size:12px;font-weight:700;color:#0f172a;">PDF и Word</div><div style="font-size:11px;color:#94a3b8;margin-top:3px;">Свали с 1 клик</div></div>
+    <div style="text-align:center;padding:18px 12px;border:1.5px solid #e2e8f0;border-radius:14px;background:white;"><div style="font-size:18px;margin-bottom:6px;">⚡</div><div style="font-size:12px;font-weight:700;color:#0f172a;">2 минути</div><div style="font-size:11px;color:#94a3b8;margin-top:3px;">Готово за секунди</div></div>
+    <div style="text-align:center;padding:18px 12px;border:1.5px solid #e2e8f0;border-radius:14px;background:white;"><div style="font-size:18px;margin-bottom:6px;">🤖</div><div style="font-size:12px;font-weight:700;color:#0f172a;">AI асистент</div><div style="font-size:11px;color:#94a3b8;margin-top:3px;">Помага 24/7</div></div>
+    <div style="text-align:center;padding:18px 12px;border:1.5px solid #e2e8f0;border-radius:14px;background:white;"><div style="font-size:18px;margin-bottom:6px;">🔒</div><div style="font-size:12px;font-weight:700;color:#0f172a;">100% сигурно</div><div style="font-size:11px;color:#94a3b8;margin-top:3px;">GDPR защита</div></div>
+    <div style="text-align:center;padding:18px 12px;border:1.5px solid #e2e8f0;border-radius:14px;background:white;"><div style="font-size:18px;margin-bottom:6px;">💶</div><div style="font-size:12px;font-weight:700;color:#0f172a;">Безплатно</div><div style="font-size:11px;color:#94a3b8;margin-top:3px;">Без кредитна карта</div></div>
   </div>
 </div>
 <!-- APP SECTION -->
@@ -902,6 +902,9 @@ function buildCV(t,idx){
 }
 window.addEventListener('DOMContentLoaded',function(){
   applyTranslations('bg');
+  // Отвори CV таба по подразбиране
+  const tabCV = document.getElementById('tabCV');
+  if(tabCV) tabCV.style.display='block';
   var grid=document.getElementById('templateGrid');
   if(grid){
     TEMPLATES.forEach(function(t,idx){
@@ -1509,7 +1512,12 @@ function showTab(tab){
   const map={cv:'CV',letter:'Letter'};
   if(map[tab]){
     const el=document.getElementById('tab'+map[tab]);
-    if(el){el.style.display='block';setTimeout(()=>el.scrollIntoView({behavior:'smooth',block:'start'}),100);}
+    if(el){
+      el.style.display='block';
+      setTimeout(()=>{
+        document.getElementById('app').scrollIntoView({behavior:'smooth',block:'start'});
+      },100);
+    }
   }
 }
 function scrollToApp(){document.getElementById('app').scrollIntoView({behavior:'smooth'});}
