@@ -1537,7 +1537,7 @@ function applyTranslations(lang){
   setph('job1-title',ph.job1t);setph('job1-company',ph.job1c);setph('job1-period',ph.job1p);setph('job1-location',ph.job1l);setph('job1-desc',ph.job1d);
   setph('job2-title',ph.job2t);setph('job2-company',ph.job2c);setph('job2-period',ph.job2p);setph('job2-location',ph.job2l);setph('job2-desc',ph.job2d);
   setph('job3-title',ph.job3t);setph('job3-company',ph.job3c);setph('job3-period',ph.job3p);setph('job3-location',ph.job3l);setph('job3-desc',ph.job3d);
-  setph('cv-edu',ph.edu);setph('cv-skills',ph.skills);setph('cv-languages',ph.languages);setph('cv-hobbies',ph.hobbies);setph('cv-motivation',ph.motivation);
+  setph('cv-edu',ph.edu);setph('cv-skills',ph.skills);setph('cv-languages',ph.languages);setph('cv-hobbies',ph.hobbies);
 }
 
 // ===== TABS =====
@@ -2041,7 +2041,7 @@ async function generateCV(){
   const driving=document.getElementById('cv-driving').value||'';
   const languages=document.getElementById('cv-languages').value||'';
   const hobbies=document.getElementById('cv-hobbies').value||'';
-  const motivation=document.getElementById('cv-motivation').value||'';
+  const motivation='';
   const lang=document.getElementById('cv-lang').value;
 
   const jobs=[];
