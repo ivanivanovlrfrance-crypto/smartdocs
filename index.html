@@ -660,8 +660,15 @@ footer{background:var(--dark);color:rgba(255,255,255,0.55);padding:48px 40px 28p
             <option value="D">Категория D (автобус)</option>
           </select>
         </div>
-        <div class="field-group"><label class="field-label" data-t="languages">🌍 Езици</label><input class="field-input" id="cv-languages" placeholder="Български C2, Френски C1, Английски B1..."></div>
+        <div class="field-group">
+          <label class="field-label">🚙 Личен автомобил</label>
+          <select class="field-input" id="cv-own-car">
+            <option value="">Нямам</option>
+            <option value="yes">Да, имам личен автомобил</option>
+          </select>
+        </div>
       </div>
+      <div class="field-group"><label class="field-label" data-t="languages">🌍 Езици</label><input class="field-input" id="cv-languages" placeholder="Български C2, Френски C1, Английски B1..."></div>
       <div class="field-group"><label class="field-label" data-t="hobbies">🎯 Хоби и интереси</label><input class="field-input" id="cv-hobbies" placeholder="Шофиране, майсторство, спорт, пътуване..."></div>
 
       <!-- LANGUAGE -->
@@ -1960,10 +1967,10 @@ function renderCVHTML(d,photoSrc,tpl){
 
   const skillsHTML=(d.skills||[]).map(s=>`<span style="display:inline-block;background:${t.c1}18;color:${t.text};font-size:11px;padding:3px 9px;border-radius:999px;margin:2px;font-weight:600;border:1px solid ${t.c1}30;">${s}</span>`).join('');
 
-  const extraHTML=`${d.driving?`<div style="margin-bottom:7px;font-size:12px;color:${sidebarTextColor};"><span style="color:${sidebarLabelColor};font-size:10px;display:block;text-transform:uppercase;letter-spacing:0.5px;">🚗 ${d.labels?.driving||'Permis'}</span>${d.driving}</div>`:''}
-  ${d.languages?`<div style="margin-bottom:7px;font-size:12px;color:${sidebarTextColor};"><span style="color:${sidebarLabelColor};font-size:10px;display:block;text-transform:uppercase;letter-spacing:0.5px;">🌍 ${d.labels?.languages||'Langues'}</span>${d.languages}</div>`:''}
-  ${d.hobbies?`<div style="font-size:12px;color:${sidebarTextColor};"><span style="color:${sidebarLabelColor};font-size:10px;display:block;text-transform:uppercase;letter-spacing:0.5px;">🎯 ${d.labels?.hobbies||'Loisirs'}</span>${d.hobbies}</div>`:''}`;
-
+  const extraHTML=`${d.driving?`<div style="margin-bottom:7px;font-size:12px;color:${sidebarTextColor};"><span style="color:${sidebarLabelColor};font-size:10px;display:block;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:2px;">🚗 ${d.labels?.driving||'Permis'}</span>${d.driving}</div>`:''}
+  ${d.languages?`<div style="margin-bottom:7px;font-size:12px;color:${sidebarTextColor};"><span style="color:${sidebarLabelColor};font-size:10px;display:block;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:2px;">🌍 ${d.labels?.languages||'Langues'}</span>${d.languages}</div>`:''}
+  ${d.hobbies?`<div style="font-size:12px;color:${sidebarTextColor};"><span style="color:${sidebarLabelColor};font-size:10px;display:block;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:2px;">🎯 ${d.labels?.hobbies||'Loisirs'}</span>${d.hobbies}</div>`:''}
+  `;
   const coverHTML=d.cover_letter?`
     <div style="margin-top:18px;padding-top:16px;border-top:2px dashed ${t.c1}30;">
       <div style="font-size:11px;font-weight:700;color:${t.text};text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;">✉ ${d.labels?.cover||'Lettre de motivation'}</div>
@@ -2039,6 +2046,7 @@ async function generateCV(){
   const edu=document.getElementById('cv-edu').value||'';
   const skills=document.getElementById('cv-skills').value||'';
   const driving=document.getElementById('cv-driving').value||'';
+  const ownCar=document.getElementById('cv-own-car')?.value||'';
   const languages=document.getElementById('cv-languages').value||'';
   const hobbies=document.getElementById('cv-hobbies').value||'';
   const motivation='';
@@ -2075,11 +2083,11 @@ Return this JSON structure:
   "profile": "rewrite the profile in professional ${lang} (3-4 sentences)",
   "education": "${edu}",
   "skills": ["skill1 in ${lang}", "skill2", "skill3", "skill4", "skill5", "skill6"],
-  "driving": "${driving}",
+  "driving": "${driving}${ownCar?', личен автомобил':''}",
   "languages": "${languages}",
   "hobbies": "${hobbies}",
   "experiences": [
-    {"title": "job title in ${lang}", "company": "company name", "period": "period", "location": "city/country", "desc": "3-4 professional bullet points about the work in ${lang}"},
+    {"title": "job title in ${lang}", "company": "company name", "period": "period", "location": "city/country", "desc": "maximum 2 short bullet points (one line each) - BRIEF, no long explanations"},
     ... for each job provided
   ],
   "labels": {
@@ -2103,7 +2111,7 @@ ${jobsText}
 
 Reply ONLY with the JSON object.`;
 
-  let cvData={name:`${fname} ${lname}`,position:'PROFESSIONNEL',phone,email,city,nationality,initials,profile,education:edu,skills:skills.split(',').map(s=>s.trim()).filter(Boolean),driving,languages,hobbies,experiences:jobs,labels:{contact:'Контакти',profile:'Профил',skills:'Умения',experience:'Трудов опит',education:'Образование',driving:'Шофьорска книжка',languages:'Езици',hobbies:'Интереси'}};
+  let cvData={name:`${fname} ${lname}`,position:'PROFESSIONNEL',phone,email,city,nationality,initials,profile,education:edu,skills:skills.split(',').map(s=>s.trim()).filter(Boolean),driving:driving+(ownCar?', личен автомобил':''),languages,hobbies,experiences:jobs,labels:{contact:'Контакти',profile:'Профил',skills:'Умения',experience:'Трудов опит',education:'Образование',driving:'Шофьорска книжка',languages:'Езици',hobbies:'Интереси'}};
 
   try{
     const result=await callClaude(prompt);
