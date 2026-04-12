@@ -402,22 +402,6 @@ footer{background:var(--dark);color:rgba(255,255,255,0.55);padding:48px 40px 28p
           </div>
         </div>
         <div id="hf2" class="hfeature" style="display:none;align-items:center;gap:16px;">
-          <div style="width:52px;height:52px;border-radius:14px;background:#fdf4ff;display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0;">🖼️</div>
-          <div>
-            <div style="font-size:11px;font-weight:700;color:#9333ea;text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;">Слайд генератор</div>
-            <div style="font-size:18px;font-weight:700;color:#0f172a;line-height:1.3;">Рекламни слайдове<br>за твоите продукти</div>
-            <div style="font-size:13px;color:#64748b;margin-top:3px;">Качи снимка · AI премахва фона · PNG</div>
-          </div>
-        </div>
-        <div id="hf3" class="hfeature" style="display:none;align-items:center;gap:16px;">
-          <div style="width:52px;height:52px;border-radius:14px;background:#fef2f2;display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0;">📱</div>
-          <div>
-            <div style="font-size:11px;font-weight:700;color:#dc2626;text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;">Социални медии</div>
-            <div style="font-size:18px;font-weight:700;color:#0f172a;line-height:1.3;">Постове за Facebook,<br>Instagram и TikTok</div>
-            <div style="font-size:13px;color:#64748b;margin-top:3px;">AI пише · Ти избираш рамка и цвят</div>
-          </div>
-        </div>
-        <div id="hf4" class="hfeature" style="display:none;align-items:center;gap:16px;">
           <div style="width:52px;height:52px;border-radius:14px;background:#eff6ff;display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0;">🌍</div>
           <div>
             <div style="font-size:11px;font-weight:700;color:#2563eb;text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;">50+ езика</div>
@@ -432,8 +416,6 @@ footer{background:var(--dark);color:rgba(255,255,255,0.55);padding:48px 40px 28p
         <div id="hd0" style="width:24px;height:6px;border-radius:3px;background:#ea580c;transition:all .3s;"></div>
         <div id="hd1" style="width:6px;height:6px;border-radius:50%;background:#e2e8f0;transition:all .3s;"></div>
         <div id="hd2" style="width:6px;height:6px;border-radius:50%;background:#e2e8f0;transition:all .3s;"></div>
-        <div id="hd3" style="width:6px;height:6px;border-radius:50%;background:#e2e8f0;transition:all .3s;"></div>
-        <div id="hd4" style="width:6px;height:6px;border-radius:50%;background:#e2e8f0;transition:all .3s;"></div>
       </div>
 
       <button class="btn-hero" onclick="showTab('cv')" style="font-size:15px;padding:15px 32px;border-radius:12px;max-width:340px;width:100%;display:block;margin-bottom:12px;">✦ Започни безплатно — без регистрация</button>
@@ -453,7 +435,7 @@ footer{background:var(--dark);color:rgba(255,255,255,0.55);padding:48px 40px 28p
 
   <script>
   (function(){
-    var cur=0, tot=5;
+    var cur=0, tot=3;
     function nextF(){
       document.getElementById('hf'+cur).style.display='none';
       document.getElementById('hd'+cur).style.cssText='width:6px;height:6px;border-radius:50%;background:#e2e8f0;transition:all .3s;';
@@ -521,23 +503,8 @@ footer{background:var(--dark);color:rgba(255,255,255,0.55);padding:48px 40px 28p
       <div style="font-size:12px;font-weight:700;color:#00856f;">Пиши писмо →</div>
     </div>
 
-    <div onclick="showTab('slide')" style="cursor:pointer;background:white;border:1.5px solid #e2e8f0;border-radius:16px;padding:24px;transition:all .25s;" onmouseenter="this.style.borderColor='#f97316';this.style.boxShadow='0 8px 24px rgba(249,115,22,0.12)';this.style.transform='translateY(-3px)'" onmouseleave="this.style.borderColor='#e2e8f0';this.style.boxShadow='none';this.style.transform=''">
-      <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px;">
-        <div style="width:36px;height:36px;background:#fff7ed;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;">🖼️</div>
-        <div style="font-size:16px;font-weight:700;color:#0f172a;">Създай слайд</div>
-      </div>
-      <p style="font-size:13px;color:#64748b;line-height:1.7;margin-bottom:14px;">Качи снимка на продукт — AI премахва фона и прави красив рекламен слайд за социалните мрежи.</p>
-      <div style="font-size:12px;font-weight:700;color:#f97316;">Направи слайд →</div>
-    </div>
-
-    <div onclick="showSocial()" style="cursor:pointer;background:white;border:1.5px solid #e2e8f0;border-radius:16px;padding:24px;transition:all .25s;" onmouseenter="this.style.borderColor='#ec4899';this.style.boxShadow='0 8px 24px rgba(236,72,153,0.12)';this.style.transform='translateY(-3px)'" onmouseleave="this.style.borderColor='#e2e8f0';this.style.boxShadow='none';this.style.transform=''">
-      <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px;">
-        <div style="width:36px;height:36px;background:#fdf2f8;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;">📱</div>
-        <div style="font-size:16px;font-weight:700;color:#0f172a;">Пост за соц. медии</div>
-      </div>
-      <p style="font-size:13px;color:#64748b;line-height:1.7;margin-bottom:14px;">Facebook, Instagram, TikTok — AI пише поста и го дизайнира с рамки, фонове и стилове.</p>
-      <div style="font-size:12px;font-weight:700;color:#ec4899;">Създай пост →</div>
-    </div>
+    <div onclick="showTab('slide')" style="display:none;"></div>
+    <div onclick="showSocial()" style="display:none;"></div>
 
   </div>
 
@@ -721,222 +688,7 @@ footer{background:var(--dark);color:rgba(255,255,255,0.55);padding:48px 40px 28p
     </div>
 
     <!-- SLIDE TAB -->
-    <div id="tabSlide" class="app-card" style="display:none;">
-      <div class="form-section"><span class="form-section-icon">🖼️</span><span class="form-section-title">Качи снимка на продукта</span></div>
-      <div class="photo-upload" style="position:relative;" id="slideDropZone">
-        <input type="file" id="slideImgInput" accept="image/*" onchange="previewSlideImg(this)" style="position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%;">
-        <div style="font-size:36px;margin-bottom:8px;">🖼️</div>
-        <p style="font-size:13px;color:var(--gray);">Плъзни снимката тук или кликни</p>
-        <p style="font-size:11px;color:var(--teal);margin-top:4px;">✦ AI автоматично премахва фона на снимката</p>
-        <img id="slideImgPreview" style="max-width:180px;max-height:120px;border-radius:10px;margin:10px auto;display:none;object-fit:cover;">
-        <div id="slideBgStatus" style="display:none;font-size:11px;margin-top:6px;"></div>
-      </div>
-      <div class="field-group"><label class="field-label">Как се казва продуктът?</label><input class="field-input" id="slide-name" placeholder="Алое Вера гел LR"></div>
-      <div class="field-group"><label class="field-label">Опиши продукта</label><textarea class="field-input" id="slide-desc" style="min-height:80px;" placeholder="Натурален гел с алое вера, хидратира и освежава кожата..."></textarea></div>
-      <div class="field-row">
-        <div class="field-group"><label class="field-label">Стил</label>
-          <select class="field-input" id="slide-style">
-            <option value="modern">Модерен</option>
-            <option value="elegant">Елегантен</option>
-            <option value="bold">Смел</option>
-            <option value="natural">Природен</option>
-          </select>
-        </div>
-        <div class="field-group"><label class="field-label">Език</label>
-          <select class="field-input" id="slide-lang"><option>Български</option><option>English</option><option>Deutsch</option><option>Français</option><option>Español</option></select>
-        </div>
-      </div>
-      <button class="generate-btn" onclick="generateSlide()" id="slideGenBtn" data-t="gen_slide">✦ Генерирай слайда с AI</button>
-      <div class="ai-loading" id="slide-loading"><div class="ai-loading-dots"><div class="ai-dot"></div><div class="ai-dot"></div><div class="ai-dot"></div></div><p style="color:var(--gray);font-size:14px;">Claude AI създава слайда...</p></div>
-      <div class="output-wrap" id="slide-output">
-        <div class="output-label" data-t="preview_simple">Преглед</div>
-        <div style="border-radius:14px;overflow:hidden;max-width:760px;margin:0 auto;box-shadow:0 8px 32px rgba(0,0,0,0.15);" id="slide-visual"></div>
-        <div class="dl-row">
-          <button class="dl-btn prim" onclick="downloadSlidePDF()">⬇ PDF (A4)</button>
-          <button class="dl-btn prim" onclick="downloadSlidePNG()" style="background:linear-gradient(135deg,#00c9b1,#00e5cc);border:none;">⬇ PNG</button>
-          <button class="dl-btn sec" onclick="generateSlide()">🔄 Нов вариант</button>
-        </div>
-      </div>
-    </div>
 
-    <!-- SOCIAL TAB -->
-    <div id="tabSocial" class="app-card" style="display:none;">
-      <div style="text-align:center;margin-bottom:24px;padding-bottom:20px;border-bottom:1.5px solid var(--border);">
-        <div style="font-size:32px;margin-bottom:8px;">📱</div>
-        <h2 style="font-family:'Fraunces',serif;font-size:28px;font-weight:300;color:var(--dark);">Пост за социални медии</h2>
-        <p style="color:var(--gray);font-size:14px;margin-top:4px;">Опиши какво искаш — AI пише и дизайнира поста</p>
-      </div>
-
-      <!-- PLATFORM -->
-      <div class="form-section"><span class="form-section-icon">📲</span><span class="form-section-title">Избери платформа</span></div>
-      <div style="display:flex;gap:12px;margin-bottom:20px;flex-wrap:wrap;">
-        <div class="social-platform-btn active" onclick="selectPlatform('facebook',this)" style="flex:1;min-width:120px;border:2.5px solid #1877f2;border-radius:14px;padding:14px 10px;text-align:center;cursor:pointer;background:#e8f0fe;transition:.2s;">
-          <div style="font-size:28px;margin-bottom:4px;">📘</div>
-          <div style="font-size:13px;font-weight:700;color:#1877f2;">Facebook</div>
-        </div>
-        <div class="social-platform-btn" onclick="selectPlatform('instagram',this)" style="flex:1;min-width:120px;border:2.5px solid var(--border);border-radius:14px;padding:14px 10px;text-align:center;cursor:pointer;background:white;transition:.2s;">
-          <div style="font-size:28px;margin-bottom:4px;">📸</div>
-          <div style="font-size:13px;font-weight:700;color:#e1306c;">Instagram</div>
-        </div>
-        <div class="social-platform-btn" onclick="selectPlatform('tiktok',this)" style="flex:1;min-width:120px;border:2.5px solid var(--border);border-radius:14px;padding:14px 10px;text-align:center;cursor:pointer;background:white;transition:.2s;">
-          <div style="font-size:28px;margin-bottom:4px;">🎵</div>
-          <div style="font-size:13px;font-weight:700;color:#010101;">TikTok</div>
-        </div>
-      </div>
-
-      <!-- PHOTO UPLOAD -->
-      <div class="form-section"><span class="form-section-icon">🖼️</span><span class="form-section-title">Снимка (незадължително)</span></div>
-      <div class="photo-upload" onclick="document.getElementById('socialPhotoInput').click()" style="position:relative;margin-bottom:16px;">
-        <input type="file" id="socialPhotoInput" accept="image/*" style="display:none" onchange="previewSocialPhoto(this)">
-        <div id="socialPhotoPlaceholder">
-          <div style="font-size:28px;">📷</div>
-          <p style="font-size:13px;color:var(--gray);margin-top:6px;">Качи снимка от телефон или компютър</p>
-          <p style="font-size:11px;color:var(--p);margin-top:4px;">✦ AI анализира снимката и пише подходящ текст</p>
-        </div>
-        <img id="socialPhotoPreview" style="max-width:100%;max-height:200px;border-radius:10px;display:none;object-fit:cover;">
-      </div>
-      <div id="socialPhotoActions" style="display:none;text-align:center;margin-bottom:16px;">
-        <div id="socialBgStatus" style="display:none;font-size:12px;margin-bottom:6px;"></div>
-        <div style="font-size:12px;color:var(--teal);margin-bottom:6px;">✅ Снимката е качена — AI ще я анализира</div>
-        <button onclick="removeSocialPhoto()" style="background:none;border:1px solid var(--border);border-radius:8px;padding:4px 12px;font-size:12px;cursor:pointer;color:var(--gray);">✕ Премахни снимката</button>
-      </div>
-
-      <!-- POST CONTENT -->
-      <div class="form-section"><span class="form-section-icon">✍️</span><span class="form-section-title">Опиши поста</span></div>
-      <textarea class="field-input" id="social-desc" style="min-height:100px;" placeholder="Искам да промотирам моя продукт за красота, да привлека нови клиенти, тон да е весел и приятелски..."></textarea>
-
-      <!-- PHOTO UPLOAD -->
-      <div class="form-section" style="margin-top:16px;"><span class="form-section-icon">📷</span><span class="form-section-title">Добави снимка (незадължително)</span></div>
-      <div id="socialPhotoZone" onclick="document.getElementById('socialPhotoInput').click()" style="border:2px dashed rgba(108,71,255,0.25);border-radius:14px;padding:20px;text-align:center;cursor:pointer;background:var(--p4);margin-bottom:16px;transition:.2s;" onmouseenter="this.style.borderColor='#6c47ff'" onmouseleave="this.style.borderColor='rgba(108,71,255,0.25)'">
-        <input type="file" id="socialPhotoInput" accept="image/*" style="display:none" onchange="previewSocialPhoto(this)">
-        <div id="socialPhotoPlaceholder">
-          <div style="font-size:32px;margin-bottom:8px;">📸</div>
-          <p style="font-size:13px;color:var(--gray);margin:0;">Качи снимка от телефон или компютър</p>
-          <p style="font-size:11px;color:var(--p);margin-top:4px;">AI ще постави текста върху снимката</p>
-        </div>
-        <img id="socialPhotoPreview" style="max-width:100%;max-height:200px;border-radius:10px;display:none;object-fit:cover;">
-      </div>
-      <div id="socialPhotoActions" style="display:none;margin-bottom:16px;display:none;">
-        <button onclick="removeSocialPhoto()" style="background:none;border:1.5px solid var(--border);border-radius:10px;padding:7px 16px;font-size:12px;cursor:pointer;color:var(--gray);">✕ Махни снимката</button>
-      </div>
-
-      <div class="field-row" style="margin-top:14px;">
-        <div class="field-group">
-          <label class="field-label">Тон на поста</label>
-          <select class="field-input" id="social-tone">
-            <option value="friendly">😊 Приятелски</option>
-            <option value="professional">💼 Професионален</option>
-            <option value="funny">😂 Забавен</option>
-            <option value="inspiring">✨ Вдъхновяващ</option>
-            <option value="urgent">🔥 Спешен / Оферта</option>
-          </select>
-        </div>
-        <div class="field-group">
-          <label class="field-label">Език</label>
-          <select class="field-input" id="social-lang">
-            <option>Български</option><option>English</option><option>Français</option><option>Deutsch</option><option>Español</option><option>Italiano</option><option>Română</option>
-          </select>
-        </div>
-      </div>
-
-      <!-- FRAME & BACKGROUND -->
-      <div class="form-section"><span class="form-section-icon">🎨</span><span class="form-section-title">Избери рамка и фон</span></div>
-
-      <div style="margin-bottom:14px;">
-        <label class="field-label" style="margin-bottom:10px;display:block;">Фон</label>
-        <div style="display:flex;gap:10px;flex-wrap:wrap;">
-          <div class="bg-option active-bg" onclick="selectBg('gradient1',this)" title="Лилав градиент" style="width:44px;height:44px;border-radius:12px;background:linear-gradient(135deg,#6c47ff,#9b7bff);cursor:pointer;border:3px solid #6c47ff;box-shadow:0 0 0 2px white inset;"></div>
-          <div class="bg-option" onclick="selectBg('gradient2',this)" title="Тюркоаз" style="width:44px;height:44px;border-radius:12px;background:linear-gradient(135deg,#00c9b1,#00e5cc);cursor:pointer;border:3px solid transparent;"></div>
-          <div class="bg-option" onclick="selectBg('gradient3',this)" title="Залез" style="width:44px;height:44px;border-radius:12px;background:linear-gradient(135deg,#ff6b6b,#ffd93d);cursor:pointer;border:3px solid transparent;"></div>
-          <div class="bg-option" onclick="selectBg('gradient4',this)" title="Нощ" style="width:44px;height:44px;border-radius:12px;background:linear-gradient(135deg,#0f0c29,#302b63,#24243e);cursor:pointer;border:3px solid transparent;"></div>
-          <div class="bg-option" onclick="selectBg('gradient5',this)" title="Розов" style="width:44px;height:44px;border-radius:12px;background:linear-gradient(135deg,#f093fb,#f5576c);cursor:pointer;border:3px solid transparent;"></div>
-          <div class="bg-option" onclick="selectBg('gradient6',this)" title="Океан" style="width:44px;height:44px;border-radius:12px;background:linear-gradient(135deg,#4facfe,#00f2fe);cursor:pointer;border:3px solid transparent;"></div>
-          <div class="bg-option" onclick="selectBg('gradient7',this)" title="Злато" style="width:44px;height:44px;border-radius:12px;background:linear-gradient(135deg,#f7971e,#ffd200);cursor:pointer;border:3px solid transparent;"></div>
-          <div class="bg-option" onclick="selectBg('solid_white',this)" title="Бял" style="width:44px;height:44px;border-radius:12px;background:white;cursor:pointer;border:3px solid transparent;box-shadow:0 0 0 1px rgba(0,0,0,0.1);"></div>
-          <div class="bg-option" onclick="selectBg('solid_dark',this)" title="Тъмен" style="width:44px;height:44px;border-radius:12px;background:#1a1a2e;cursor:pointer;border:3px solid transparent;"></div>
-          <div class="bg-option" onclick="selectBg('pattern1',this)" title="Точки" style="width:44px;height:44px;border-radius:12px;background:#f0ebff radial-gradient(circle,#6c47ff33 1px,transparent 1px) 0 0/20px 20px;cursor:pointer;border:3px solid transparent;"></div>
-          <div class="bg-option" onclick="selectBg('pattern2',this)" title="Линии" style="width:44px;height:44px;border-radius:12px;background:#e8f4ff repeating-linear-gradient(45deg,#4facfe22 0,#4facfe22 1px,transparent 0,transparent 50%) 0/10px 10px;cursor:pointer;border:3px solid transparent;"></div>
-        </div>
-      </div>
-
-      <div style="margin-bottom:20px;">
-        <label class="field-label" style="margin-bottom:10px;display:block;">Рамка</label>
-        <div style="display:flex;gap:10px;flex-wrap:wrap;">
-          <div class="frame-option active-frame" onclick="selectFrame('none',this)" style="width:56px;height:44px;border-radius:10px;background:#f5f5f5;cursor:pointer;border:2.5px solid #6c47ff;display:flex;align-items:center;justify-content:center;font-size:11px;color:#6c47ff;font-weight:700;">Без</div>
-          <div class="frame-option" onclick="selectFrame('rounded',this)" style="width:56px;height:44px;border-radius:10px;background:white;cursor:pointer;border:2.5px solid var(--border);display:flex;align-items:center;justify-content:center;"><div style="width:36px;height:28px;border:3px solid #6c47ff;border-radius:8px;"></div></div>
-          <div class="frame-option" onclick="selectFrame('shadow',this)" style="width:56px;height:44px;border-radius:10px;background:white;cursor:pointer;border:2.5px solid var(--border);display:flex;align-items:center;justify-content:center;"><div style="width:36px;height:28px;background:#ede8ff;border-radius:6px;box-shadow:3px 3px 0 #6c47ff;"></div></div>
-          <div class="frame-option" onclick="selectFrame('double',this)" style="width:56px;height:44px;border-radius:10px;background:white;cursor:pointer;border:2.5px solid var(--border);display:flex;align-items:center;justify-content:center;"><div style="width:36px;height:28px;border:2px solid #6c47ff;border-radius:4px;outline:3px solid #9b7bff;outline-offset:2px;"></div></div>
-          <div class="frame-option" onclick="selectFrame('gradient_border',this)" style="width:56px;height:44px;border-radius:10px;background:white;cursor:pointer;border:2.5px solid var(--border);display:flex;align-items:center;justify-content:center;"><div style="width:36px;height:28px;border-radius:6px;background:linear-gradient(white,white) padding-box, linear-gradient(135deg,#6c47ff,#00c9b1) border-box;border:3px solid transparent;"></div></div>
-          <div class="frame-option" onclick="selectFrame('neon',this)" style="width:56px;height:44px;border-radius:10px;background:#1a1a2e;cursor:pointer;border:2.5px solid var(--border);display:flex;align-items:center;justify-content:center;"><div style="width:36px;height:28px;border:2px solid #00e5cc;border-radius:4px;box-shadow:0 0 8px #00e5cc,inset 0 0 8px rgba(0,229,204,0.1);"></div></div>
-        </div>
-      </div>
-
-      <button class="generate-btn" onclick="generateSocialPost()">✦ Генерирай поста с AI</button>
-      <div class="ai-loading" id="social-loading"><div class="ai-loading-dots"><div class="ai-dot"></div><div class="ai-dot"></div><div class="ai-dot"></div></div><p style="color:var(--gray);font-size:14px;">AI създава поста...</p></div>
-
-      <!-- PREVIEW -->
-      <div class="output-wrap" id="social-output">
-        <div class="output-label">Преглед на поста</div>
-        <div style="display:flex;gap:20px;flex-wrap:wrap;align-items:flex-start;">
-          <!-- POST VISUAL -->
-          <div style="flex:1;min-width:280px;">
-            <div id="social-post-preview" style="border-radius:16px;overflow:hidden;background:white;box-shadow:0 8px 32px rgba(0,0,0,0.12);max-width:400px;margin:0 auto;">
-              <!-- Хедър на поста като соц. медия -->
-              <div style="display:flex;align-items:center;gap:10px;padding:12px 14px;border-bottom:1px solid #f0f0f0;">
-                <div id="platform-avatar" style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#6c47ff,#9b7bff);display:flex;align-items:center;justify-content:center;font-size:16px;">✦</div>
-                <div>
-                  <div style="font-size:13px;font-weight:700;color:#130f2a;">SmartDocs</div>
-                  <div style="font-size:11px;color:#999;">Сега · 🌍</div>
-                </div>
-              </div>
-              <!-- Снимката -->
-              <div id="social-img-area" style="display:none;width:100%;position:relative;">
-                <!-- Стил селектор — ОТВЪН над снимката -->
-                <div style="padding:10px 14px;background:#f8f9fa;border-bottom:1px solid #eee;display:flex;gap:6px;flex-wrap:wrap;align-items:center;">
-                  <span style="font-size:11px;color:#888;font-weight:600;margin-right:4px;">Стил:</span>
-                  <button onclick="applyImgStyle(0)" style="background:white;color:#333;border:1.5px solid #ddd;border-radius:20px;padding:4px 12px;font-size:11px;cursor:pointer;transition:.2s;" onmouseenter="this.style.borderColor='#6c47ff';this.style.color='#6c47ff'" onmouseleave="this.style.borderColor='#ddd';this.style.color='#333'">✨ Избледняване</button>
-                  <button onclick="applyImgStyle(1)" style="background:white;color:#333;border:1.5px solid #ddd;border-radius:20px;padding:4px 12px;font-size:11px;cursor:pointer;transition:.2s;" onmouseenter="this.style.borderColor='#6c47ff';this.style.color='#6c47ff'" onmouseleave="this.style.borderColor='#ddd';this.style.color='#333'">🌊 Вълна</button>
-                  <button onclick="applyImgStyle(2)" style="background:white;color:#333;border:1.5px solid #ddd;border-radius:20px;padding:4px 12px;font-size:11px;cursor:pointer;transition:.2s;" onmouseenter="this.style.borderColor='#6c47ff';this.style.color='#6c47ff'" onmouseleave="this.style.borderColor='#ddd';this.style.color='#333'">⭕ Кръг</button>
-                  <button onclick="applyImgStyle(3)" style="background:white;color:#333;border:1.5px solid #ddd;border-radius:20px;padding:4px 12px;font-size:11px;cursor:pointer;transition:.2s;" onmouseenter="this.style.borderColor='#6c47ff';this.style.color='#6c47ff'" onmouseleave="this.style.borderColor='#ddd';this.style.color='#333'">🔷 Диамант</button>
-                  <button onclick="applyImgStyle(4)" style="background:white;color:#333;border:1.5px solid #ddd;border-radius:20px;padding:4px 12px;font-size:11px;cursor:pointer;transition:.2s;" onmouseenter="this.style.borderColor='#6c47ff';this.style.color='#6c47ff'" onmouseleave="this.style.borderColor='#ddd';this.style.color='#333'">🎨 Плавен</button>
-                  <button onclick="applyImgStyle(Math.floor(Math.random()*5))" style="background:linear-gradient(135deg,#6c47ff,#9b7bff);color:white;border:none;border-radius:20px;padding:4px 12px;font-size:11px;cursor:pointer;">🎲 Случаен</button>
-                </div>
-                <!-- Снимката с фон -->
-                <div id="img-container" style="position:relative;overflow:hidden;min-height:280px;display:flex;align-items:flex-end;justify-content:center;background:linear-gradient(135deg,#6c47ff,#9b7bff);">
-                  <img id="social-img-in-post" style="max-width:85%;max-height:340px;object-fit:contain;object-position:bottom center;display:block;position:relative;z-index:1;">
-                  <div id="img-edge-overlay" style="position:absolute;inset:0;pointer-events:none;z-index:2;"></div>
-                </div>
-              </div>
-              </div>
-              <!-- Фон (ако няма снимка) -->
-              <div id="social-bg-area" style="min-height:140px;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#6c47ff,#9b7bff);"></div>
-              <!-- Текст под снимката -->
-              <div id="social-text-zone" style="padding:16px 14px;background:white;transition:background .3s;">
-                <div id="social-post-text" style="font-size:14px;line-height:1.7;color:#130f2a;white-space:pre-wrap;"></div>
-                <div id="social-post-hashtags" style="margin-top:8px;font-size:13px;color:#1877f2;font-weight:500;"></div>
-              </div>
-              <!-- Реакции -->
-              <div style="padding:8px 14px;border-top:1px solid #f0f0f0;display:flex;gap:16px;">
-                <span style="font-size:12px;color:#666;">👍 Харесва ми</span>
-                <span style="font-size:12px;color:#666;">💬 Коментар</span>
-                <span style="font-size:12px;color:#666;">↗️ Сподели</span>
-              </div>
-            </div>
-            </div>
-            <div class="dl-row">
-              <button class="dl-btn prim" onclick="downloadSocialPNG()">⬇ PNG</button>
-              <button class="dl-btn sec" onclick="copySocialText()">📋 Копирай текст</button>
-              <button class="dl-btn sec" onclick="generateSocialPost()">🔄 Нов вариант</button>
-            </div>
-          </div>
-          <!-- TEXT OUTPUT -->
-          <div style="flex:1;min-width:260px;">
-            <div class="output-label">Текст за копиране</div>
-            <div id="social-text-output" style="background:#f8f9fa;border:1.5px solid var(--border);border-radius:14px;padding:20px;font-size:14px;line-height:1.8;color:var(--dark);white-space:pre-wrap;"></div>
-          </div>
-        </div>
-      </div>
-    </div>
   </div>
 </div>
 
@@ -974,7 +726,7 @@ footer{background:var(--dark);color:rgba(255,255,255,0.55);padding:48px 40px 28p
     <div class="footer-top">
       <div><div class="footer-logo"><div class="footer-logo-icon">✦</div>Smart<span>Docs</span></div><p class="footer-tagline" data-t="footer_tagline">AI документи за всеки. Навсякъде по света.</p></div>
       <div class="footer-links">
-        <div class="footer-col"><h4 data-t="footer_product">Продукт</h4><a onclick="showTab('cv');scrollToApp()" data-t="footer_cv">CV генератор</a><a onclick="showTab('letter');scrollToApp()" data-t="footer_letters">Писма</a><a onclick="showTab('slide');scrollToApp()" data-t="footer_slides">Слайдове</a><a onclick="document.getElementById('pricing').scrollIntoView({behavior:'smooth'})">Цени</a></div>
+        <div class="footer-col"><h4 data-t="footer_product">Продукт</h4><a onclick="showTab('cv');scrollToApp()" data-t="footer_cv">CV генератор</a><a onclick="showTab('letter');scrollToApp()" data-t="footer_letters">Писма</a><a onclick="document.getElementById('pricing').scrollIntoView({behavior:'smooth'})">Цени</a></div>
         <div class="footer-col"><h4 data-t="footer_company">Компания</h4><a href="#" data-t="footer_about">За нас</a><a href="#" data-t="footer_privacy">Поверителност</a><a href="#" data-t="footer_terms">Условия</a><a href="#" data-t="footer_contact">Контакт</a></div>
       </div>
     </div>
@@ -1752,24 +1504,17 @@ function applyTranslations(lang){
 
 // ===== TABS =====
 function showTab(tab){
-  ['CV','Letter','Slide'].forEach(t=>{const el=document.getElementById('tab'+t);if(el)el.style.display='none';});
+  ['CV','Letter'].forEach(t=>{const el=document.getElementById('tab'+t);if(el)el.style.display='none';});
   document.querySelectorAll('.app-tab').forEach(el=>el.classList.remove('active'));
-  const map={cv:'CV',letter:'Letter',slide:'Slide'};
-  document.getElementById('tab'+map[tab]).style.display='block';
-  event.target.classList.add('active');
+  const map={cv:'CV',letter:'Letter'};
+  if(map[tab]){
+    const el=document.getElementById('tab'+map[tab]);
+    if(el){el.style.display='block';setTimeout(()=>el.scrollIntoView({behavior:'smooth',block:'start'}),100);}
+  }
 }
 function scrollToApp(){document.getElementById('app').scrollIntoView({behavior:'smooth'});}
+function showSocial(){showTab('cv');}
 
-// ===== SOCIAL MEDIA =====
-let currentPlatform='facebook', currentBg='gradient1', currentFrame='none', socialPhotoBase64='', socialMediaType='image/jpeg';
-function showSocial(){
-  ['tabCV','tabLetter','tabSlide','tabSocial'].forEach(id=>{
-    const el=document.getElementById(id);
-    if(el) el.style.display='none';
-  });
-  const t=document.getElementById('tabSocial');
-  if(t){t.style.display='block';setTimeout(()=>t.scrollIntoView({behavior:'smooth',block:'start'}),100);}
-}
 
 function previewSocialPhoto(input){
   if(!input.files||!input.files[0]) return;
