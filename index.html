@@ -547,12 +547,23 @@ footer{background:var(--dark);color:rgba(255,255,255,0.55);padding:48px 40px 28p
         <div class="field-group"><label class="field-label" data-t="lname">Фамилия</label><input class="field-input" id="cv-lname" placeholder="Петров"></div>
       </div>
       <div class="field-row">
+        <div class="field-group">
+          <label class="field-label">👤 Пол</label>
+          <select class="field-input" id="cv-gender">
+            <option value="">— Избери —</option>
+            <option value="male">Мъж</option>
+            <option value="female">Жена</option>
+          </select>
+        </div>
+        <div class="field-group"><label class="field-label">🎂 Възраст (години)</label><input class="field-input" id="cv-age" type="number" min="16" max="80" placeholder="35"></div>
+      </div>
+      <div class="field-row">
         <div class="field-group"><label class="field-label" data-t="phone">📞 Телефон</label><input class="field-input" id="cv-phone" placeholder="+359 88 123 456"></div>
         <div class="field-group"><label class="field-label" data-t="email">✉️ Email</label><input class="field-input" id="cv-email" placeholder="ivan@mail.com"></div>
       </div>
       <div class="field-row">
         <div class="field-group"><label class="field-label" data-t="city">📍 Град / Адрес</label><input class="field-input" id="cv-city" placeholder="София или Payerne, Швейцария"></div>
-        <div class="field-group"><label class="field-label" data-t="nationality">🌍 Националност</label><input class="field-input" id="cv-nationality" placeholder="Български"></div>
+        <div class="field-group"><label class="field-label" data-t="nationality">🌍 Националност (държава)</label><input class="field-input" id="cv-nationality" placeholder="България"></div>
       </div>
 
       <!-- PROFILE -->
@@ -838,17 +849,22 @@ let currentTemplate=1, usedFree=false;
 // ===== TEMPLATES NEW =====
 const TEMPLATES=[
   {id:1,names:{bg:'Лилав Classic'},c1:'#6c47ff',sidebar:'#ede8ff',layout:'sidebar'},
-  {id:2,names:{bg:'Тъмен Pro'},c1:'#130f2a',sidebar:'#0d0b1e',layout:'sidebar'},
+  {id:2,names:{bg:'Тъмен Pro'},c1:'#6c47ff',sidebar:'#0d0b1e',layout:'sidebar'},
   {id:3,names:{bg:'Корал Header'},c1:'#ff6b6b',sidebar:'#ff6b6b',layout:'header'},
   {id:4,names:{bg:'Тюркоаз Split'},c1:'#00c9b1',sidebar:'#e0faf7',layout:'twocol'},
-  {id:5,names:{bg:'Злато Header'},c1:'#1a1a2e',sidebar:'#1a1a2e',layout:'header'},
-  {id:6,names:{bg:'Зелен Minimal'},c1:'#1b4332',sidebar:'#d8f3dc',layout:'minimal'},
+  {id:5,names:{bg:'Злато Header'},c1:'#c9a96e',sidebar:'#1a1a2e',layout:'header'},
+  {id:6,names:{bg:'Зелен Minimal'},c1:'#1b4332',sidebar:'#d8f3dc',layout:'sidebar'},
   {id:7,names:{bg:'Розов Classic'},c1:'#e63946',sidebar:'#fff0f5',layout:'sidebar'},
-  {id:8,names:{bg:'Морски Split'},c1:'#023e8a',sidebar:'#03045e',layout:'twocol'},
-  {id:9,names:{bg:'Виолетов Soft'},c1:'#7b2d8b',sidebar:'#f3e8ff',layout:'minimal'},
-  {id:10,names:{bg:'Портокал Header'},c1:'#f77f00',sidebar:'#fff7ed',layout:'header'},
+  {id:8,names:{bg:'Морски Pro'},c1:'#4cc9f0',sidebar:'#03045e',layout:'sidebar'},
+  {id:9,names:{bg:'Виолетов Soft'},c1:'#7b2d8b',sidebar:'#f3e8ff',layout:'sidebar'},
+  {id:10,names:{bg:'Портокал Bold'},c1:'#f77f00',sidebar:'#f77f00',layout:'header'},
   {id:11,names:{bg:'Сив Clean'},c1:'#495057',sidebar:'#f8f9fa',layout:'sidebar'},
-  {id:12,names:{bg:'Природен Split'},c1:'#1b4332',sidebar:'#f0fdf4',layout:'twocol'},
+  {id:12,names:{bg:'Природен'},c1:'#2d6a4f',sidebar:'#d8f3dc',layout:'sidebar'},
+  {id:13,names:{bg:'Оранжев Modern'},c1:'#e85d04',sidebar:'#e85d04',layout:'photo_left'},
+  {id:14,names:{bg:'Тюркоаз Pro'},c1:'#0a9396',sidebar:'#0a9396',layout:'photo_rect'},
+  {id:15,names:{bg:'Диагонал'},c1:'#e85d04',sidebar:'#ffffff',layout:'diagonal'},
+  {id:16,names:{bg:'Синьо Стил'},c1:'#4a7fa5',sidebar:'#b8d4e8',layout:'photo_top'},
+  {id:17,names:{bg:'Минималист'},c1:'#4a7fa5',sidebar:'#f0f4f8',layout:'minimal_pro'},
 ];
 const PEOPLE=[
   {n:'Мария Георгиева',j:'Маркетинг мениджър',c:'София',i:'МГ',b:'#e8d5ff'},
@@ -865,7 +881,8 @@ const PEOPLE=[
   {n:'Мила Тодорова',j:'Администратор',c:'Шумен',i:'МТ',b:'#e8ffd5'},
 ];
 function buildCV(t,idx){
-  var p=PEOPLE[idx];
+  var p=PEOPLE[idx%PEOPLE.length];
+  if(!p) p=PEOPLE[0];
   var c=t.c1, sb=t.sidebar||t.c1;
   var dark=['#0d0b1e','#1a1a2e','#03045e'].indexOf(sb)>-1;
   var tc=dark?'rgba(255,255,255,0.9)':c;
@@ -1950,99 +1967,315 @@ function setLoading(prefix,show){
 // ===== RENDER CV =====
 function renderCVHTML(d,photoSrc,tpl){
   const t=TEMPLATES.find(x=>x.id===tpl)||TEMPLATES[0];
-  const ph=photoSrc?`<img src="${photoSrc}" style="width:100%;height:100%;object-fit:cover;border-radius:50%;">`:`<span style="font-size:32px;font-weight:700;color:white;">${d.initials}</span>`;
-  
-  const sidebarDark=['#130f2a','#0d0b1e','#ff6b6b','#03045e','#1a1a2e','#1b4332','#e63946','#023e8a','#7b2d8b','#f77f00'].includes(t.sidebar);
-  const sidebarTextColor=sidebarDark?'rgba(255,255,255,0.85)':'#333';
-  const sidebarLabelColor=sidebarDark?'rgba(255,255,255,0.55)':'#666';
-  const sidebarTitleColor=t.id===5?'#c9a96e':(sidebarDark?'rgba(255,255,255,0.9)':t.text);
+
+  // Яркост на sidebar цвета
+  const getBrightness=hex=>{
+    if(!hex||!hex.startsWith('#')) return 255;
+    const r=parseInt(hex.slice(1,3),16);
+    const g=parseInt(hex.slice(3,5),16);
+    const b=parseInt(hex.slice(5,7),16);
+    return (r*299+g*587+b*114)/1000;
+  };
+  const isDark=getBrightness(t.sidebar)<140;
+  const textC=isDark?'rgba(255,255,255,0.92)':'#1a1a1a';
+  const labelC=isDark?'rgba(255,255,255,0.48)':'rgba(0,0,0,0.42)';
+  const borderC=isDark?'rgba(255,255,255,0.15)':'rgba(0,0,0,0.10)';
+  const iconC=isDark?'rgba(255,255,255,0.55)':'rgba(0,0,0,0.38)';
+
+  // Снимка — кръгла или правоъгълна
+  const photoCircle=photoSrc
+    ?`<img src="${photoSrc}" style="width:100%;height:100%;object-fit:cover;">`
+    :`<span style="font-size:30px;font-weight:700;color:white;">${d.initials}</span>`;
+  const photoRect=photoSrc
+    ?`<img src="${photoSrc}" style="width:100%;height:100%;object-fit:cover;">`
+    :`<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:${t.c1}33;font-size:40px;font-weight:700;color:${t.c1};">${d.initials}</div>`;
+
+  const genderAge=[d.gender,d.age?d.age+' год.':''].filter(Boolean).join(' · ');
+
+  // Секции за sidebar
+  const sidebarSections=`
+    <div style="margin-bottom:18px;">
+      <div style="font-size:9px;font-weight:800;color:${labelC};text-transform:uppercase;letter-spacing:1.8px;margin-bottom:8px;padding-bottom:5px;border-bottom:1px solid ${borderC};">${d.labels?.contact||'Контакти'}</div>
+      ${d.phone?`<div style="font-size:11.5px;color:${textC};margin-bottom:6px;display:flex;align-items:center;gap:7px;"><span style="color:${iconC};">✆</span>${d.phone}</div>`:''}
+      ${d.email?`<div style="font-size:10.5px;color:${textC};margin-bottom:6px;word-break:break-all;display:flex;align-items:flex-start;gap:7px;"><span style="color:${iconC};flex-shrink:0;">@</span>${d.email}</div>`:''}
+      ${d.city?`<div style="font-size:11.5px;color:${textC};margin-bottom:6px;display:flex;align-items:center;gap:7px;"><span style="color:${iconC};">⌖</span>${d.city}</div>`:''}
+    </div>
+    ${d.education?`<div style="margin-bottom:18px;">
+      <div style="font-size:9px;font-weight:800;color:${labelC};text-transform:uppercase;letter-spacing:1.8px;margin-bottom:8px;padding-bottom:5px;border-bottom:1px solid ${borderC};">${d.labels?.education||'Образование'}</div>
+      <div style="font-size:11.5px;color:${textC};line-height:1.6;">${d.education}</div>
+    </div>`:''}
+    ${d.driving?`<div style="margin-bottom:18px;">
+      <div style="font-size:9px;font-weight:800;color:${labelC};text-transform:uppercase;letter-spacing:1.8px;margin-bottom:8px;padding-bottom:5px;border-bottom:1px solid ${borderC};">${d.labels?.driving||'Шофьорска книжка'}</div>
+      <div style="font-size:11.5px;color:${textC};line-height:1.6;">${d.driving}</div>
+    </div>`:''}
+    ${d.languages?`<div style="margin-bottom:18px;">
+      <div style="font-size:9px;font-weight:800;color:${labelC};text-transform:uppercase;letter-spacing:1.8px;margin-bottom:8px;padding-bottom:5px;border-bottom:1px solid ${borderC};">${d.labels?.languages||'Езици'}</div>
+      <div style="font-size:11.5px;color:${textC};line-height:1.6;">${d.languages}</div>
+    </div>`:''}
+    ${d.hobbies?`<div>
+      <div style="font-size:9px;font-weight:800;color:${labelC};text-transform:uppercase;letter-spacing:1.8px;margin-bottom:8px;padding-bottom:5px;border-bottom:1px solid ${borderC};">${d.labels?.hobbies||'Интереси'}</div>
+      <div style="font-size:11.5px;color:${textC};line-height:1.6;">${d.hobbies}</div>
+    </div>`:''}
+  `;
 
   const expHTML=(d.experiences||[]).map(exp=>exp.title?`
-    <div style="margin-bottom:14px;padding-bottom:14px;border-bottom:1px solid rgba(0,0,0,0.06);">
-      <div style="font-size:13px;font-weight:700;color:#222;">${exp.title}</div>
-      <div style="font-size:12px;color:${t.text};font-weight:600;">${exp.company||''} ${exp.location?'· '+exp.location:''}</div>
-      <div style="font-size:11px;color:#888;margin-bottom:5px;">${exp.period||''}</div>
-      <div style="font-size:12px;color:#444;line-height:1.7;">${exp.desc||''}</div>
+    <div style="margin-bottom:14px;padding-bottom:12px;border-bottom:1px solid rgba(0,0,0,0.06);">
+      <div style="font-size:13px;font-weight:700;color:#1a1a1a;">${exp.title}</div>
+      <div style="font-size:11.5px;color:${t.c1};font-weight:600;margin-bottom:2px;">${[exp.company,exp.location].filter(Boolean).join(' · ')}</div>
+      <div style="font-size:10.5px;color:#999;margin-bottom:5px;">${exp.period||''}</div>
+      <div style="font-size:11.5px;color:#444;line-height:1.7;">${exp.desc||''}</div>
     </div>`:'').join('');
 
-  const skillsHTML=(d.skills||[]).map(s=>`<span style="display:inline-block;background:${t.c1}18;color:${t.text};font-size:11px;padding:3px 9px;border-radius:999px;margin:2px;font-weight:600;border:1px solid ${t.c1}30;">${s}</span>`).join('');
+  const skillsHTML=(d.skills||[]).map(s=>`<span style="display:inline-block;background:${t.c1}15;color:${t.c1};font-size:11px;padding:3px 10px;border-radius:20px;margin:2px 3px 2px 0;font-weight:600;border:1px solid ${t.c1}28;">${s}</span>`).join('');
 
-  const extraHTML=`${d.driving?`<div style="margin-bottom:7px;font-size:12px;color:${sidebarTextColor};"><span style="color:${sidebarLabelColor};font-size:10px;display:block;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:2px;">🚗 ${d.labels?.driving||'Permis'}</span>${d.driving}</div>`:''}
-  ${d.languages?`<div style="margin-bottom:7px;font-size:12px;color:${sidebarTextColor};"><span style="color:${sidebarLabelColor};font-size:10px;display:block;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:2px;">🌍 ${d.labels?.languages||'Langues'}</span>${d.languages}</div>`:''}
-  ${d.hobbies?`<div style="font-size:12px;color:${sidebarTextColor};"><span style="color:${sidebarLabelColor};font-size:10px;display:block;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:2px;">🎯 ${d.labels?.hobbies||'Loisirs'}</span>${d.hobbies}</div>`:''}
-  `;
-  const coverHTML=d.cover_letter?`
-    <div style="margin-top:18px;padding-top:16px;border-top:2px dashed ${t.c1}30;">
-      <div style="font-size:11px;font-weight:700;color:${t.text};text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;">✉ ${d.labels?.cover||'Lettre de motivation'}</div>
-      <div style="font-size:12px;color:#444;line-height:1.85;white-space:pre-line;background:${t.c1}08;border-radius:10px;padding:14px;border-left:3px solid ${t.c1};">${d.cover_letter}</div>
-    </div>`:'';
-
-  return `<div style="display:flex;min-height:297mm;height:297mm;font-family:Arial,sans-serif;background:white;overflow:hidden;">
-    <!-- SIDEBAR -->
-    <div style="width:220px;flex-shrink:0;background:${t.sidebar};padding:28px 20px;display:flex;flex-direction:column;gap:0;min-height:297mm;">
-      <!-- Photo -->
-      <div style="width:110px;height:110px;border-radius:50%;background:rgba(255,255,255,0.2);border:3px solid rgba(255,255,255,0.5);overflow:hidden;display:flex;align-items:center;justify-content:center;margin:0 auto 14px;">${ph}</div>
-      <!-- Name -->
-      <div style="text-align:center;margin-bottom:20px;padding-bottom:16px;border-bottom:1px solid rgba(255,255,255,0.2);">
-        <div style="font-size:15px;font-weight:700;color:white;line-height:1.3;">${d.name}</div>
-        <div style="font-size:12px;color:rgba(255,255,255,0.7);margin-top:4px;">${d.nationality||''}</div>
-      </div>
-      <!-- Contact -->
-      <div style="margin-bottom:18px;">
-        <div style="font-size:10px;font-weight:800;color:rgba(255,255,255,0.55);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:10px;">${d.labels?.contact||'Контакти'}</div>
-        ${d.phone?`<div style="font-size:12px;color:white;margin-bottom:7px;display:flex;align-items:center;gap:6px;"><span style="color:rgba(255,255,255,0.7);font-size:11px;">✆</span> ${d.phone}</div>`:''}
-        ${d.email?`<div style="font-size:11px;color:white;margin-bottom:7px;word-break:break-all;display:flex;align-items:flex-start;gap:6px;"><span style="color:rgba(255,255,255,0.7);font-size:11px;flex-shrink:0;">@</span> ${d.email}</div>`:''}
-        ${d.city?`<div style="font-size:12px;color:white;margin-bottom:7px;display:flex;align-items:center;gap:6px;"><span style="color:rgba(255,255,255,0.7);font-size:11px;">⌖</span> ${d.city}</div>`:''}
-      </div>
-      <!-- Education -->
-      <div style="margin-bottom:18px;">
-        <div style="font-size:10px;font-weight:800;color:rgba(255,255,255,0.55);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:10px;">${d.labels?.education||'Образование'}</div>
-        <div style="font-size:12px;color:white;line-height:1.6;">${d.education||''}</div>
-      </div>
-      <!-- Driving -->
-      ${d.driving?`<div style="margin-bottom:18px;">
-        <div style="font-size:10px;font-weight:800;color:rgba(255,255,255,0.55);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:8px;">${d.labels?.driving||'Шофьорска книжка'}</div>
-        <div style="font-size:12px;color:white;line-height:1.6;">${d.driving}</div>
-      </div>`:''}
-      <!-- Languages -->
-      ${d.languages?`<div style="margin-bottom:18px;">
-        <div style="font-size:10px;font-weight:800;color:rgba(255,255,255,0.55);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:8px;">${d.labels?.languages||'Езици'}</div>
-        <div style="font-size:12px;color:white;line-height:1.6;">${d.languages}</div>
-      </div>`:''}
-      <!-- Hobbies -->
-      ${d.hobbies?`<div>
-        <div style="font-size:10px;font-weight:800;color:rgba(255,255,255,0.55);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:8px;">${d.labels?.hobbies||'Интереси'}</div>
-        <div style="font-size:12px;color:white;line-height:1.6;">${d.hobbies}</div>
-      </div>`:''}
+  const mainContent=`
+    ${d.profile?`<div style="margin-bottom:16px;">
+      <div style="font-size:10px;font-weight:700;color:${t.c1};text-transform:uppercase;letter-spacing:1.5px;margin-bottom:7px;display:flex;align-items:center;gap:8px;">${d.labels?.profile||'Профил'}<div style="flex:1;height:1.5px;background:${t.c1}20;"></div></div>
+      <div style="font-size:12px;color:#444;line-height:1.8;padding:10px 12px;background:${t.c1}07;border-radius:6px;border-left:3px solid ${t.c1};">${d.profile}</div>
+    </div>`:''}
+    ${d.skills?.length?`<div style="margin-bottom:16px;">
+      <div style="font-size:10px;font-weight:700;color:${t.c1};text-transform:uppercase;letter-spacing:1.5px;margin-bottom:8px;display:flex;align-items:center;gap:8px;">${d.labels?.skills||'Умения'}<div style="flex:1;height:1.5px;background:${t.c1}20;"></div></div>
+      <div>${skillsHTML}</div>
+    </div>`:''}
+    <div>
+      <div style="font-size:10px;font-weight:700;color:${t.c1};text-transform:uppercase;letter-spacing:1.5px;margin-bottom:12px;display:flex;align-items:center;gap:8px;">${d.labels?.experience||'Трудов опит'}<div style="flex:1;height:1.5px;background:${t.c1}20;"></div></div>
+      ${expHTML}
     </div>
-    <!-- MAIN -->
-    <div style="flex:1;padding:28px 26px;background:white;min-height:297mm;display:flex;flex-direction:column;">
-      <!-- Header -->
-      <div style="margin-bottom:20px;padding-bottom:16px;border-bottom:3px solid ${t.c1};">
-        <h1 style="font-size:26px;font-weight:700;color:#1a1a1a;margin-bottom:4px;letter-spacing:-0.5px;">${d.name}</h1>
-        <div style="font-size:14px;color:${t.text};font-weight:600;text-transform:uppercase;letter-spacing:1.5px;">${d.position}</div>
+  `;
+
+  const footer=`<div style="border-top:1px solid ${t.c1}20;padding-top:7px;margin-top:10px;font-size:9.5px;color:#bbb;display:flex;justify-content:space-between;">
+    <span>${d.name}</span><span style="color:${t.c1};font-weight:600;">✦ SmartDocs.eu</span>
+  </div>`;
+
+  // ===== LAYOUT: SIDEBAR (1,2,6,7,8,9,11,12) =====
+  if(t.layout==='sidebar'){
+    return `<div style="display:flex;min-height:297mm;height:297mm;font-family:Arial,sans-serif;background:white;overflow:hidden;">
+      <div style="width:215px;flex-shrink:0;background:${t.sidebar};padding:30px 18px;display:flex;flex-direction:column;min-height:297mm;">
+        <div style="width:100px;height:100px;border-radius:50%;overflow:hidden;display:flex;align-items:center;justify-content:center;margin:0 auto 12px;border:3px solid ${isDark?'rgba(255,255,255,0.35)':t.c1+'44'};">${photoCircle}</div>
+        <div style="text-align:center;margin-bottom:18px;padding-bottom:14px;border-bottom:1px solid ${borderC};">
+          <div style="font-size:14px;font-weight:700;color:${textC};">${d.name}</div>
+          ${genderAge?`<div style="font-size:10.5px;color:${labelC};margin-top:3px;">${genderAge}</div>`:''}
+          ${d.nationality?`<div style="font-size:10.5px;color:${labelC};margin-top:2px;">${d.nationality}</div>`:''}
+        </div>
+        ${sidebarSections}
       </div>
-      <!-- Profile -->
-      ${d.profile?`<div style="margin-bottom:18px;">
-        <div style="font-size:11px;font-weight:700;color:${t.text};text-transform:uppercase;letter-spacing:1.2px;margin-bottom:8px;display:flex;align-items:center;gap:6px;">👤 ${d.labels?.profile||'Profil'}<div style="flex:1;height:1px;background:${t.c1}25;"></div></div>
-        <div style="font-size:12px;color:#444;line-height:1.8;padding:10px;background:${t.c1}06;border-radius:8px;border-left:3px solid ${t.c1};">${d.profile}</div>
-      </div>`:''}
-      <!-- Skills -->
-      ${d.skills?.length?`<div style="margin-bottom:18px;">
-        <div style="font-size:11px;font-weight:700;color:${t.text};text-transform:uppercase;letter-spacing:1.2px;margin-bottom:8px;display:flex;align-items:center;gap:6px;">⚡ ${d.labels?.skills||'Compétences'}<div style="flex:1;height:1px;background:${t.c1}25;"></div></div>
-        <div>${skillsHTML}</div>
-      </div>`:''}
-      <!-- Experience -->
-      <div style="margin-bottom:18px;">
-        <div style="font-size:11px;font-weight:700;color:${t.text};text-transform:uppercase;letter-spacing:1.2px;margin-bottom:12px;display:flex;align-items:center;gap:6px;">💼 ${d.labels?.experience||'Expérience professionnelle'}<div style="flex:1;height:1px;background:${t.c1}25;"></div></div>
-        ${expHTML}
+      <div style="flex:1;padding:28px 24px;background:white;min-height:297mm;display:flex;flex-direction:column;">
+        <div style="margin-bottom:18px;padding-bottom:14px;border-bottom:3px solid ${t.c1};">
+          <h1 style="font-size:24px;font-weight:700;color:#1a1a1a;margin-bottom:3px;">${d.name}</h1>
+          <div style="font-size:13px;color:${t.c1};font-weight:600;text-transform:uppercase;letter-spacing:1.5px;">${d.position}</div>
+        </div>
+        <div style="flex:1;">${mainContent}</div>
+        ${footer}
       </div>
-      ${coverHTML}
-      <div style="flex:1;"></div>
-      <div style="border-top:1px solid ${t.c1}20;padding-top:8px;margin-top:12px;font-size:10px;color:#aaa;text-align:center;display:flex;justify-content:space-between;align-items:center;">
-        <span>${d.name}</span>
-        <span style="color:${t.c1};font-weight:600;">✦ SmartDocs.eu</span>
+    </div>`;
+  }
+
+  // ===== LAYOUT: HEADER (3,5,10) =====
+  if(t.layout==='header'){
+    const hDark=getBrightness(t.sidebar)<140;
+    const hText=hDark?'white':'#1a1a1a';
+    const hLabel=hDark?'rgba(255,255,255,0.6)':'rgba(0,0,0,0.5)';
+    return `<div style="display:flex;flex-direction:column;min-height:297mm;height:297mm;font-family:Arial,sans-serif;background:white;overflow:hidden;">
+      <div style="background:${t.sidebar};padding:20px 28px;display:flex;align-items:center;gap:18px;flex-shrink:0;">
+        <div style="width:80px;height:80px;border-radius:50%;overflow:hidden;flex-shrink:0;border:3px solid rgba(255,255,255,0.5);">${photoCircle}</div>
+        <div style="flex:1;">
+          <div style="font-size:22px;font-weight:700;color:${hText};margin-bottom:2px;">${d.name}</div>
+          <div style="font-size:12px;color:${hLabel};text-transform:uppercase;letter-spacing:1.5px;margin-bottom:8px;">${d.position}</div>
+          <div style="display:flex;gap:16px;flex-wrap:wrap;">
+            ${d.phone?`<span style="font-size:11px;color:${hLabel};">✆ ${d.phone}</span>`:''}
+            ${d.email?`<span style="font-size:11px;color:${hLabel};">@ ${d.email}</span>`:''}
+            ${d.city?`<span style="font-size:11px;color:${hLabel};">⌖ ${d.city}</span>`:''}
+            ${d.nationality?`<span style="font-size:11px;color:${hLabel};">⚑ ${d.nationality}</span>`:''}
+          </div>
+        </div>
       </div>
+      <div style="display:flex;flex:1;overflow:hidden;">
+        <div style="width:190px;flex-shrink:0;padding:20px 16px;background:#fafafa;border-right:1px solid #eee;">
+          ${d.education?`<div style="margin-bottom:16px;"><div style="font-size:9px;font-weight:800;color:rgba(0,0,0,0.4);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:6px;">${d.labels?.education||'Образование'}</div><div style="font-size:11px;color:#333;line-height:1.6;">${d.education}</div></div>`:''}
+          ${d.driving?`<div style="margin-bottom:16px;"><div style="font-size:9px;font-weight:800;color:rgba(0,0,0,0.4);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:6px;">${d.labels?.driving||'Шофьорска книжка'}</div><div style="font-size:11px;color:#333;">${d.driving}</div></div>`:''}
+          ${d.languages?`<div style="margin-bottom:16px;"><div style="font-size:9px;font-weight:800;color:rgba(0,0,0,0.4);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:6px;">${d.labels?.languages||'Езици'}</div><div style="font-size:11px;color:#333;line-height:1.6;">${d.languages}</div></div>`:''}
+          ${d.hobbies?`<div><div style="font-size:9px;font-weight:800;color:rgba(0,0,0,0.4);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:6px;">${d.labels?.hobbies||'Интереси'}</div><div style="font-size:11px;color:#333;line-height:1.6;">${d.hobbies}</div></div>`:''}
+        </div>
+        <div style="flex:1;padding:20px 22px;display:flex;flex-direction:column;">
+          <div style="flex:1;">${mainContent}</div>
+          ${footer}
+        </div>
+      </div>
+    </div>`;
+  }
+
+  // ===== LAYOUT: PHOTO_LEFT (13 — Оранжев Modern) =====
+  if(t.layout==='photo_left'){
+    return `<div style="display:flex;min-height:297mm;height:297mm;font-family:Arial,sans-serif;background:white;overflow:hidden;">
+      <div style="width:200px;flex-shrink:0;background:${t.sidebar};display:flex;flex-direction:column;">
+        <div style="width:200px;height:200px;flex-shrink:0;overflow:hidden;">${photoRect}</div>
+        <div style="padding:18px 16px;flex:1;display:flex;flex-direction:column;">
+          <div style="font-size:15px;font-weight:700;color:white;margin-bottom:2px;">${d.name}</div>
+          ${genderAge?`<div style="font-size:10px;color:rgba(255,255,255,0.65);margin-bottom:2px;">${genderAge}</div>`:''}
+          ${d.nationality?`<div style="font-size:10px;color:rgba(255,255,255,0.65);margin-bottom:12px;">${d.nationality}</div>`:''}
+          <div style="height:1px;background:rgba(255,255,255,0.2);margin-bottom:14px;"></div>
+          <div style="font-size:9px;font-weight:800;color:rgba(255,255,255,0.5);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:8px;">Контакти</div>
+          ${d.phone?`<div style="font-size:11px;color:white;margin-bottom:5px;">✆ ${d.phone}</div>`:''}
+          ${d.email?`<div style="font-size:10px;color:white;margin-bottom:5px;word-break:break-all;">@ ${d.email}</div>`:''}
+          ${d.city?`<div style="font-size:11px;color:white;margin-bottom:12px;">⌖ ${d.city}</div>`:''}
+          ${d.education?`<div style="font-size:9px;font-weight:800;color:rgba(255,255,255,0.5);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:6px;">Образование</div><div style="font-size:11px;color:white;margin-bottom:12px;line-height:1.5;">${d.education}</div>`:''}
+          ${d.languages?`<div style="font-size:9px;font-weight:800;color:rgba(255,255,255,0.5);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:6px;">Езици</div><div style="font-size:11px;color:white;margin-bottom:12px;line-height:1.5;">${d.languages}</div>`:''}
+          ${d.driving?`<div style="font-size:9px;font-weight:800;color:rgba(255,255,255,0.5);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:6px;">Шофьорска книжка</div><div style="font-size:11px;color:white;line-height:1.5;">${d.driving}</div>`:''}
+        </div>
+      </div>
+      <div style="flex:1;padding:28px 24px;background:white;display:flex;flex-direction:column;">
+        <div style="margin-bottom:18px;padding-bottom:14px;border-bottom:3px solid ${t.c1};">
+          <h1 style="font-size:24px;font-weight:700;color:#1a1a1a;margin-bottom:3px;">${d.name}</h1>
+          <div style="font-size:12px;color:${t.c1};font-weight:600;text-transform:uppercase;letter-spacing:1.5px;">${d.position}</div>
+        </div>
+        <div style="flex:1;">${mainContent}</div>
+        ${footer}
+      </div>
+    </div>`;
+  }
+
+  // ===== LAYOUT: PHOTO_RECT (14 — Тюркоаз Pro) =====
+  if(t.layout==='photo_rect'){
+    return `<div style="display:flex;min-height:297mm;height:297mm;font-family:Arial,sans-serif;background:white;overflow:hidden;">
+      <div style="width:210px;flex-shrink:0;background:${t.sidebar};display:flex;flex-direction:column;">
+        <div style="width:210px;height:160px;flex-shrink:0;overflow:hidden;">${photoRect}</div>
+        <div style="padding:16px;flex:1;display:flex;flex-direction:column;">
+          <div style="font-size:15px;font-weight:700;color:white;margin-bottom:2px;">${d.name}</div>
+          <div style="font-size:11px;color:rgba(255,255,255,0.7);margin-bottom:3px;">${d.position}</div>
+          ${genderAge?`<div style="font-size:10px;color:rgba(255,255,255,0.55);margin-bottom:2px;">${genderAge}</div>`:''}
+          ${d.nationality?`<div style="font-size:10px;color:rgba(255,255,255,0.55);margin-bottom:12px;">${d.nationality}</div>`:''}
+          <div style="height:1px;background:rgba(255,255,255,0.2);margin-bottom:12px;"></div>
+          ${d.phone?`<div style="font-size:11px;color:white;margin-bottom:5px;">✆ ${d.phone}</div>`:''}
+          ${d.email?`<div style="font-size:10px;color:white;margin-bottom:5px;word-break:break-all;">@ ${d.email}</div>`:''}
+          ${d.city?`<div style="font-size:11px;color:white;margin-bottom:12px;">⌖ ${d.city}</div>`:''}
+          <div style="height:1px;background:rgba(255,255,255,0.15);margin-bottom:12px;"></div>
+          ${d.education?`<div style="font-size:9px;font-weight:800;color:rgba(255,255,255,0.45);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:5px;">Образование</div><div style="font-size:11px;color:white;margin-bottom:12px;line-height:1.5;">${d.education}</div>`:''}
+          ${d.languages?`<div style="font-size:9px;font-weight:800;color:rgba(255,255,255,0.45);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:5px;">Езици</div><div style="font-size:11px;color:white;line-height:1.5;margin-bottom:10px;">${d.languages}</div>`:''}
+          ${d.driving?`<div style="font-size:9px;font-weight:800;color:rgba(255,255,255,0.45);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:5px;">Шофьорска книжка</div><div style="font-size:11px;color:white;line-height:1.5;">${d.driving}</div>`:''}
+        </div>
+      </div>
+      <div style="flex:1;padding:28px 24px;background:white;display:flex;flex-direction:column;">
+        <div style="margin-bottom:18px;padding-bottom:14px;border-bottom:3px solid ${t.c1};">
+          <h1 style="font-size:24px;font-weight:700;color:#1a1a1a;margin-bottom:3px;">${d.name}</h1>
+          <div style="font-size:12px;color:${t.c1};font-weight:600;text-transform:uppercase;letter-spacing:1.5px;">${d.position}</div>
+        </div>
+        <div style="flex:1;">${mainContent}</div>
+        ${footer}
+      </div>
+    </div>`;
+  }
+
+  // ===== LAYOUT: PHOTO_TOP (16 — Синьо Стил) =====
+  if(t.layout==='photo_top'){
+    const ltDark=getBrightness(t.sidebar)<140;
+    const ltText=ltDark?'white':'#1a1a1a';
+    const ltLabel=ltDark?'rgba(255,255,255,0.5)':'rgba(0,0,0,0.4)';
+    return `<div style="display:flex;min-height:297mm;height:297mm;font-family:Arial,sans-serif;background:white;overflow:hidden;">
+      <div style="width:210px;flex-shrink:0;background:${t.sidebar};display:flex;flex-direction:column;">
+        <div style="width:210px;height:170px;flex-shrink:0;overflow:hidden;position:relative;">${photoRect}
+          <div style="position:absolute;bottom:0;left:0;right:0;background:linear-gradient(to top,${t.sidebar},transparent);height:60px;"></div>
+        </div>
+        <div style="padding:16px 16px;flex:1;display:flex;flex-direction:column;">
+          <div style="font-size:15px;font-weight:700;color:${ltText};margin-bottom:2px;">${d.name}</div>
+          ${genderAge?`<div style="font-size:10px;color:${ltLabel};margin-bottom:2px;">${genderAge}</div>`:''}
+          ${d.nationality?`<div style="font-size:10px;color:${ltLabel};margin-bottom:10px;">${d.nationality}</div>`:''}
+          <div style="height:1px;background:${ltDark?'rgba(255,255,255,0.15)':'rgba(0,0,0,0.1)'};margin-bottom:12px;"></div>
+          ${d.phone?`<div style="font-size:11px;color:${ltText};margin-bottom:5px;">✆ ${d.phone}</div>`:''}
+          ${d.email?`<div style="font-size:10px;color:${ltText};margin-bottom:5px;word-break:break-all;">@ ${d.email}</div>`:''}
+          ${d.city?`<div style="font-size:11px;color:${ltText};margin-bottom:10px;">⌖ ${d.city}</div>`:''}
+          <div style="height:1px;background:${ltDark?'rgba(255,255,255,0.12)':'rgba(0,0,0,0.08)'};margin-bottom:12px;"></div>
+          ${d.education?`<div style="font-size:9px;font-weight:800;color:${ltLabel};text-transform:uppercase;letter-spacing:1.2px;margin-bottom:5px;">Образование</div><div style="font-size:11px;color:${ltText};margin-bottom:10px;line-height:1.5;">${d.education}</div>`:''}
+          ${d.languages?`<div style="font-size:9px;font-weight:800;color:${ltLabel};text-transform:uppercase;letter-spacing:1.2px;margin-bottom:5px;">Езици</div><div style="font-size:11px;color:${ltText};line-height:1.5;margin-bottom:10px;">${d.languages}</div>`:''}
+          ${d.driving?`<div style="font-size:9px;font-weight:800;color:${ltLabel};text-transform:uppercase;letter-spacing:1.2px;margin-bottom:5px;">Шофьорска книжка</div><div style="font-size:11px;color:${ltText};line-height:1.5;">${d.driving}</div>`:''}
+          ${d.hobbies?`<div style="margin-top:10px;"><div style="font-size:9px;font-weight:800;color:${ltLabel};text-transform:uppercase;letter-spacing:1.2px;margin-bottom:5px;">Интереси</div><div style="font-size:11px;color:${ltText};line-height:1.5;">${d.hobbies}</div></div>`:''}
+        </div>
+      </div>
+      <div style="flex:1;padding:28px 24px;background:white;display:flex;flex-direction:column;">
+        <div style="margin-bottom:18px;padding-bottom:14px;border-bottom:3px solid ${t.c1};">
+          <h1 style="font-size:24px;font-weight:700;color:#1a1a1a;margin-bottom:3px;">${d.name}</h1>
+          <div style="font-size:12px;color:${t.c1};font-weight:600;text-transform:uppercase;letter-spacing:1.5px;">${d.position}</div>
+        </div>
+        <div style="flex:1;">${mainContent}</div>
+        ${footer}
+      </div>
+    </div>`;
+  }
+
+  // ===== LAYOUT: DIAGONAL (15 — Диагонал) =====
+  if(t.layout==='diagonal'){
+    return `<div style="position:relative;min-height:297mm;height:297mm;font-family:Arial,sans-serif;background:white;overflow:hidden;">
+      <div style="position:absolute;top:0;left:0;width:55%;height:55%;background:${t.c1};clip-path:polygon(0 0,100% 0,75% 100%,0 100%);z-index:0;"></div>
+      <div style="position:relative;z-index:1;display:flex;min-height:297mm;">
+        <div style="width:210px;flex-shrink:0;padding:28px 20px;display:flex;flex-direction:column;">
+          <div style="font-size:22px;font-weight:800;color:white;line-height:1.15;margin-bottom:4px;">${d.name.split(' ')[0]}<br>${d.name.split(' ').slice(1).join(' ')}</div>
+          <div style="font-size:11px;color:rgba(255,255,255,0.8);font-style:italic;margin-bottom:16px;">${d.position}</div>
+          <div style="width:80px;height:80px;border-radius:50%;overflow:hidden;border:3px solid rgba(255,255,255,0.6);margin-bottom:16px;">${photoCircle}</div>
+          <div style="margin-top:auto;">
+            <div style="font-size:12px;font-weight:700;color:#333;margin-bottom:10px;">Контакт</div>
+            ${d.phone?`<div style="font-size:11px;color:#555;margin-bottom:5px;">✆ ${d.phone}</div>`:''}
+            ${d.email?`<div style="font-size:10.5px;color:#555;margin-bottom:5px;word-break:break-all;">@ ${d.email}</div>`:''}
+            ${d.city?`<div style="font-size:11px;color:#555;margin-bottom:14px;">⌖ ${d.city}</div>`:''}
+            ${d.education?`<div style="font-size:11px;font-weight:700;color:#333;margin-bottom:5px;">Образование</div><div style="font-size:11px;color:#555;margin-bottom:12px;line-height:1.5;">${d.education}</div>`:''}
+            ${d.languages?`<div style="font-size:11px;font-weight:700;color:#333;margin-bottom:5px;">Езици</div><div style="font-size:11px;color:#555;margin-bottom:12px;line-height:1.5;">${d.languages}</div>`:''}
+            ${d.driving?`<div style="font-size:11px;font-weight:700;color:#333;margin-bottom:5px;">Шофьорска книжка</div><div style="font-size:11px;color:#555;line-height:1.5;">${d.driving}</div>`:''}
+          </div>
+        </div>
+        <div style="flex:1;padding:120px 24px 24px;background:white;display:flex;flex-direction:column;">
+          <div style="flex:1;">${mainContent}</div>
+          ${footer}
+        </div>
+      </div>
+    </div>`;
+  }
+
+  // ===== LAYOUT: MINIMAL_PRO (17 — Минималист) =====
+  if(t.layout==='minimal_pro'){
+    return `<div style="display:flex;min-height:297mm;height:297mm;font-family:Arial,sans-serif;background:white;overflow:hidden;">
+      <div style="width:200px;flex-shrink:0;background:${t.sidebar};padding:28px 16px;display:flex;flex-direction:column;">
+        <div style="width:90px;height:90px;border-radius:50%;overflow:hidden;border:3px solid ${t.c1}44;margin:0 auto 12px;">${photoCircle}</div>
+        <div style="text-align:center;margin-bottom:18px;padding-bottom:14px;border-bottom:1.5px solid ${t.c1}22;">
+          <div style="font-size:13px;font-weight:700;color:#1a1a1a;">${d.name}</div>
+          ${genderAge?`<div style="font-size:10px;color:#888;margin-top:2px;">${genderAge}</div>`:''}
+          ${d.nationality?`<div style="font-size:10px;color:#888;margin-top:1px;">${d.nationality}</div>`:''}
+        </div>
+        <div style="font-size:9px;font-weight:800;color:#aaa;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:8px;">Контакти</div>
+        ${d.phone?`<div style="font-size:11px;color:#444;margin-bottom:5px;">✆ ${d.phone}</div>`:''}
+        ${d.email?`<div style="font-size:10px;color:#444;margin-bottom:5px;word-break:break-all;">@ ${d.email}</div>`:''}
+        ${d.city?`<div style="font-size:11px;color:#444;margin-bottom:14px;">⌖ ${d.city}</div>`:''}
+        ${d.education?`<div style="font-size:9px;font-weight:800;color:#aaa;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:6px;">Образование</div><div style="font-size:11px;color:#444;margin-bottom:14px;line-height:1.5;">${d.education}</div>`:''}
+        ${d.languages?`<div style="font-size:9px;font-weight:800;color:#aaa;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:6px;">Езици</div><div style="font-size:11px;color:#444;margin-bottom:14px;line-height:1.5;">${d.languages}</div>`:''}
+        ${d.driving?`<div style="font-size:9px;font-weight:800;color:#aaa;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:6px;">Шофьорска книжка</div><div style="font-size:11px;color:#444;margin-bottom:14px;line-height:1.5;">${d.driving}</div>`:''}
+        ${d.hobbies?`<div style="font-size:9px;font-weight:800;color:#aaa;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:6px;">Интереси</div><div style="font-size:11px;color:#444;line-height:1.5;">${d.hobbies}</div>`:''}
+      </div>
+      <div style="flex:1;padding:28px 24px;background:white;display:flex;flex-direction:column;border-left:3px solid ${t.c1};">
+        <div style="margin-bottom:18px;padding-bottom:14px;border-bottom:2px solid ${t.c1};">
+          <h1 style="font-size:24px;font-weight:700;color:#1a1a1a;margin-bottom:3px;">${d.name}</h1>
+          <div style="font-size:12px;color:${t.c1};font-weight:600;text-transform:uppercase;letter-spacing:1.5px;">${d.position}</div>
+        </div>
+        <div style="flex:1;">${mainContent}</div>
+        ${footer}
+      </div>
+    </div>`;
+  }
+
+  // ===== DEFAULT: SIDEBAR =====
+  return `<div style="display:flex;min-height:297mm;height:297mm;font-family:Arial,sans-serif;background:white;overflow:hidden;">
+    <div style="width:215px;flex-shrink:0;background:${t.sidebar};padding:30px 18px;display:flex;flex-direction:column;min-height:297mm;">
+      <div style="width:100px;height:100px;border-radius:50%;overflow:hidden;display:flex;align-items:center;justify-content:center;margin:0 auto 12px;border:3px solid ${isDark?'rgba(255,255,255,0.35)':t.c1+'44'};">${photoCircle}</div>
+      <div style="text-align:center;margin-bottom:18px;padding-bottom:14px;border-bottom:1px solid ${borderC};">
+        <div style="font-size:14px;font-weight:700;color:${textC};">${d.name}</div>
+        ${genderAge?`<div style="font-size:10.5px;color:${labelC};margin-top:3px;">${genderAge}</div>`:''}
+        ${d.nationality?`<div style="font-size:10.5px;color:${labelC};margin-top:2px;">${d.nationality}</div>`:''}
+      </div>
+      ${sidebarSections}
+    </div>
+    <div style="flex:1;padding:28px 24px;background:white;min-height:297mm;display:flex;flex-direction:column;">
+      <div style="margin-bottom:18px;padding-bottom:14px;border-bottom:3px solid ${t.c1};">
+        <h1 style="font-size:24px;font-weight:700;color:#1a1a1a;margin-bottom:3px;">${d.name}</h1>
+        <div style="font-size:13px;color:${t.c1};font-weight:600;text-transform:uppercase;letter-spacing:1.5px;">${d.position}</div>
+      </div>
+      <div style="flex:1;">${mainContent}</div>
+      ${footer}
     </div>
   </div>`;
 }
@@ -2062,7 +2295,9 @@ async function generateCV(){
   const ownCar=document.getElementById('cv-own-car')?.value||'';
   const languages=document.getElementById('cv-languages').value||'';
   const hobbies=document.getElementById('cv-hobbies').value||'';
-  const motivation='';
+  const gender=document.getElementById('cv-gender')?.value||'';
+  const age=document.getElementById('cv-age')?.value||'';
+  const genderLabel=gender==='male'?'Мъж':gender==='female'?'Жена':'';
   const lang=document.getElementById('cv-lang').value;
 
   const jobs=[];
@@ -2084,6 +2319,8 @@ async function generateCV(){
 
 IMPORTANT: The user may have typed in Bulgarian using Latin letters (transliteration). Examples: "kazvm se" = "казвам се", "rjazah" = "рязах", "praveh" = "правех", "rabotih" = "работих", "pomagah" = "помагах", "vodirah" = "водирах", "berah" = "берах". Please understand and correctly interpret any Bulgarian text written in Latin characters.
 
+IMPORTANT: For the "nationality" field, always write the COUNTRY NAME, never the adjective. Examples: "България" (not "Български"), "France" (not "Français"), "Deutschland" (not "Deutsch").
+
 Return this JSON structure:
 {
   "name": "${fname} ${lname}",
@@ -2091,7 +2328,7 @@ Return this JSON structure:
   "phone": "${phone}",
   "email": "${email}",
   "city": "${city}",
-  "nationality": "${nationality}",
+  "nationality": "country name only (e.g. България, France, Deutschland) - NOT adjective form",
   "initials": "${initials}",
   "profile": "rewrite the profile in professional ${lang} (3-4 sentences)",
   "education": "${edu}",
@@ -2124,7 +2361,7 @@ ${jobsText}
 
 Reply ONLY with the JSON object.`;
 
-  let cvData={name:`${fname} ${lname}`,position:'PROFESSIONNEL',phone,email,city,nationality,initials,profile,education:edu,skills:skills.split(',').map(s=>s.trim()).filter(Boolean),driving:driving+(ownCar?', личен автомобил':''),languages,hobbies,experiences:jobs,labels:{contact:'Контакти',profile:'Профил',skills:'Умения',experience:'Трудов опит',education:'Образование',driving:'Шофьорска книжка',languages:'Езици',hobbies:'Интереси'}};
+  let cvData={name:`${fname} ${lname}`,gender:genderLabel,age,position:'PROFESSIONNEL',phone,email,city,nationality,initials,profile,education:edu,skills:skills.split(',').map(s=>s.trim()).filter(Boolean),driving:driving+(ownCar?', личен автомобил':''),languages,hobbies,experiences:jobs,labels:{contact:'Контакти',profile:'Профил',skills:'Умения',experience:'Трудов опит',education:'Образование',driving:'Шофьорска книжка',languages:'Езици',hobbies:'Интереси'}};
 
   try{
     const result=await callClaude(prompt);
