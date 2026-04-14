@@ -2050,7 +2050,7 @@ function renderCVHTML(d,photoSrc,tpl){
   // ===== LAYOUT: SIDEBAR (1,2,6,7,8,9,11,12) =====
   if(t.layout==='sidebar'){
     return `<div style="display:flex;min-height:297mm;height:297mm;font-family:Arial,sans-serif;background:white;overflow:hidden;">
-      <div style="width:215px;flex-shrink:0;background:${t.sidebar};padding:22px 20px 20px 20px;display:flex;flex-direction:column;min-height:297mm;">
+      <div style="width:215px;flex-shrink:0;background:${t.sidebar};padding:22px 20px 20px 20px;display:flex;flex-direction:column;align-self:stretch;">
         <div style="width:88px;height:88px;border-radius:50%;overflow:hidden;display:flex;align-items:center;justify-content:center;margin:0 auto 10px;border:3px solid ${isDark?'rgba(255,255,255,0.35)':t.c1+'44'};">${photoCircle}</div>
         <div style="text-align:center;margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid ${borderC};">
           <div style="font-size:13px;font-weight:700;color:${textC};">${d.name}</div>
@@ -2107,7 +2107,7 @@ function renderCVHTML(d,photoSrc,tpl){
   // ===== LAYOUT: PHOTO_LEFT (13 — Оранжев Modern) =====
   if(t.layout==='photo_left'){
     return `<div style="display:flex;min-height:297mm;height:297mm;font-family:Arial,sans-serif;background:white;overflow:hidden;">
-      <div style="width:200px;flex-shrink:0;background:${t.sidebar};display:flex;flex-direction:column;">
+      <div style="width:200px;flex-shrink:0;background:${t.sidebar};display:flex;flex-direction:column;align-self:stretch;">
         <div style="width:200px;height:200px;flex-shrink:0;overflow:hidden;">${photoRect}</div>
         <div style="padding:18px 16px;flex:1;display:flex;flex-direction:column;">
           <div style="font-size:15px;font-weight:700;color:white;margin-bottom:2px;">${d.name}</div>
@@ -2137,7 +2137,7 @@ function renderCVHTML(d,photoSrc,tpl){
   // ===== LAYOUT: PHOTO_RECT (14 — Тюркоаз Pro) =====
   if(t.layout==='photo_rect'){
     return `<div style="display:flex;min-height:297mm;height:297mm;font-family:Arial,sans-serif;background:white;overflow:hidden;">
-      <div style="width:210px;flex-shrink:0;background:${t.sidebar};display:flex;flex-direction:column;">
+      <div style="width:210px;flex-shrink:0;background:${t.sidebar};display:flex;flex-direction:column;align-self:stretch;">
         <div style="width:210px;height:160px;flex-shrink:0;overflow:hidden;">${photoRect}</div>
         <div style="padding:16px;flex:1;display:flex;flex-direction:column;">
           <div style="font-size:15px;font-weight:700;color:white;margin-bottom:2px;">${d.name}</div>
@@ -2171,7 +2171,7 @@ function renderCVHTML(d,photoSrc,tpl){
     const ltText=ltDark?'white':'#1a1a1a';
     const ltLabel=ltDark?'rgba(255,255,255,0.5)':'rgba(0,0,0,0.4)';
     return `<div style="display:flex;min-height:297mm;height:297mm;font-family:Arial,sans-serif;background:white;overflow:hidden;">
-      <div style="width:210px;flex-shrink:0;background:${t.sidebar};display:flex;flex-direction:column;">
+      <div style="width:210px;flex-shrink:0;background:${t.sidebar};display:flex;flex-direction:column;align-self:stretch;">
         <div style="width:210px;height:170px;flex-shrink:0;overflow:hidden;position:relative;">${photoRect}
           <div style="position:absolute;bottom:0;left:0;right:0;background:linear-gradient(to top,${t.sidebar},transparent);height:60px;"></div>
         </div>
@@ -2260,7 +2260,7 @@ function renderCVHTML(d,photoSrc,tpl){
 
   // ===== DEFAULT: SIDEBAR =====
   return `<div style="display:flex;min-height:297mm;height:297mm;font-family:Arial,sans-serif;background:white;overflow:hidden;">
-    <div style="width:215px;flex-shrink:0;background:${t.sidebar};padding:22px 20px 20px 20px;display:flex;flex-direction:column;min-height:297mm;">
+    <div style="width:215px;flex-shrink:0;background:${t.sidebar};padding:22px 20px 20px 20px;display:flex;flex-direction:column;align-self:stretch;">
       <div style="width:100px;height:100px;border-radius:50%;overflow:hidden;display:flex;align-items:center;justify-content:center;margin:0 auto 12px;border:3px solid ${isDark?'rgba(255,255,255,0.35)':t.c1+'44'};">${photoCircle}</div>
       <div style="text-align:center;margin-bottom:18px;padding-bottom:14px;border-bottom:1px solid ${borderC};">
         <div style="font-size:14px;font-weight:700;color:${textC};">${d.name}</div>
