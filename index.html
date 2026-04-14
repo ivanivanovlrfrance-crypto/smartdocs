@@ -2049,7 +2049,7 @@ function renderCVHTML(d,photoSrc,tpl){
 
   // ===== LAYOUT: SIDEBAR (1,2,6,7,8,9,11,12) =====
   if(t.layout==='sidebar'){
-    return `<div style="display:flex;min-height:297mm;height:297mm;font-family:Arial,sans-serif;background:white;overflow:hidden;">
+    return `<div style="display:flex;min-height:297mm;height:297mm;font-family:Arial,sans-serif;background:white;overflow:hidden;align-items:stretch;">
       <div style="width:215px;flex-shrink:0;background:${t.sidebar};padding:22px 20px 20px 20px;display:flex;flex-direction:column;align-self:stretch;">
         <div style="width:88px;height:88px;border-radius:50%;overflow:hidden;display:flex;align-items:center;justify-content:center;margin:0 auto 10px;border:3px solid ${isDark?'rgba(255,255,255,0.35)':t.c1+'44'};">${photoCircle}</div>
         <div style="text-align:center;margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid ${borderC};">
@@ -2106,7 +2106,7 @@ function renderCVHTML(d,photoSrc,tpl){
 
   // ===== LAYOUT: PHOTO_LEFT (13 — Оранжев Modern) =====
   if(t.layout==='photo_left'){
-    return `<div style="display:flex;min-height:297mm;height:297mm;font-family:Arial,sans-serif;background:white;overflow:hidden;">
+    return `<div style="display:flex;min-height:297mm;height:297mm;font-family:Arial,sans-serif;background:white;overflow:hidden;align-items:stretch;">
       <div style="width:200px;flex-shrink:0;background:${t.sidebar};display:flex;flex-direction:column;align-self:stretch;">
         <div style="width:200px;height:200px;flex-shrink:0;overflow:hidden;">${photoRect}</div>
         <div style="padding:18px 16px;flex:1;display:flex;flex-direction:column;">
@@ -2136,7 +2136,7 @@ function renderCVHTML(d,photoSrc,tpl){
 
   // ===== LAYOUT: PHOTO_RECT (14 — Тюркоаз Pro) =====
   if(t.layout==='photo_rect'){
-    return `<div style="display:flex;min-height:297mm;height:297mm;font-family:Arial,sans-serif;background:white;overflow:hidden;">
+    return `<div style="display:flex;min-height:297mm;height:297mm;font-family:Arial,sans-serif;background:white;overflow:hidden;align-items:stretch;">
       <div style="width:210px;flex-shrink:0;background:${t.sidebar};display:flex;flex-direction:column;align-self:stretch;">
         <div style="width:210px;height:160px;flex-shrink:0;overflow:hidden;">${photoRect}</div>
         <div style="padding:16px;flex:1;display:flex;flex-direction:column;">
@@ -2170,7 +2170,7 @@ function renderCVHTML(d,photoSrc,tpl){
     const ltDark=getBrightness(t.sidebar)<140;
     const ltText=ltDark?'white':'#1a1a1a';
     const ltLabel=ltDark?'rgba(255,255,255,0.5)':'rgba(0,0,0,0.4)';
-    return `<div style="display:flex;min-height:297mm;height:297mm;font-family:Arial,sans-serif;background:white;overflow:hidden;">
+    return `<div style="display:flex;min-height:297mm;height:297mm;font-family:Arial,sans-serif;background:white;overflow:hidden;align-items:stretch;">
       <div style="width:210px;flex-shrink:0;background:${t.sidebar};display:flex;flex-direction:column;align-self:stretch;">
         <div style="width:210px;height:170px;flex-shrink:0;overflow:hidden;position:relative;">${photoRect}
           <div style="position:absolute;bottom:0;left:0;right:0;background:linear-gradient(to top,${t.sidebar},transparent);height:60px;"></div>
@@ -2230,7 +2230,7 @@ function renderCVHTML(d,photoSrc,tpl){
 
   // ===== LAYOUT: MINIMAL_PRO (17 — Минималист) =====
   if(t.layout==='minimal_pro'){
-    return `<div style="display:flex;min-height:297mm;height:297mm;font-family:Arial,sans-serif;background:white;overflow:hidden;">
+    return `<div style="display:flex;min-height:297mm;height:297mm;font-family:Arial,sans-serif;background:white;overflow:hidden;align-items:stretch;">
       <div style="width:200px;flex-shrink:0;background:${t.sidebar};padding:28px 16px;display:flex;flex-direction:column;">
         <div style="width:90px;height:90px;border-radius:50%;overflow:hidden;border:3px solid ${t.c1}44;margin:0 auto 12px;">${photoCircle}</div>
         <div style="text-align:center;margin-bottom:18px;padding-bottom:14px;border-bottom:1.5px solid ${t.c1}22;">
@@ -2259,7 +2259,7 @@ function renderCVHTML(d,photoSrc,tpl){
   }
 
   // ===== DEFAULT: SIDEBAR =====
-  return `<div style="display:flex;min-height:297mm;height:297mm;font-family:Arial,sans-serif;background:white;overflow:hidden;">
+  return `<div style="display:flex;min-height:297mm;height:297mm;font-family:Arial,sans-serif;background:white;overflow:hidden;align-items:stretch;">
     <div style="width:215px;flex-shrink:0;background:${t.sidebar};padding:22px 20px 20px 20px;display:flex;flex-direction:column;align-self:stretch;">
       <div style="width:100px;height:100px;border-radius:50%;overflow:hidden;display:flex;align-items:center;justify-content:center;margin:0 auto 12px;border:3px solid ${isDark?'rgba(255,255,255,0.35)':t.c1+'44'};">${photoCircle}</div>
       <div style="text-align:center;margin-bottom:18px;padding-bottom:14px;border-bottom:1px solid ${borderC};">
@@ -2385,7 +2385,19 @@ function downloadCVPDF(){
   const mock=document.getElementById('cv-mock');
   if(!mock||!mock.innerHTML)return;
   const w=window.open('','_blank');
-  w.document.write(`<!DOCTYPE html><html><head><meta charset="UTF-8"><title>CV - SmartDocs</title><style>*{box-sizing:border-box;margin:0;padding:0;}body{margin:0;padding:0;}@media print{body{margin:0;}@page{margin:0;size:A4;}}</style></head><body>${mock.innerHTML}<script>window.onload=function(){window.print();}<\/script></body></html>`);
+  w.document.write(`<!DOCTYPE html><html><head><meta charset="UTF-8"><title>CV - SmartDocs</title><style>
+    *{box-sizing:border-box;margin:0;padding:0;}
+    html,body{margin:0;padding:0;width:100%;height:100%;}
+    body>div{display:flex!important;min-height:297mm!important;}
+    body>div>div:first-child{align-self:stretch!important;}
+    @media print{
+      html,body{margin:0;padding:0;}
+      @page{margin:0;size:A4;}
+      body{zoom:1.1;}
+      body>div{display:flex!important;min-height:297mm!important;page-break-inside:avoid;}
+      body>div>div:first-child{align-self:stretch!important;}
+    }
+  </style></head><body>${mock.innerHTML}<script>window.onload=function(){window.print();}<\/script></body></html>`);
   w.document.close();
 }
 function downloadCVWord(){
