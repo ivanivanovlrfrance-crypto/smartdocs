@@ -2049,7 +2049,7 @@ function renderCVHTML(d,photoSrc,tpl){
 
   // ===== LAYOUT: SIDEBAR (1,2,6,7,8,9,11,12) =====
   if(t.layout==='sidebar'){
-    return `<div style="display:flex;width:210mm;min-height:297mm;font-family:Arial,sans-serif;background:white;overflow:hidden;align-items:stretch;">
+    return `<div style="display:flex;width:210mm;min-height:297mm;font-family:Arial,sans-serif;background:white;align-items:stretch;">
       <div style="width:215px;flex-shrink:0;background:${t.sidebar};padding:22px 20px 20px 20px;display:flex;flex-direction:column;align-self:stretch;flex:0 0 215px;min-height:100%;">
         <div style="width:88px;height:88px;border-radius:50%;overflow:hidden;display:flex;align-items:center;justify-content:center;margin:0 auto 10px;border:3px solid ${isDark?'rgba(255,255,255,0.35)':t.c1+'44'};">${photoCircle}</div>
         <div style="text-align:center;margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid ${borderC};">
@@ -2075,7 +2075,7 @@ function renderCVHTML(d,photoSrc,tpl){
     const hDark=getBrightness(t.sidebar)<140;
     const hText=hDark?'white':'#1a1a1a';
     const hLabel=hDark?'rgba(255,255,255,0.6)':'rgba(0,0,0,0.5)';
-    return `<div style="display:flex;flex-direction:column;min-height:297mm;height:297mm;font-family:Arial,sans-serif;background:white;overflow:hidden;">
+    return `<div style="display:flex;flex-direction:column;min-height:297mm;font-family:Arial,sans-serif;background:white;">
       <div style="background:${t.sidebar};padding:18px 28px;display:flex;align-items:center;gap:18px;flex-shrink:0;">
         <div style="width:76px;height:76px;border-radius:50%;overflow:hidden;flex-shrink:0;border:3px solid rgba(255,255,255,0.5);">${photoCircle}</div>
         <div style="flex:1;">
@@ -2106,7 +2106,7 @@ function renderCVHTML(d,photoSrc,tpl){
 
   // ===== LAYOUT: PHOTO_LEFT (13 — Оранжев Modern) =====
   if(t.layout==='photo_left'){
-    return `<div style="display:flex;width:210mm;min-height:297mm;font-family:Arial,sans-serif;background:white;overflow:hidden;align-items:stretch;">
+    return `<div style="display:flex;width:210mm;min-height:297mm;font-family:Arial,sans-serif;background:white;align-items:stretch;">
       <div style="width:200px;flex-shrink:0;background:${t.sidebar};display:flex;flex-direction:column;align-self:stretch;">
         <div style="width:200px;height:200px;flex-shrink:0;overflow:hidden;">${photoRect}</div>
         <div style="padding:18px 16px;flex:1;display:flex;flex-direction:column;">
@@ -2136,7 +2136,7 @@ function renderCVHTML(d,photoSrc,tpl){
 
   // ===== LAYOUT: PHOTO_RECT (14 — Тюркоаз Pro) =====
   if(t.layout==='photo_rect'){
-    return `<div style="display:flex;width:210mm;min-height:297mm;font-family:Arial,sans-serif;background:white;overflow:hidden;align-items:stretch;">
+    return `<div style="display:flex;width:210mm;min-height:297mm;font-family:Arial,sans-serif;background:white;align-items:stretch;">
       <div style="width:210px;flex-shrink:0;background:${t.sidebar};display:flex;flex-direction:column;align-self:stretch;">
         <div style="width:210px;height:160px;flex-shrink:0;overflow:hidden;">${photoRect}</div>
         <div style="padding:16px;flex:1;display:flex;flex-direction:column;">
@@ -2170,7 +2170,7 @@ function renderCVHTML(d,photoSrc,tpl){
     const ltDark=getBrightness(t.sidebar)<140;
     const ltText=ltDark?'white':'#1a1a1a';
     const ltLabel=ltDark?'rgba(255,255,255,0.5)':'rgba(0,0,0,0.4)';
-    return `<div style="display:flex;width:210mm;min-height:297mm;font-family:Arial,sans-serif;background:white;overflow:hidden;align-items:stretch;">
+    return `<div style="display:flex;width:210mm;min-height:297mm;font-family:Arial,sans-serif;background:white;align-items:stretch;">
       <div style="width:210px;flex-shrink:0;background:${t.sidebar};display:flex;flex-direction:column;align-self:stretch;">
         <div style="width:210px;height:170px;flex-shrink:0;overflow:hidden;position:relative;">${photoRect}
           <div style="position:absolute;bottom:0;left:0;right:0;background:linear-gradient(to top,${t.sidebar},transparent);height:60px;"></div>
@@ -2230,7 +2230,7 @@ function renderCVHTML(d,photoSrc,tpl){
 
   // ===== LAYOUT: MINIMAL_PRO (17 — Минималист) =====
   if(t.layout==='minimal_pro'){
-    return `<div style="display:flex;width:210mm;min-height:297mm;font-family:Arial,sans-serif;background:white;overflow:hidden;align-items:stretch;">
+    return `<div style="display:flex;width:210mm;min-height:297mm;font-family:Arial,sans-serif;background:white;align-items:stretch;">
       <div style="width:200px;flex-shrink:0;background:${t.sidebar};padding:28px 16px;display:flex;flex-direction:column;">
         <div style="width:90px;height:90px;border-radius:50%;overflow:hidden;border:3px solid ${t.c1}44;margin:0 auto 12px;">${photoCircle}</div>
         <div style="text-align:center;margin-bottom:18px;padding-bottom:14px;border-bottom:1.5px solid ${t.c1}22;">
@@ -2259,7 +2259,7 @@ function renderCVHTML(d,photoSrc,tpl){
   }
 
   // ===== DEFAULT: SIDEBAR =====
-  return `<div style="display:flex;width:210mm;min-height:297mm;font-family:Arial,sans-serif;background:white;overflow:hidden;align-items:stretch;">
+  return `<div style="display:flex;width:210mm;min-height:297mm;font-family:Arial,sans-serif;background:white;align-items:stretch;">
     <div style="width:215px;flex-shrink:0;background:${t.sidebar};padding:22px 20px 20px 20px;display:flex;flex-direction:column;align-self:stretch;flex:0 0 215px;min-height:100%;">
       <div style="width:100px;height:100px;border-radius:50%;overflow:hidden;display:flex;align-items:center;justify-content:center;margin:0 auto 12px;border:3px solid ${isDark?'rgba(255,255,255,0.35)':t.c1+'44'};">${photoCircle}</div>
       <div style="text-align:center;margin-bottom:18px;padding-bottom:14px;border-bottom:1px solid ${borderC};">
@@ -2367,7 +2367,13 @@ Reply ONLY with the JSON object.`;
     const result=await callClaude(prompt);
     const clean=result.replace(/```json|```/g,'').trim();
     const parsed=JSON.parse(clean);
-    Object.assign(cvData,parsed);
+    // Не презаписваме phone/email/city ако AI върне null/empty
+    const safe=Object.assign({},parsed);
+    if(!safe.phone) delete safe.phone;
+    if(!safe.email) delete safe.email;
+    if(!safe.city) delete safe.city;
+    if(!safe.name) delete safe.name;
+    Object.assign(cvData,safe);
   }catch(e){console.log('Using fallback',e);}
 
   setLoading('cv',false);
@@ -2384,53 +2390,53 @@ Reply ONLY with the JSON object.`;
 function downloadCVPDF(){
   const mock=document.getElementById('cv-mock');
   if(!mock||!mock.innerHTML)return;
-
-  // Вземаме HTML и директно оправяме inline стиловете
-  let html=mock.innerHTML;
-
-  // Оправяме wrapper div-а — width:210mm, align-items:stretch
-  html=html.replace(
-    /display:flex;(min-height:297mm|height:297mm)[^"]*297mm[^"]*overflow:hidden[^"]*/g,
-    function(m){ return m.replace('overflow:hidden','overflow:hidden;align-items:stretch;width:210mm'); }
-  );
-
-  // Оправяме sidebar div-а — align-self:stretch
-  html=html.replace(
-    /(width:2[01][05]px;flex-shrink:0;background:[^;]+;[^"]*display:flex;flex-direction:column[^"]*)/g,
-    function(m){ return m+';align-self:stretch;min-height:297mm'; }
-  );
-
   const w=window.open('','_blank');
-  w.document.write(`<!DOCTYPE html><html><head><meta charset="UTF-8"><title>CV - SmartDocs</title><style>
-    *{box-sizing:border-box;margin:0;padding:0;}
-    html,body{margin:0;padding:0;background:white;}
-    @page{margin:0;size:A4;}
-    @media print{
-      html,body{margin:0;padding:0;}
-      *{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important;}
-    }
-  </style></head><body>${html}<script>
-  window.onload=function(){
-    // Намираме главния flex container
-    var containers=document.querySelectorAll('div');
-    containers.forEach(function(el){
-      var s=el.getAttribute('style')||'';
-      if(s.indexOf('297mm')>-1 && s.indexOf('display:flex')>-1){
-        el.style.alignItems='stretch';
-        el.style.width='210mm';
-        el.style.minHeight='297mm';
-        el.style.height='297mm';
-        // Намираме первия child (sidebar)
-        var sidebar=el.firstElementChild;
-        if(sidebar){
-          sidebar.style.alignSelf='stretch';
-          sidebar.style.minHeight='100%';
-        }
+  if(!w)return;
+  const content=mock.innerHTML;
+  w.document.write(`<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>CV - SmartDocs</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+html,body{margin:0;padding:0;background:white;}
+@page{margin:0;size:A4;}
+@media print{
+  html,body{margin:0;padding:0;}
+  *{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important;}
+}
+</style>
+</head>
+<body>
+${content}
+<script>
+window.onload=function(){
+  // Намираме главния CV wrapper
+  var all=document.querySelectorAll('div');
+  for(var i=0;i<all.length;i++){
+    var s=all[i].getAttribute('style')||'';
+    // Главен wrapper - премахваме overflow:hidden и height:297mm
+    if(s.indexOf('297mm')>-1 && s.indexOf('flex')>-1){
+      all[i].style.overflow='visible';
+      all[i].style.height='auto';
+      all[i].style.minHeight='297mm';
+      all[i].style.alignItems='stretch';
+      all[i].style.width='210mm';
+      // Sidebar - първи child
+      var sb=all[i].firstElementChild;
+      if(sb){
+        sb.style.minHeight='297mm';
+        sb.style.alignSelf='stretch';
+        sb.style.overflow='visible';
       }
-    });
-    setTimeout(function(){window.print();},300);
-  };
-  <\/script></body></html>`);
+    }
+  }
+  setTimeout(function(){window.print();},400);
+};
+<\/script>
+</body>
+</html>`);
   w.document.close();
 }
 function downloadCVWord(){
