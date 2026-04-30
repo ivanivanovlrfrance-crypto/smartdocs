@@ -1952,6 +1952,116 @@ function setLoading(prefix,show){
 }
 
 // ===== RENDER CV =====
+async function generateCV(){
+  const fname=document.getElementById('cv-fname').value||'Ivan';
+  const lname=document.getElementById('cv-lname').value||'Petrov';
+  const phone=document.getElementById('cv-phone').value||'+359 88 000 000';
+  const email=document.getElementById('cv-email').value||'ivan@mail.com';
+  const city=document.getElementById('cv-city').value||'Sofia';
+  const nationality=document.getElementById('cv-nationality').value||'';
+  const profile=document.getElementById('cv-profile').value||'';
+  const edu=document.getElementById('cv-edu').value||'';
+  const skills=document.getElementById('cv-skills').value||'';
+  const driving=document.getElementById('cv-driving').value||'';
+  const ownCar=document.getElementById('cv-own-car')?.value||'';
+  const languages=document.getElementById('cv-languages').value||'';
+  const hobbies=document.getElementById('cv-hobbies').value||'';
+  const gender=document.getElementById('cv-gender')?.value||'';
+  const age=document.getElementById('cv-age')?.value||'';
+  const genderLabel=gender==='male'?'Мъж':gender==='female'?'Жена':'';
+  const lang=document.getElementById('cv-lang').value;
+
+  const jobs=[];
+  for(let i=1;i<=6;i++){
+    const t=document.getElementById(`job${i}-title`);
+    if(t&&t.value){jobs.push({title:t.value,company:document.getElementById(`job${i}-company`).value,period:document.getElementById(`job${i}-period`).value,location:document.getElementById(`job${i}-location`).value,desc:document.getElementById(`job${i}-desc`).value});}
+  }
+
+  const photoEl=document.getElementById('photoPreview');
+  const photoSrc=photoEl&&photoEl.src&&photoEl.src.length>100?photoEl.src:'';
+  const initials=(fname[0]||'I')+(lname[0]||'P');
+
+  document.getElementById('cv-output').style.display='none';
+  setLoading('cv',true);
+
+  const jobsText=jobs.map((j,i)=>`Job ${i+1}: ${j.title} at ${j.company} (${j.period}) in ${j.location}: ${j.desc}`).join('\n');
+
+  const prompt=`You are an HR specialist. Create a professional CV in JSON format ONLY (no markdown). ALL text must be in ${lang} language.
+
+IMPORTANT: The user may have typed in Bulgarian using Latin letters (transliteration). Examples: "kazvm se" = "казвам се", "rjazah" = "рязах", "praveh" = "правех", "rabotih" = "работих", "pomagah" = "помагах", "vodirah" = "водирах", "berah" = "берах". Please understand and correctly interpret any Bulgarian text written in Latin characters.
+
+IMPORTANT: For the "nationality" field, always write the COUNTRY NAME, never the adjective. Examples: "България" (not "Български"), "France" (not "Français"), "Deutschland" (not "Deutsch").
+
+Return this JSON structure:
+{
+  "name": "${fname} ${lname}",
+  "position": "professional title/position in ${lang} (max 5 words, uppercase)",
+  "phone": "${phone}",
+  "email": "${email}",
+  "city": "${city}",
+  "nationality": "country name only (e.g. България, France, Deutschland) - NOT adjective form",
+  "initials": "${initials}",
+  "profile": "rewrite the profile in professional ${lang} (3-4 sentences)",
+  "education": "${edu}",
+  "skills": ["skill1 in ${lang}", "skill2", "skill3", "skill4", "skill5", "skill6"],
+  "driving": "${driving}${ownCar?', личен автомобил':''}",
+  "languages": "${languages}",
+  "hobbies": "${hobbies}",
+  "experiences": [
+    {"title": "job title in ${lang}", "company": "company name", "period": "period", "location": "city/country", "desc": "maximum 2 short bullet points (one line each) - BRIEF, no long explanations"},
+    ... for each job provided
+  ],
+  "labels": {
+    "contact": "Contact in ${lang}",
+    "profile": "Profile in ${lang}",
+    "skills": "Skills in ${lang}",
+    "experience": "Work Experience in ${lang}",
+    "education": "Education in ${lang}",
+    "driving": "Driving License in ${lang}",
+    "languages": "Languages in ${lang}",
+    "hobbies": "Hobbies in ${lang}"
+  }
+}
+
+Input data:
+Profile: ${profile}
+Education: ${edu}
+Skills: ${skills}
+Jobs:
+${jobsText}
+
+Reply ONLY with the JSON object.`;
+
+  let cvData={name:`${fname} ${lname}`,gender:genderLabel,age,position:'PROFESSIONNEL',phone,email,city,nationality,initials,profile,education:edu,skills:skills.split(',').map(s=>s.trim()).filter(Boolean),driving:driving+(ownCar?', личен автомобил':''),languages,hobbies,experiences:jobs,labels:{contact:'Контакти',profile:'Профил',skills:'Умения',experience:'Трудов опит',education:'Образование',driving:'Шофьорска книжка',languages:'Езици',hobbies:'Интереси'}};
+
+  try{
+    const result=await callClaude(prompt);
+    const clean=result.replace(/```json|```/g,'').trim();
+    const parsed=JSON.parse(clean);
+    // Не презаписваме с null/empty стойности
+    const safe=Object.assign({},parsed);
+    if(!safe.phone) delete safe.phone;
+    if(!safe.email) delete safe.email;
+    if(!safe.city) delete safe.city;
+    if(!safe.name) delete safe.name;
+    // Пазим experiences от формата ако AI не върне нищо
+    if(!safe.experiences||!Array.isArray(safe.experiences)||safe.experiences.length===0) delete safe.experiences;
+    // Пазим gender и age
+    safe.gender=cvData.gender;
+    safe.age=cvData.age;
+    Object.assign(cvData,safe);
+  }catch(e){console.log('Using fallback',e);}
+
+  setLoading('cv',false);
+  const mock=document.getElementById('cv-mock');
+  mock.innerHTML=renderCVHTML(cvData,photoSrc,currentTemplate);
+  document.getElementById('cv-output').style.display='block';
+
+  if(usedFree){document.getElementById('cv-paywall').style.display='block';}
+  else{usedFree=true;document.getElementById('cv-paywall').style.display='none';}
+  document.getElementById('cv-output').scrollIntoView({behavior:'smooth'});
+}
+
 function renderCVHTML(d,photoSrc,tpl){
   const t=TEMPLATES.find(x=>x.id===tpl)||TEMPLATES[0];
   const ph=photoSrc?`<img src="${photoSrc}" style="width:100%;height:100%;object-fit:cover;">`:`<span style="font-size:30px;font-weight:700;color:white;">${d.initials||''}</span>`;
@@ -2082,18 +2192,21 @@ function renderCVHTML(d,photoSrc,tpl){
 
 function downloadCVPDF(){
   const mock=document.getElementById('cv-mock');
-  if(!mock||!mock.innerHTML)return;
-  const w=window.open('','_blank');
-  if(!w)return;
+  if(!mock||!mock.innerHTML){alert('Първо генерирай CV!');return;}
+  const w=window.open('','_blank','width=900,height=1200');
+  if(!w||w.closed||typeof w.closed=='undefined'){
+    alert('Моля разреши изскачащи прозорци (popups) за този сайт за да можеш да сваляш PDF!');
+    return;
+  }
   const h=mock.innerHTML;
-  w.document.write('<!DOCTYPE html><html><head><meta charset="UTF-8"><title>CV</title><style>'+
+  w.document.write('<!DOCTYPE html><html><head><meta charset="UTF-8"><title>CV - SmartDocs</title><style>'+
     '*{box-sizing:border-box;margin:0;padding:0;}'+
-    'html,body{margin:0;padding:0;}'+
+    'html,body{margin:0;padding:0;background:white;}'+
     'table{border-collapse:collapse;}'+
     '@page{margin:0;size:A4;}'+
     '@media print{*{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important;}}'+
     '</style></head><body>'+h+
-    '<scr'+'ipt>setTimeout(function(){window.print();},300);<'+'/scr'+'ipt>'+
+    '<scr'+'ipt>window.onload=function(){setTimeout(function(){window.print();},500);};<'+'/scr'+'ipt>'+
     '</body></html>');
   w.document.close();
 }
