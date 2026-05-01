@@ -2083,7 +2083,7 @@ function renderCVHTML(d,photoSrc,tpl){
   let watermark='';
   if(t.layout==='female_rose'){
     const c1=t.watermarkColor, c2=t.watermarkColor2, ci=t.watermarkInner, cc=t.watermarkCenter;
-    watermark=`<svg style="position:absolute;top:50%;left:62%;transform:translate(-50%,-50%);width:340px;height:340px;pointer-events:none;z-index:0;opacity:0.1;" viewBox="-110 -110 220 220" xmlns="http://www.w3.org/2000/svg">
+    watermark=`<svg style="position:absolute;top:50%;left:62%;transform:translate(-50%,-50%);width:340px;height:340px;pointer-events:none;z-index:0;opacity:0.25;" viewBox="-110 -110 220 220" xmlns="http://www.w3.org/2000/svg">
       ${[0,22,44,66,88,110,132,154,176,198,220,242,264,286,308,330].map((r,i)=>`<ellipse cx="0" cy="-65" rx="22" ry="65" fill="${i%2?c2:c1}" transform="rotate(${r})"/>`).join('')}
       ${[11,56,101,146,191,236,281,326].map(r=>`<ellipse cx="0" cy="-42" rx="16" ry="42" fill="${ci}" transform="rotate(${r})"/>`).join('')}
       ${[0,45,90,135,180,225,270,315].map((r,i)=>`<ellipse cx="0" cy="-22" rx="11" ry="22" fill="${i%2?c2:c1}" transform="rotate(${r})"/>`).join('')}
@@ -2091,13 +2091,13 @@ function renderCVHTML(d,photoSrc,tpl){
       <circle cx="0" cy="0" r="8" fill="${c1}" opacity="0.5"/>
     </svg>`;
   } else if(t.layout==='male_geo'){
-    watermark=`<svg style="position:absolute;top:0;right:0;width:200px;height:160px;pointer-events:none;z-index:0;opacity:0.06;" viewBox="0 0 200 160" xmlns="http://www.w3.org/2000/svg">
+    watermark=`<svg style="position:absolute;top:0;right:0;width:200px;height:160px;pointer-events:none;z-index:0;opacity:0.20;" viewBox="0 0 200 160" xmlns="http://www.w3.org/2000/svg">
       <line x1="60" y1="0" x2="200" y2="140" stroke="${accent}" stroke-width="20"/>
       <line x1="100" y1="0" x2="200" y2="100" stroke="${accent}" stroke-width="16"/>
       <line x1="140" y1="0" x2="200" y2="60" stroke="${accent}" stroke-width="12"/>
       <line x1="170" y1="0" x2="200" y2="30" stroke="${accent}" stroke-width="8"/>
     </svg>
-    <svg style="position:absolute;bottom:0;left:0;width:160px;height:140px;pointer-events:none;z-index:0;opacity:0.05;" viewBox="0 0 160 140" xmlns="http://www.w3.org/2000/svg">
+    <svg style="position:absolute;bottom:0;left:0;width:160px;height:140px;pointer-events:none;z-index:0;opacity:0.19;" viewBox="0 0 160 140" xmlns="http://www.w3.org/2000/svg">
       <line x1="0" y1="40" x2="120" y2="140" stroke="${accent}" stroke-width="20"/>
       <line x1="0" y1="70" x2="90" y2="140" stroke="${accent}" stroke-width="16"/>
       <line x1="0" y1="100" x2="60" y2="140" stroke="${accent}" stroke-width="12"/>
@@ -2109,14 +2109,14 @@ function renderCVHTML(d,photoSrc,tpl){
         dots+=`<circle cx="${10+c*22}" cy="${10+r*22}" r="2.5" fill="${accent}"/>`;
       }
     }
-    watermark=`<svg style="position:absolute;top:30px;right:0;width:200px;height:120px;pointer-events:none;z-index:0;opacity:0.07;" viewBox="0 0 200 120" xmlns="http://www.w3.org/2000/svg">${dots}</svg>
-    <svg style="position:absolute;bottom:30px;left:30px;width:120px;height:100px;pointer-events:none;z-index:0;opacity:0.06;" viewBox="0 0 120 100" xmlns="http://www.w3.org/2000/svg">${dots}</svg>`;
+    watermark=`<svg style="position:absolute;top:30px;right:0;width:200px;height:120px;pointer-events:none;z-index:0;opacity:0.22;" viewBox="0 0 200 120" xmlns="http://www.w3.org/2000/svg">${dots}</svg>
+    <svg style="position:absolute;bottom:30px;left:30px;width:120px;height:100px;pointer-events:none;z-index:0;opacity:0.21;" viewBox="0 0 120 100" xmlns="http://www.w3.org/2000/svg">${dots}</svg>`;
   }
 
   // === SIDEBAR HEAD === (за male_dots — тъмна лента горе)
   const sidebarHead=t.layout==='male_dots'?`
     <div style="background:${accent};padding:18px 12px;text-align:center;margin:0;">
-      <div style="width:105px;height:105px;border-radius:50%;background:#2d5282;display:flex;align-items:center;justify-content:center;margin:0 auto;border:3px solid rgba(255,255,255,0.3);overflow:hidden;">${ph}</div>
+      <div style="width:160px;height:160px;border-radius:50%;background:#2d5282;display:flex;align-items:center;justify-content:center;margin:0 auto;border:3px solid rgba(255,255,255,0.3);overflow:hidden;">${ph}</div>
     </div>
     <div style="padding:12px 16px 16px;text-align:center;border-bottom:1px solid ${borderC};">
       <div style="font-size:14px;font-weight:700;color:${accent};">${d.name||''}</div>
@@ -2125,7 +2125,7 @@ function renderCVHTML(d,photoSrc,tpl){
     </div>
   `:`
     <div style="padding:18px 16px 12px;text-align:center;">
-      <div style="width:105px;height:105px;border-radius:50%;background:${borderC};display:flex;align-items:center;justify-content:center;margin:0 auto 10px;border:3px solid white;overflow:hidden;">${ph}</div>
+      <div style="width:160px;height:160px;border-radius:50%;background:${borderC};display:flex;align-items:center;justify-content:center;margin:0 auto 10px;border:3px solid white;overflow:hidden;">${ph}</div>
       <div style="font-size:14px;font-weight:700;color:${accent};">${d.name||''}</div>
       ${genderAge?`<div style="font-size:11px;color:${labelC};margin-top:2px;">${genderAge}</div>`:''}
       ${d.nationality?`<div style="font-size:11px;color:${labelC};margin-top:1px;">${d.nationality}</div>`:''}
@@ -2153,7 +2153,7 @@ function renderCVHTML(d,photoSrc,tpl){
     <div style="margin-bottom:12px;${i<arr.length-1?'padding-bottom:10px;border-bottom:1px solid #f5f5f5;':''}">
       <div style="font-size:14px;font-weight:700;color:#1a1a1a;">${exp.title}</div>
       <div style="font-size:12px;color:${accent};font-weight:600;">${[exp.company,exp.location].filter(Boolean).join(' · ')}</div>
-      <div style="font-size:11px;color:#aaa;margin-bottom:5px;">${exp.period||''}</div>
+      <div style="font-size:11px;color:#555;font-weight:600;margin-bottom:5px;">${exp.period||''}</div>
       <div style="font-size:12px;color:#555;line-height:1.65;">${exp.desc||''}</div>
     </div>`).join('');
 
