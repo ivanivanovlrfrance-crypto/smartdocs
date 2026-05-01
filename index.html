@@ -1999,16 +1999,18 @@ Return this JSON structure:
   "phone": "${phone}",
   "email": "${email}",
   "city": "${city}",
-  "nationality": "country name only (e.g. България, France, Deutschland) - NOT adjective form",
+  "nationality": "country name TRANSLATED to ${lang} (e.g. for French: Bulgarie, France, Allemagne; for English: Bulgaria, France, Germany; for German: Bulgarien, Frankreich)",
+  "gender_label": "translate gender to ${lang} (Male/Female in target language, e.g. French: Homme/Femme, German: Mann/Frau, English: Male/Female, Bulgarian: Мъж/Жена)",
+  "age_label": "translate 'years old' to ${lang} (e.g. French: 'ans', German: 'Jahre', English: 'years', Bulgarian: 'год.')",
   "initials": "${initials}",
   "profile": "rewrite the profile in professional ${lang} (3-4 sentences)",
-  "education": "${edu}",
+  "education": "translate education info to ${lang}: ${edu}",
   "skills": ["skill1 in ${lang}", "skill2", "skill3", "skill4", "skill5", "skill6"],
-  "driving": "${driving}${ownCar?', личен автомобил':''}",
-  "languages": "${languages}",
-  "hobbies": "${hobbies}",
+  "driving": "translate driving info to ${lang}: ${driving}${ownCar?', personal car':''}",
+  "languages": "translate language levels to ${lang}: ${languages}",
+  "hobbies": "translate hobbies to ${lang}: ${hobbies}",
   "experiences": [
-    {"title": "job title in ${lang}", "company": "company name", "period": "period", "location": "city/country", "desc": "maximum 2 short bullet points (one line each) - BRIEF, no long explanations"},
+    {"title": "job title in ${lang}", "company": "company name", "period": "period", "location": "city/country in ${lang}", "desc": "maximum 2 short bullet points (one line each) - BRIEF, no long explanations"},
     ... for each job provided
   ],
   "labels": {
@@ -2065,7 +2067,9 @@ Reply ONLY with the JSON object.`;
 function renderCVHTML(d,photoSrc,tpl){
   const t=TEMPLATES.find(x=>x.id===tpl)||TEMPLATES[0];
   const ph=photoSrc?`<img src="${photoSrc}" style="width:100%;height:100%;object-fit:cover;">`:`<span style="font-size:30px;font-weight:700;color:white;">${d.initials||''}</span>`;
-  const genderAge=[d.gender,d.age?d.age+' год.':''].filter(Boolean).join(' · ');
+  const genderText=d.gender_label||d.gender||'';
+  const ageText=d.age?(d.age+' '+(d.age_label||'год.')):'';
+  const genderAge=[genderText,ageText].filter(Boolean).join(' · ');
 
   // === ЦВЕТНИ ВАРИАНТИ ===
   const sidebarBg=t.sidebar;
@@ -2111,49 +2115,49 @@ function renderCVHTML(d,photoSrc,tpl){
 
   // === SIDEBAR HEAD === (за male_dots — тъмна лента горе)
   const sidebarHead=t.layout==='male_dots'?`
-    <div style="background:${accent};padding:18px 12px;text-align:center;">
-      <div style="width:84px;height:84px;border-radius:50%;background:#2d5282;display:flex;align-items:center;justify-content:center;margin:0 auto;border:3px solid rgba(255,255,255,0.3);overflow:hidden;">${ph}</div>
+    <div style="background:${accent};padding:18px 12px;text-align:center;margin:0;">
+      <div style="width:105px;height:105px;border-radius:50%;background:#2d5282;display:flex;align-items:center;justify-content:center;margin:0 auto;border:3px solid rgba(255,255,255,0.3);overflow:hidden;">${ph}</div>
     </div>
     <div style="padding:12px 16px 16px;text-align:center;border-bottom:1px solid ${borderC};">
-      <div style="font-size:13px;font-weight:700;color:${accent};">${d.name||''}</div>
-      ${genderAge?`<div style="font-size:10px;color:${labelC};margin-top:2px;">${genderAge}</div>`:''}
-      ${d.nationality?`<div style="font-size:10px;color:${labelC};margin-top:1px;">${d.nationality}</div>`:''}
+      <div style="font-size:14px;font-weight:700;color:${accent};">${d.name||''}</div>
+      ${genderAge?`<div style="font-size:11px;color:${labelC};margin-top:2px;">${genderAge}</div>`:''}
+      ${d.nationality?`<div style="font-size:11px;color:${labelC};margin-top:1px;">${d.nationality}</div>`:''}
     </div>
   `:`
-    <div style="padding:22px 16px 12px;text-align:center;">
-      <div style="width:84px;height:84px;border-radius:50%;background:${borderC};display:flex;align-items:center;justify-content:center;margin:0 auto 10px;border:3px solid white;overflow:hidden;">${ph}</div>
-      <div style="font-size:13px;font-weight:700;color:${accent};">${d.name||''}</div>
-      ${genderAge?`<div style="font-size:10px;color:${labelC};margin-top:2px;">${genderAge}</div>`:''}
-      ${d.nationality?`<div style="font-size:10px;color:${labelC};margin-top:1px;">${d.nationality}</div>`:''}
+    <div style="padding:18px 16px 12px;text-align:center;">
+      <div style="width:105px;height:105px;border-radius:50%;background:${borderC};display:flex;align-items:center;justify-content:center;margin:0 auto 10px;border:3px solid white;overflow:hidden;">${ph}</div>
+      <div style="font-size:14px;font-weight:700;color:${accent};">${d.name||''}</div>
+      ${genderAge?`<div style="font-size:11px;color:${labelC};margin-top:2px;">${genderAge}</div>`:''}
+      ${d.nationality?`<div style="font-size:11px;color:${labelC};margin-top:1px;">${d.nationality}</div>`:''}
     </div>
     <hr style="border:0;border-top:1px solid ${borderC};margin:0 16px 14px;">
   `;
 
   // === SIDEBAR SECTIONS ===
   const section=(label,content)=>content?`<div style="margin-bottom:14px;padding:0 16px;">
-    <div style="font-size:9px;font-weight:800;color:${labelC};letter-spacing:1.5px;margin-bottom:6px;">${label}</div>
-    <div style="font-size:11px;color:${textC};line-height:1.5;">${content}</div>
+    <div style="font-size:10px;font-weight:800;color:${labelC};letter-spacing:1.5px;margin-bottom:7px;">${label}</div>
+    <div style="font-size:12px;color:${textC};line-height:1.55;">${content}</div>
     <hr style="border:0;border-top:1px solid ${borderC};margin-top:10px;">
   </div>`:'';
 
   const contactSection=`<div style="margin-bottom:14px;padding:0 16px;">
-    <div style="font-size:9px;font-weight:800;color:${labelC};letter-spacing:1.5px;margin-bottom:6px;">${d.labels?.contact||'КОНТАКТИ'}</div>
-    ${d.phone?`<div style="font-size:11px;color:${textC};margin-bottom:4px;">✆ ${d.phone}</div>`:''}
-    ${d.email?`<div style="font-size:10px;color:${textC};margin-bottom:4px;word-break:break-all;">@ ${d.email}</div>`:''}
-    ${d.city?`<div style="font-size:11px;color:${textC};margin-bottom:4px;">⌖ ${d.city}</div>`:''}
+    <div style="font-size:10px;font-weight:800;color:${labelC};letter-spacing:1.5px;margin-bottom:7px;">${d.labels?.contact||'КОНТАКТИ'}</div>
+    ${d.phone?`<div style="font-size:12px;color:${textC};margin-bottom:5px;">✆ ${d.phone}</div>`:''}
+    ${d.email?`<div style="font-size:11px;color:${textC};margin-bottom:5px;word-break:break-all;">@ ${d.email}</div>`:''}
+    ${d.city?`<div style="font-size:12px;color:${textC};margin-bottom:5px;">⌖ ${d.city}</div>`:''}
     <hr style="border:0;border-top:1px solid ${borderC};margin-top:10px;">
   </div>`;
 
   // === MAIN CONTENT ===
   const expHTML=(d.experiences||[]).filter(e=>e.title).map((exp,i,arr)=>`
     <div style="margin-bottom:12px;${i<arr.length-1?'padding-bottom:10px;border-bottom:1px solid #f5f5f5;':''}">
-      <div style="font-size:13px;font-weight:700;color:#1a1a1a;">${exp.title}</div>
-      <div style="font-size:11px;color:${accent};font-weight:600;">${[exp.company,exp.location].filter(Boolean).join(' · ')}</div>
-      <div style="font-size:10px;color:#aaa;margin-bottom:4px;">${exp.period||''}</div>
-      <div style="font-size:11px;color:#555;line-height:1.6;">${exp.desc||''}</div>
+      <div style="font-size:14px;font-weight:700;color:#1a1a1a;">${exp.title}</div>
+      <div style="font-size:12px;color:${accent};font-weight:600;">${[exp.company,exp.location].filter(Boolean).join(' · ')}</div>
+      <div style="font-size:11px;color:#aaa;margin-bottom:5px;">${exp.period||''}</div>
+      <div style="font-size:12px;color:#555;line-height:1.65;">${exp.desc||''}</div>
     </div>`).join('');
 
-  const skillsHTML=(d.skills||[]).map(s=>`<span style="display:inline-block;background:${skillBg};color:${accent};font-size:10px;padding:3px 10px;border-radius:12px;margin:2px;border:1px solid ${borderC};">${s}</span>`).join('');
+  const skillsHTML=(d.skills||[]).map(s=>`<span style="display:inline-block;background:${skillBg};color:${accent};font-size:11px;padding:4px 11px;border-radius:12px;margin:3px;border:1px solid ${borderC};">${s}</span>`).join('');
 
   return `<table style="width:210mm;min-height:297mm;font-family:Arial,sans-serif;border-collapse:collapse;background:white;table-layout:fixed;position:relative;">
     <tr>
@@ -2169,19 +2173,19 @@ function renderCVHTML(d,photoSrc,tpl){
         ${watermark}
         <div style="position:relative;z-index:1;">
           <div style="margin-bottom:16px;padding-bottom:12px;border-bottom:2.5px solid ${accent};">
-            <h1 style="font-size:24px;font-weight:700;color:#0f172a;margin:0 0 3px 0;">${d.name||''}</h1>
-            <div style="font-size:12px;color:${accent};font-weight:700;letter-spacing:1.5px;">${d.position||''}</div>
+            <h1 style="font-size:26px;font-weight:700;color:#0f172a;margin:0 0 4px 0;">${d.name||''}</h1>
+            <div style="font-size:13px;color:${accent};font-weight:700;letter-spacing:1.5px;">${d.position||''}</div>
           </div>
           ${d.profile?`<div style="margin-bottom:16px;">
-            <div style="font-size:10px;font-weight:700;color:${accent};letter-spacing:1px;margin-bottom:6px;">${d.labels?.profile||'ПРОФИЛ'}</div>
-            <div style="border-left:3px solid ${accent};padding:8px 12px;background:${skillBg};font-size:11.5px;color:#444;line-height:1.7;">${d.profile}</div>
+            <div style="font-size:11px;font-weight:700;color:${accent};letter-spacing:1px;margin-bottom:7px;">${d.labels?.profile||'ПРОФИЛ'}</div>
+            <div style="border-left:3px solid ${accent};padding:8px 12px;background:${skillBg};font-size:12.5px;color:#444;line-height:1.7;">${d.profile}</div>
           </div>`:''}
           ${d.skills?.length?`<div style="margin-bottom:16px;">
-            <div style="font-size:10px;font-weight:700;color:${accent};letter-spacing:1px;margin-bottom:6px;">${d.labels?.skills||'УМЕНИЯ'}</div>
+            <div style="font-size:11px;font-weight:700;color:${accent};letter-spacing:1px;margin-bottom:7px;">${d.labels?.skills||'УМЕНИЯ'}</div>
             <div>${skillsHTML}</div>
           </div>`:''}
           ${expHTML?`<div>
-            <div style="font-size:10px;font-weight:700;color:${accent};letter-spacing:1px;margin-bottom:8px;">${d.labels?.experience||'ТРУДОВ ОПИТ'}</div>
+            <div style="font-size:11px;font-weight:700;color:${accent};letter-spacing:1px;margin-bottom:9px;">${d.labels?.experience||'ТРУДОВ ОПИТ'}</div>
             ${expHTML}
           </div>`:''}
         </div>
