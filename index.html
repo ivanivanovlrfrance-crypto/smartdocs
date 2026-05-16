@@ -499,7 +499,7 @@ footer{background:var(--dark);color:rgba(255,255,255,0.55);padding:48px 40px 28p
         <div style="width:36px;height:36px;background:#e0faf7;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;">✉️</div>
         <div data-t="func_letter_title" style="font-size:16px;font-weight:700;color:#0f172a;">Напиши писмо</div>
       </div>
-      <p style="font-size:13px;color:#64748b;line-height:1.7;margin-bottom:14px;">Официално писмо до институция, работодател или община — AI го пише на правилния език.</p>
+      <p data-t="func_letter_desc" style="font-size:13px;color:#64748b;line-height:1.7;margin-bottom:14px;">Официално писмо до институция, работодател или община — AI го пише на правилния език.</p>
       <div data-t="write_letter_link" style="font-size:12px;font-weight:700;color:#00856f;">Пиши писмо →</div>
     </div>
 
@@ -662,7 +662,7 @@ footer{background:var(--dark);color:rgba(255,255,255,0.55);padding:48px 40px 28p
         <div class="field-group">
           <label class="field-label" data-t="driving">🚗 Шофьорска книжка</label>
           <select class="field-input" id="cv-driving">
-            <option value="">Нямам</option>
+            <option value="" data-t="drive_none">Нямам</option>
             <option value="B" data-t="cat_b">Категория B (лек автомобил)</option>
             <option value="A" data-t="cat_a">Категория A (мотоциклет)</option>
             <option value="A+B">Категория A + B</option>
@@ -674,7 +674,7 @@ footer{background:var(--dark);color:rgba(255,255,255,0.55);padding:48px 40px 28p
         <div class="field-group">
           <label class="field-label" data-t="own_car">🚙 Личен автомобил</label>
           <select class="field-input" id="cv-own-car">
-            <option value="">Нямам</option>
+            <option value="" data-t="no_car">Нямам</option>
             <option value="yes" data-t="have_car">Да, имам личен автомобил</option>
           </select>
         </div>
@@ -869,7 +869,7 @@ function buildCV(t,idx){
   // Лейбъли в превюто
   var lblProfil=(T[currentLang]&&T[currentLang].lbl_profile)||'Профил';
   var lblExp=(T[currentLang]&&T[currentLang].lbl_exp)||'Трудов опит';
-  var lblSkills=(T[currentLang]&&T[currentLang].lbl_skills)||lblSkills;
+  var lblSkills=(T[currentLang]&&T[currentLang].lbl_skills)||'УМЕНИЯ';
   var c=t.c1, sb=t.sidebar||t.c1;
   var dark=['#0d0b1e','#1a1a2e','#03045e'].indexOf(sb)>-1;
   var tc=dark?'rgba(255,255,255,0.9)':c;
@@ -888,7 +888,7 @@ function buildCV(t,idx){
     '<div style="font-size:6px;color:'+tl+';width:100%;">📞 +359 88 123 456</div>'+
     '<div style="font-size:6px;color:'+tl+';width:100%;">📍 '+pc+'</div>'+
     divider+
-    '<div style="font-size:6px;font-weight:700;color:'+tc+';">УМЕНИЯ</div>'+
+    '<div style="font-size:6px;font-weight:700;color:'+tc+';">'+lblSkills+'</div>'+
     '<div style="height:3px;border-radius:2px;background:'+tc+';width:80%;opacity:0.5;margin-bottom:2px;"></div>'+
     '<div style="height:3px;border-radius:2px;background:'+tc+';width:60%;opacity:0.35;"></div>'+
     '</div>'+
@@ -928,8 +928,8 @@ function buildCV(t,idx){
     '<div style="font-size:6px;color:'+tl+';">Български · Английски</div>'+
     '</div>'+
     '<div style="flex:1;background:#f9f9fb;padding:10px 9px;overflow:hidden;">'+
-    S('За мен')+L('95%')+L('80%')+L('88%')+
-    S('Опит')+
+    S(lblProfil)+L('95%')+L('80%')+L('88%')+
+    S(lblExp)+
     '<div style="font-size:7px;font-weight:600;color:rgba(0,0,0,0.6);margin-bottom:1px;">'+pj+'</div>'+
     '<div style="font-size:6px;color:rgba(0,0,0,0.4);margin-bottom:2px;">2019–2024</div>'+
     L('85%')+L('68%')+
@@ -941,7 +941,7 @@ function buildCV(t,idx){
     '<div style="font-size:7px;color:rgba(0,0,0,0.45);">'+pj+'</div></div></div>'+
     '<div style="height:1px;background:'+c+';opacity:0.2;margin-bottom:5px;"></div>'+
     S(lblProfil)+L('95%')+L('80%')+
-    S('Опит')+
+    S(lblExp)+
     '<div style="font-size:7px;font-weight:600;color:rgba(0,0,0,0.55);margin-bottom:1px;">'+pj+' · 2020–2024</div>'+
     L('88%')+L('70%')+
     '</div>';
@@ -1970,6 +1970,8 @@ const T={
     hf_lang_sub:'Búlgaro · Alemán · Francés · y más',
     photo_text:'Haz clic para subir una foto',
     func_letter_desc2:'Carta oficial a instituciones, empleador o ayuntamiento — la IA la escribe con el tono correcto.'
+  ,
+    drive_none:'Ninguno'
   },
   it:{
     nav_login:'Accedi',nav_register:'Inizia gratis',
@@ -2128,6 +2130,8 @@ const T={
     hf_lang_sub:'Bulgaro · Tedesco · Francese · e altro',
     photo_text:'Clicca per caricare una foto',
     func_letter_desc2:'Lettera ufficiale a istituzioni, datore di lavoro o comune — l\'IA la scrive con il tono giusto.'
+  ,
+    drive_none:'Nessuna'
   },
   ro:{
     nav_login:'Autentificare',nav_register:'Începe gratuit',
@@ -2286,6 +2290,8 @@ const T={
     hf_lang_sub:'Bulgară · Germană · Franceză · și altele',
     photo_text:'Click pentru a încărca o fotografie',
     func_letter_desc2:'Scrisoare oficială către instituții, angajator sau primărie — AI o scrie cu tonul potrivit.'
+  ,
+    drive_none:'Niciun'
   }
 ,
 
@@ -2488,6 +2494,8 @@ const T={
     hf_lang_sub:'Bułgarski · Niemiecki · Francuski · i więcej',
     photo_text:'Kliknij aby przesłać zdjęcie',
     func_letter_desc2:'Oficjalne pismo do instytucji, pracodawcy lub gminy — AI pisze właściwym tonem.'
+  ,
+    drive_none:'Brak'
   },
   ru:{
     nav_login:'Войти',nav_register:'Начать бесплатно',
@@ -2688,6 +2696,8 @@ const T={
     hf_lang_sub:'Болгарский · Немецкий · Французский · и другие',
     photo_text:'Нажмите чтобы загрузить фото',
     func_letter_desc2:'Официальное письмо в учреждения, работодателю или муниципалитет — ИИ пишет в правильном тоне.'
+  ,
+    drive_none:'Нет'
   },
   gr:{
     nav_login:'Σύνδεση',nav_register:'Ξεκίνα δωρεάν',
@@ -2874,6 +2884,8 @@ const T={
     hf_lang_sub:'Βουλγαρικά · Γερμανικά · Γαλλικά · και άλλα',
     photo_text:'Κάντε κλικ για να ανεβάσετε φωτογραφία',
     func_letter_desc2:'Επίσημη επιστολή σε φορείς, εργοδότη ή δήμο — η AI γράφει με τον σωστό τόνο.'
+  ,
+    drive_none:'Καμία'
   },
   nl:{
     nav_login:'Inloggen',nav_register:'Gratis beginnen',
@@ -3051,6 +3063,8 @@ const T={
     hf_lang_sub:'Búlgaro · Alemão · Francês · e mais',
     photo_text:'Clique para enviar uma foto',
     func_letter_desc2:'Carta oficial a instituições, empregador ou câmara — IA escreve no tom certo.'
+  ,
+    drive_none:'Nenhum'
   },
   uk:{
     nav_login:'Увійти',nav_register:'Почати безкоштовно',
@@ -3226,6 +3240,8 @@ const T={
     hf_lang_sub:'Bulgarca · Almanca · Fransızca · ve daha fazlası',
     photo_text:'Fotoğraf yüklemek için tıklayın',
     func_letter_desc2:'Kurumlara, işverene veya belediyeye resmi mektup — AI doğru tonda yazar.'
+  ,
+    drive_none:'Yok'
   },
   sv:{
     nav_login:'Logga in',nav_register:'Börja gratis',
