@@ -423,7 +423,7 @@ footer{background:var(--dark);color:rgba(255,255,255,0.55);padding:48px 40px 28p
 
       <!-- Отзив -->
       <div style="display:flex;align-items:center;gap:12px;margin-top:24px;padding:14px 16px;background:white;border-radius:12px;border:1px solid #e2e8f0;max-width:340px;">
-        <div style="width:42px;height:42px;border-radius:50%;background:#ea580c;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:800;color:white;flex-shrink:0;">ИП</div>
+        <div data-t="hcv_initials" style="width:42px;height:42px;border-radius:50%;background:#ea580c;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:800;color:white;flex-shrink:0;">ИП</div>
         <div>
           <div style="color:#f59e0b;font-size:11px;">★★★★★</div>
           <div style="font-size:12px;color:#475569;font-style:italic;line-height:1.5;"><span data-t="hcv_testimonial">"Направих CV за 3 минути и получих интервю в Германия!"</span></div>
@@ -479,7 +479,7 @@ footer{background:var(--dark);color:rgba(255,255,255,0.55);padding:48px 40px 28p
 <!-- FEATURES -->
 <div class="features-wrap reveal">
   <div style="text-align:center;margin-bottom:48px;">
-    <div class="section-tag">Функции</div>
+    <div class="section-tag" data-t="feat_tag">Функции</div>
     <h2 class="section-title" data-t="feat_title">Всичко от което се нуждаеш</h2>
     <p data-t="func_sub" style="color:var(--gray);font-size:16px;margin-top:10px;">Избери какво искаш да направиш — AI се грижи за останалото</p>
   </div>
@@ -686,11 +686,11 @@ footer{background:var(--dark);color:rgba(255,255,255,0.55);padding:48px 40px 28p
       <div class="field-group" style="margin-top:16px;">
         <label class="field-label" data-t="cv_lang">🗺️ Език на CV-то</label>
         <select class="field-input" id="cv-lang">
-          <option>Български</option><option>English</option><option>Deutsch</option>
-          <option>Français</option><option>Español</option><option>Italiano</option>
-          <option>Română</option><option>Polski</option><option>Ελληνικά</option>
-          <option>Русский</option><option>Türkçe</option><option>Português</option>
-          <option>Nederlands</option><option>Українська</option>
+          <option value="Bulgarian" data-lang-code="bg">Български</option><option value="English" data-lang-code="en">English</option><option value="German" data-lang-code="de">Deutsch</option>
+          <option value="French" data-lang-code="fr">Français</option><option value="Spanish" data-lang-code="es">Español</option><option value="Italian" data-lang-code="it">Italiano</option>
+          <option value="Romanian" data-lang-code="ro">Română</option><option value="Polish" data-lang-code="pl">Polski</option><option value="Greek" data-lang-code="el">Ελληνικά</option>
+          <option value="Russian" data-lang-code="ru">Русский</option><option value="Turkish" data-lang-code="tr">Türkçe</option><option value="Portuguese" data-lang-code="pt">Português</option>
+          <option value="Dutch" data-lang-code="nl">Nederlands</option><option value="Ukrainian" data-lang-code="uk">Українська</option>
         </select>
       </div>
 
@@ -723,16 +723,16 @@ footer{background:var(--dark);color:rgba(255,255,255,0.55);padding:48px 40px 28p
     <!-- LETTER TAB -->
     <div id="tabLetter" class="app-card" style="display:none;">
       <div class="form-section"><span class="form-section-icon">✉️</span><span class="form-section-title" data-t="letter_section">Опиши с твои думи — за какво е писмото?</span></div>
-      <textarea class="field-input" id="letter-desc" style="min-height:110px;" placeholder="Искам да пиша до Общината за проблем с улично осветление..."></textarea>
+      <textarea class="field-input" id="letter-desc" data-t-placeholder="ph_letter_desc" style="min-height:110px;" placeholder="Искам да пиша до Общината за проблем с улично осветление..."></textarea>
       <div class="field-row" style="margin-top:14px;">
-        <div class="field-group"><label class="field-label">Твоето пълно име</label><input class="field-input" id="letter-from" placeholder="Иван Петров"></div>
-        <div class="field-group"><label class="field-label">До кого</label><input class="field-input" id="letter-to" placeholder="Кмет на Столична Община"></div>
+        <div class="field-group"><label class="field-label" data-t="letter_from">Твоето пълно име</label><input class="field-input" id="letter-from" data-t-placeholder="ph_letter_from" placeholder="Иван Петров"></div>
+        <div class="field-group"><label class="field-label" data-t="letter_to">До кого</label><input class="field-input" id="letter-to" data-t-placeholder="ph_letter_to" placeholder="Кмет на Столична Община"></div>
       </div>
-      <div class="field-group"><label class="field-label">Език на писмото</label>
-        <select class="field-input" id="letter-lang"><option>Български</option><option>English</option><option>Deutsch</option><option>Français</option><option>Español</option><option>Italiano</option><option>Română</option><option>Polski</option><option>Русский</option><option>Türkçe</option><option>Português</option></select>
+      <div class="field-group"><label class="field-label" data-t="letter_lang">Език на писмото</label>
+        <select class="field-input" id="letter-lang"><option value="Bulgarian" data-lang-code="bg">Български</option><option value="English" data-lang-code="en">English</option><option value="German" data-lang-code="de">Deutsch</option><option value="French" data-lang-code="fr">Français</option><option value="Spanish" data-lang-code="es">Español</option><option value="Italian" data-lang-code="it">Italiano</option><option value="Romanian" data-lang-code="ro">Română</option><option value="Polish" data-lang-code="pl">Polski</option><option value="Russian" data-lang-code="ru">Русский</option><option value="Turkish" data-lang-code="tr">Türkçe</option><option value="Portuguese" data-lang-code="pt">Português</option></select>
       </div>
       <button class="generate-btn" onclick="generateLetter()" id="letterGenBtn" data-t="gen_letter">✦ Генерирай писмото с AI</button>
-      <div class="ai-loading" id="letter-loading"><div class="ai-loading-dots"><div class="ai-dot"></div><div class="ai-dot"></div><div class="ai-dot"></div></div><p style="color:var(--gray);font-size:14px;">Claude AI пише писмото...</p></div>
+      <div class="ai-loading" id="letter-loading"><div class="ai-loading-dots"><div class="ai-dot"></div><div class="ai-dot"></div><div class="ai-dot"></div></div><p data-t="loading_letter" style="color:var(--gray);font-size:14px;">Claude AI пише писмото...</p></div>
       <div class="output-wrap" id="letter-output">
         <div class="output-label" data-t="preview_simple">Преглед</div>
         <div style="background:white;border:1.5px solid var(--border);border-radius:14px;padding:24px;font-size:13px;line-height:1.9;" id="letter-mock"></div>
@@ -753,9 +753,9 @@ footer{background:var(--dark);color:rgba(255,255,255,0.55);padding:48px 40px 28p
       <h2 class="section-title" style="color:white;" data-t="test_title">Какво казват потребителите</h2>
     </div>
     <div class="test-grid">
-      <div class="test-card"><div class="test-stars">★★★★★</div><p class="test-text" data-t="test1">"Направих CV за 3 минути с моята снимка и всичко на френски! Невероятно!"</p><div class="test-author"><div class="test-avatar" style="background:var(--p3);color:var(--p);">МГ</div><div><div class="test-name" data-t="tname1">Мария Г.</div><div class="test-role" data-t="trole1">София, България</div></div></div></div>
-      <div class="test-card"><div class="test-stars">★★★★★</div><p class="test-text" data-t="test2">"Имам 3 места за работа и всичко се побра в едно красиво CV!"</p><div class="test-author"><div class="test-avatar" style="background:var(--teal2);color:var(--teal);">ДС</div><div><div class="test-name" data-t="tname2">Димитър С.</div><div class="test-role" data-t="trole2">Пловдив, България</div></div></div></div>
-      <div class="test-card"><div class="test-stars">★★★★★</div><p class="test-text" data-t="test3">"Кандидатствах за работа в Германия. Получих интервю!"</p><div class="test-author"><div class="test-avatar" style="background:var(--amber2);color:#a06000;">АТ</div><div><div class="test-name" data-t="tname3">Андрей Т.</div><div class="test-role" data-t="trole3">Варна, България</div></div></div></div>
+      <div class="test-card"><div class="test-stars">★★★★★</div><p class="test-text" data-t="test1">"Направих CV за 3 минути с моята снимка и всичко на френски! Невероятно!"</p><div class="test-author"><div class="test-avatar" data-t="tinitials1" style="background:var(--p3);color:var(--p);">МГ</div><div><div class="test-name" data-t="tname1">Мария Г.</div><div class="test-role" data-t="trole1">София, България</div></div></div></div>
+      <div class="test-card"><div class="test-stars">★★★★★</div><p class="test-text" data-t="test2">"Имам 3 места за работа и всичко се побра в едно красиво CV!"</p><div class="test-author"><div class="test-avatar" data-t="tinitials2" style="background:var(--teal2);color:var(--teal);">ДС</div><div><div class="test-name" data-t="tname2">Димитър С.</div><div class="test-role" data-t="trole2">Пловдив, България</div></div></div></div>
+      <div class="test-card"><div class="test-stars">★★★★★</div><p class="test-text" data-t="test3">"Кандидатствах за работа в Германия. Получих интервю!"</p><div class="test-author"><div class="test-avatar" data-t="tinitials3" style="background:var(--amber2);color:#a06000;">АТ</div><div><div class="test-name" data-t="tname3">Андрей Т.</div><div class="test-role" data-t="trole3">Варна, България</div></div></div></div>
     </div>
   </div>
 </div>
@@ -779,7 +779,7 @@ footer{background:var(--dark);color:rgba(255,255,255,0.55);padding:48px 40px 28p
     <div class="footer-top">
       <div><div class="footer-logo"><div class="footer-logo-icon">✦</div>Smart<span>Docs</span></div><p class="footer-tagline" data-t="footer_tagline">AI документи за всеки. Навсякъде по света.</p></div>
       <div class="footer-links">
-        <div class="footer-col"><h4 data-t="footer_product">Продукт</h4><a onclick="showTab('cv');scrollToApp()" data-t="footer_cv">CV генератор</a><a onclick="showTab('letter');scrollToApp()" data-t="footer_letters">Писма</a><a onclick="document.getElementById('pricing').scrollIntoView({behavior:'smooth'})">Цени</a></div>
+        <div class="footer-col"><h4 data-t="footer_product">Продукт</h4><a onclick="showTab('cv');scrollToApp()" data-t="footer_cv">CV генератор</a><a onclick="showTab('letter');scrollToApp()" data-t="footer_letters">Писма</a><a onclick="document.getElementById('pricing').scrollIntoView({behavior:'smooth'})" data-t="footer_prices">Цени</a></div>
         <div class="footer-col"><h4 data-t="footer_company">Компания</h4><a href="#" data-t="footer_about">За нас</a><a href="#" data-t="footer_privacy">Поверителност</a><a href="#" data-t="footer_terms">Условия</a><a href="#" data-t="footer_contact">Контакт</a></div>
       </div>
     </div>
@@ -1033,6 +1033,7 @@ const T={
     login:'Вход',register:'Регистрация',login_btn:'Влез в акаунта',register_btn:'Създай акаунт',
     footer_product:'ПРОДУКТ',footer_company:'КОМПАНИЯ',footer_cv:'CV генератор',footer_letters:'Писма',footer_slides:'Слайдове',footer_prices:'Цени',footer_about:'За нас',footer_privacy:'Поверителност',footer_terms:'Условия',footer_contact:'Контакт',preview:'Преглед на CV-то',preview_simple:'Преглед',letter_section:'Опиши с твои думи — за какво е писмото?',dl_pdf:'⬇ PDF',dl_word:'⬇ Word',dl_new:'🔄 Нов вариант',
     tname1:'Мария Г.',trole1:'София, България',tname2:'Димитър С.',trole2:'Пловдив, България',tname3:'Андрей Т.',trole3:'Варна, България',
+    tinitials1:'МГ',tinitials2:'ДС',tinitials3:'АТ',hcv_initials:'ИП',
     pf1:'1 CV документ',pf2:'1 Официално писмо',pf3:'PDF сваляне',pf4:'3 езика',
     pf5:'5 документа/месец',pf6:'PDF + Word сваляне',pf7:'Всички езици',pf8:'Всички 12 шаблона',
     pf9:'Неограничени документи',pf10:'Всички 50+ езика',pf11:'Приоритетна поддръжка',pf12:'Слайд генератор',
@@ -1194,6 +1195,11 @@ const T={
     hf_lang_sub:'Български · Немски · Френски · и още',
     photo_text:'Кликни за да качиш снимка',
     func_letter_desc2:'Официално писмо до институции, работодател или община — AI го пише в правилния тон.'
+  ,
+    loading_letter:'Claude AI пише писмото...',
+    ph_letter_desc:'Искам да пиша до Общината за проблем с улично осветление...',
+    ph_letter_from:'Иван Петров',
+    ph_letter_to:'Кмет на Столична Община'
   },
   en:{
     nav_login:'Login',nav_register:'Start free',
@@ -1247,6 +1253,7 @@ const T={
     login:'Login',register:'Register',login_btn:'Sign in',register_btn:'Create account',
     footer_product:'PRODUCT',footer_company:'COMPANY',footer_cv:'CV Generator',footer_letters:'Letters',footer_slides:'Slides',footer_prices:'Pricing',footer_about:'About us',footer_privacy:'Privacy',footer_terms:'Terms',footer_contact:'Contact',preview:'CV Preview',preview_simple:'Preview',letter_section:'Describe in your words — what is the letter about?',dl_pdf:'⬇ PDF',dl_word:'⬇ Word',dl_new:'🔄 New version',
     tname1:'Maria G.',trole1:'Sofia, Bulgaria',tname2:'Dimitar S.',trole2:'Plovdiv, Bulgaria',tname3:'Andrey T.',trole3:'Varna, Bulgaria',
+    tinitials1:'MG',tinitials2:'DS',tinitials3:'AT',hcv_initials:'IP',
     pf1:'1 CV document',pf2:'1 Official letter',pf3:'PDF download',pf4:'3 languages',
     pf5:'5 documents/month',pf6:'PDF + Word download',pf7:'All languages',pf8:'All 12 templates',
     pf9:'Unlimited documents',pf10:'All 50+ languages',pf11:'Priority support',pf12:'Slide generator',
@@ -1408,6 +1415,11 @@ const T={
     hf_lang_sub:'Bulgarian · German · French · and more',
     photo_text:'Click to upload a photo',
     func_letter_desc2:'Official letter to institutions, employer or municipality — AI writes it in the right tone.'
+  ,
+    loading_letter:'Claude AI is writing the letter...',
+    ph_letter_desc:'I want to write to the Municipality about a street lighting problem...',
+    ph_letter_from:'John Smith',
+    ph_letter_to:'Mayor of the City'
   },
   fr:{
     nav_login:'Connexion',nav_register:'Commencer gratuit',
@@ -1608,6 +1620,11 @@ const T={
     hf_lang_sub:'Bulgare · Allemand · Français · et plus',
     photo_text:'Cliquez pour télécharger une photo',
     func_letter_desc2:'Lettre officielle aux institutions, employeur ou mairie — l\'IA l\'écrit avec le bon ton.'
+  ,
+    loading_letter:'Claude AI rédige la lettre...',
+    ph_letter_desc:'Je souhaite écrire à la Mairie concernant un problème d\'éclairage public...',
+    ph_letter_from:'Jean Dupont',
+    ph_letter_to:'Maire de la ville'
   },
   de:{
     nav_login:'Anmelden',nav_register:'Kostenlos starten',
@@ -1809,6 +1826,13 @@ const T={
     hf_lang_sub:'Bulgarisch · Deutsch · Französisch · und mehr',
     photo_text:'Klicken Sie, um ein Foto hochzuladen',
     func_letter_desc2:'Offizieller Brief an Institutionen, Arbeitgeber oder Gemeinde — KI schreibt im richtigen Ton.'
+  ,
+    loading_letter:'Claude AI schreibt den Brief...',
+    ph_letter_desc:'Ich möchte an die Stadtverwaltung wegen eines Problems mit der Straßenbeleuchtung schreiben...',
+    ph_letter_from:'Hans Müller',
+    ph_letter_to:'Bürgermeister der Stadt'
+  ,
+    letter_section:'Beschreiben Sie mit Ihren eigenen Worten — worum geht es in dem Brief?'
   },
   es:{
     nav_login:'Entrar',nav_register:'Empezar gratis',
@@ -1822,8 +1846,9 @@ const T={
     copyright:'© 2026 SmartDocs.eu — Todos los derechos reservados.',
     per_month:'/mes',forever:'para siempre',start_free:'Empezar gratis',choose_plan:'Elegir plan',recommended:'Recomendado',
     footer_product:'PRODUCTO',footer_company:'EMPRESA',footer_cv:'Generador CV',footer_letters:'Cartas',footer_slides:'Diapositivas',footer_prices:'Precios',footer_about:'Sobre nosotros',footer_privacy:'Privacidad',footer_terms:'Términos',footer_contact:'Contacto',preview:'Vista previa CV',preview_simple:'Vista previa',dl_pdf:'⬇ PDF',dl_word:'⬇ Word',dl_new:'🔄 Nueva versión',
-    chat_welcome:'¡Hola! 👋 ¿Cómo puedo ayudarte?\n• Consejos para CV\n• Preguntas sobre documentos'
-  ,
+    chat_welcome:'¡Hola! 👋 ¿Cómo puedo ayudarte?\n• Consejos para CV\n• Preguntas sobre documentos',
+    job_title:'Puesto',job_company:'Empleador',job_period:'Período',job_loc:'Ciudad / País',
+    job_desc:'¿Qué hacías? (con tus propias palabras)',
     hero_main_title:'Un clic.<br><span style="color:#ea580c;">La IA hace el resto.</span>',
     hero_subtitle:'Tu asistente digital para Europa',
     hero_btn_start:'✦ Empezar gratis — sin registro',
@@ -1972,6 +1997,13 @@ const T={
     func_letter_desc2:'Carta oficial a instituciones, empleador o ayuntamiento — la IA la escribe con el tono correcto.'
   ,
     drive_none:'Ninguno'
+  ,
+    loading_letter:'Claude AI está escribiendo la carta...',
+    ph_letter_desc:'Quiero escribir al Ayuntamiento sobre un problema de alumbrado público...',
+    ph_letter_from:'Juan García',
+    ph_letter_to:'Alcalde de la ciudad'
+  ,
+    letter_section:'Describe con tus propias palabras — ¿de qué trata la carta?'
   },
   it:{
     nav_login:'Accedi',nav_register:'Inizia gratis',
@@ -1982,8 +2014,9 @@ const T={
     subscribe:'Abbonati →',footer_tagline:'Documenti AI per tutti. In tutto il mondo.',
     copyright:'© 2026 SmartDocs.eu — Tutti i diritti riservati.',
     per_month:'/mese',forever:'per sempre',start_free:'Inizia gratis',choose_plan:'Scegli piano',recommended:'Consigliato',
-    chat_welcome:'Ciao! 👋 Come posso aiutarti?\n• Consigli per CV\n• Domande sui documenti'
-  ,
+    chat_welcome:'Ciao! 👋 Come posso aiutarti?\n• Consigli per CV\n• Domande sui documenti',
+    job_title:'Posizione',job_company:'Datore di lavoro',job_period:'Periodo',job_loc:'Città / Paese',
+    job_desc:'Cosa facevi? (con le tue parole)',
     hero_main_title:'Un clic.<br><span style="color:#ea580c;">L\'IA fa il resto.</span>',
     hero_subtitle:'Il tuo assistente digitale per l\'Europa',
     hero_btn_start:'✦ Inizia gratis — senza registrazione',
@@ -2132,6 +2165,13 @@ const T={
     func_letter_desc2:'Lettera ufficiale a istituzioni, datore di lavoro o comune — l\'IA la scrive con il tono giusto.'
   ,
     drive_none:'Nessuna'
+  ,
+    loading_letter:'Claude AI sta scrivendo la lettera...',
+    ph_letter_desc:'Voglio scrivere al Comune per un problema di illuminazione pubblica...',
+    ph_letter_from:'Marco Rossi',
+    ph_letter_to:'Sindaco della città'
+  ,
+    letter_section:'Descrivi con le tue parole — di cosa parla la lettera?'
   },
   ro:{
     nav_login:'Autentificare',nav_register:'Începe gratuit',
@@ -2142,8 +2182,9 @@ const T={
     subscribe:'Abonează-te →',footer_tagline:'Documente AI pentru toți. Peste tot în lume.',
     copyright:'© 2026 SmartDocs.eu — Toate drepturile rezervate.',
     per_month:'/lună',forever:'pentru totdeauna',start_free:'Începe gratuit',choose_plan:'Alege planul',recommended:'Recomandat',
-    chat_welcome:'Bună! 👋 Cum pot ajuta?\n• Sfaturi CV\n• Întrebări despre documente'
-  ,
+    chat_welcome:'Bună! 👋 Cum pot ajuta?\n• Sfaturi CV\n• Întrebări despre documente',
+    job_title:'Funcție',job_company:'Angajator',job_period:'Perioadă',job_loc:'Oraș / Țară',
+    job_desc:'Ce făceai? (cu cuvintele tale)',
     hero_main_title:'Un clic.<br><span style="color:#ea580c;">AI face restul.</span>',
     hero_subtitle:'Asistentul tău digital pentru Europa',
     hero_btn_start:'✦ Începe gratuit — fără înregistrare',
@@ -2292,6 +2333,13 @@ const T={
     func_letter_desc2:'Scrisoare oficială către instituții, angajator sau primărie — AI o scrie cu tonul potrivit.'
   ,
     drive_none:'Niciun'
+  ,
+    loading_letter:'Claude AI scrie scrisoarea...',
+    ph_letter_desc:'Vreau să scriu la Primărie despre o problemă cu iluminatul stradal...',
+    ph_letter_from:'Ion Popescu',
+    ph_letter_to:'Primarul orașului'
+  ,
+    letter_section:'Descrie cu cuvintele tale — despre ce este scrisoarea?'
   }
 ,
 
@@ -2496,6 +2544,13 @@ const T={
     func_letter_desc2:'Oficjalne pismo do instytucji, pracodawcy lub gminy — AI pisze właściwym tonem.'
   ,
     drive_none:'Brak'
+  ,
+    loading_letter:'Claude AI pisze list...',
+    ph_letter_desc:'Chcę napisać do urzędu miasta o problemie z oświetleniem ulicznym...',
+    ph_letter_from:'Jan Kowalski',
+    ph_letter_to:'Burmistrz miasta'
+  ,
+    letter_section:'Opisz własnymi słowami — o czym jest list?'
   },
   ru:{
     nav_login:'Войти',nav_register:'Начать бесплатно',
@@ -2536,6 +2591,7 @@ const T={
     modal_title:'Добро пожаловать!',modal_sub:'Присоединяйся бесплатно — без кредитной карты.',
     login:'Войти',register:'Регистрация',login_btn:'Войти',register_btn:'Создать аккаунт',
     tname1:'Мария Г.',trole1:'София, Болгария',tname2:'Димитар С.',trole2:'Пловдив, Болгария',tname3:'Андрей Т.',trole3:'Варна, Болгария',
+    tinitials1:'МГ',tinitials2:'ДС',tinitials3:'АТ',hcv_initials:'ИП',
     pf1:'1 резюме',pf2:'1 официальное письмо',pf3:'Скачивание PDF',pf4:'3 языка',
     pf5:'5 документов/месяц',pf6:'PDF + Word',pf7:'Все языки',pf8:'12 шаблонов',
     pf9:'Неограниченные документы',pf10:'50+ языков',pf11:'Приоритетная поддержка',pf12:'Генератор слайдов',
@@ -2698,6 +2754,13 @@ const T={
     func_letter_desc2:'Официальное письмо в учреждения, работодателю или муниципалитет — ИИ пишет в правильном тоне.'
   ,
     drive_none:'Нет'
+  ,
+    loading_letter:'Claude AI пишет письмо...',
+    ph_letter_desc:'Хочу написать в муниципалитет о проблеме с уличным освещением...',
+    ph_letter_from:'Иван Иванов',
+    ph_letter_to:'Мэр города'
+  ,
+    letter_section:'Опишите своими словами — о чём письмо?'
   },
   gr:{
     nav_login:'Σύνδεση',nav_register:'Ξεκίνα δωρεάν',
@@ -2886,6 +2949,13 @@ const T={
     func_letter_desc2:'Επίσημη επιστολή σε φορείς, εργοδότη ή δήμο — η AI γράφει με τον σωστό τόνο.'
   ,
     drive_none:'Καμία'
+  ,
+    loading_letter:'Το Claude AI γράφει την επιστολή...',
+    ph_letter_desc:'Θέλω να γράψω στον Δήμο για ένα πρόβλημα φωτισμού δρόμου...',
+    ph_letter_from:'Γιάννης Παπαδόπουλος',
+    ph_letter_to:'Δήμαρχος της πόλης'
+  ,
+    letter_section:'Περιγράψτε με δικά σας λόγια — για ποιο θέμα είναι η επιστολή;'
   },
   nl:{
     nav_login:'Inloggen',nav_register:'Gratis beginnen',
@@ -2901,7 +2971,9 @@ const T={
     forever:'voor altijd',per_month:'/maand',start_free:'Gratis beginnen',choose_plan:'Kies plan',recommended:'Aanbevolen',
     footer_tagline:'AI-documenten voor iedereen. Overal ter wereld.',
     copyright:'© 2026 SmartDocs.eu — Alle rechten voorbehouden.',
-    chat_welcome:"Hallo! 👋 Hoe kan ik je helpen?\n• CV-tips\n• Documentvragen"
+    chat_welcome:"Hallo! 👋 Hoe kan ik je helpen?\n• CV-tips\n• Documentvragen",
+    job_title:'Functie',job_company:'Werkgever',job_period:'Periode',job_loc:'Stad / Land',
+    job_desc:'Wat deed je? (in je eigen woorden)'
   },
   pt:{
     nav_login:'Entrar',nav_register:'Começar grátis',
@@ -2915,8 +2987,9 @@ const T={
     forever:'para sempre',per_month:'/mês',start_free:'Começar grátis',choose_plan:'Escolher plano',recommended:'Recomendado',
     footer_tagline:'Documentos IA para todos. Em todo o mundo.',
     copyright:'© 2026 SmartDocs.eu — Todos os direitos reservados.',
-    chat_welcome:"Olá! 👋 Como posso ajudar?\n• Dicas de CV\n• Perguntas sobre documentos"
-  ,
+    chat_welcome:"Olá! 👋 Como posso ajudar?\n• Dicas de CV\n• Perguntas sobre documentos",
+    job_title:'Cargo',job_company:'Empregador',job_period:'Período',job_loc:'Cidade / País',
+    job_desc:'O que você fazia? (com suas próprias palavras)',
     hero_main_title:'Um clique.<br><span style="color:#ea580c;">A IA faz o resto.</span>',
     hero_subtitle:'Seu assistente digital para a Europa',
     hero_btn_start:'✦ Comece grátis — sem registro',
@@ -3065,6 +3138,13 @@ const T={
     func_letter_desc2:'Carta oficial a instituições, empregador ou câmara — IA escreve no tom certo.'
   ,
     drive_none:'Nenhum'
+  ,
+    loading_letter:'Claude AI está escrevendo a carta...',
+    ph_letter_desc:'Quero escrever à Câmara sobre um problema de iluminação pública...',
+    ph_letter_from:'João Silva',
+    ph_letter_to:'Presidente da Câmara'
+  ,
+    letter_section:'Descreva com suas palavras — sobre o que é a carta?'
   },
   uk:{
     nav_login:'Увійти',nav_register:'Почати безкоштовно',
@@ -3078,7 +3158,9 @@ const T={
     forever:'назавжди',per_month:'/місяць',start_free:'Почати безкоштовно',choose_plan:'Обрати план',recommended:'Рекомендовано',
     footer_tagline:'Документи ШІ для всіх. По всьому світу.',
     copyright:'© 2026 SmartDocs.eu — Всі права захищені.',
-    chat_welcome:"Привіт! 👋 Як можу допомогти?\n• Поради щодо резюме\n• Питання про документи"
+    chat_welcome:"Привіт! 👋 Як можу допомогти?\n• Поради щодо резюме\n• Питання про документи",
+    job_title:'Посада',job_company:'Роботодавець',job_period:'Період',job_loc:'Місто / Країна',
+    job_desc:'Що ти робив? (своїми словами)'
   },
   tr:{
     nav_login:'Giriş',nav_register:'Ücretsiz başla',
@@ -3092,8 +3174,9 @@ const T={
     forever:'sonsuza kadar',per_month:'/ay',start_free:'Ücretsiz başla',choose_plan:'Plan seç',recommended:'Önerilen',
     footer_tagline:'Herkes için AI belgeleri. Dünyanın her yerinde.',
     copyright:'© 2026 SmartDocs.eu — Tüm hakları saklıdır.',
-    chat_welcome:"Merhaba! 👋 Nasıl yardımcı olabilirim?\n• CV ipuçları\n• Belge soruları"
-  ,
+    chat_welcome:"Merhaba! 👋 Nasıl yardımcı olabilirim?\n• CV ipuçları\n• Belge soruları",
+    job_title:'Pozisyon',job_company:'İşveren',job_period:'Dönem',job_loc:'Şehir / Ülke',
+    job_desc:'Ne yapıyordun? (kendi cümlelerinle)',
     hero_main_title:'Tek tıkla.<br><span style="color:#ea580c;">AI gerisini yapar.</span>',
     hero_subtitle:'Avrupa için dijital asistanınız',
     hero_btn_start:'✦ Ücretsiz başla — kayıt yok',
@@ -3242,6 +3325,13 @@ const T={
     func_letter_desc2:'Kurumlara, işverene veya belediyeye resmi mektup — AI doğru tonda yazar.'
   ,
     drive_none:'Yok'
+  ,
+    loading_letter:'Claude AI mektup yazıyor...',
+    ph_letter_desc:'Sokak aydınlatması sorunu hakkında belediyeye yazmak istiyorum...',
+    ph_letter_from:'Ahmet Yılmaz',
+    ph_letter_to:'Şehir Belediye Başkanı'
+  ,
+    letter_section:'Kendi sözlerinizle anlatın — mektup ne hakkında?'
   },
   sv:{
     nav_login:'Logga in',nav_register:'Börja gratis',
@@ -3255,7 +3345,9 @@ const T={
     forever:'för alltid',per_month:'/månad',start_free:'Börja gratis',choose_plan:'Välj plan',recommended:'Rekommenderad',
     footer_tagline:'AI-dokument för alla. Överallt i världen.',
     copyright:'© 2026 SmartDocs. Alla rättigheter förbehållna.',
-    chat_welcome:"Hej! 👋 Hur kan jag hjälpa dig?\n• CV-tips\n• Dokumentfrågor"
+    chat_welcome:"Hej! 👋 Hur kan jag hjälpa dig?\n• CV-tips\n• Dokumentfrågor",
+    job_title:'Position',job_company:'Arbetsgivare',job_period:'Period',job_loc:'Stad / Land',
+    job_desc:'Vad gjorde du? (med dina egna ord)'
   },
 };
 let currentLang='bg';
@@ -3285,19 +3377,24 @@ function setLang(lang,flagCode){
 
 function applyTranslations(lang){
   const t=T[lang]||T.en;
+  const tEn=T.en; // fallback на английски
+  // Помощна функция: ако ключ липсва на текущия език, вземи го от английския
+  const tr=(k)=>(t[k]!==undefined?t[k]:(tEn[k]!==undefined?tEn[k]:undefined));
   // Стандартни data-t елементи
   document.querySelectorAll('[data-t]').forEach(el=>{
     const k=el.getAttribute('data-t');
-    if(t[k]!==undefined){
-      if(el.tagName==='INPUT'||el.tagName==='TEXTAREA') el.placeholder=t[k];
-      else if(el.tagName==='OPTION') el.textContent=t[k];
-      else el.innerHTML=t[k];
+    const v=tr(k);
+    if(v!==undefined){
+      if(el.tagName==='INPUT'||el.tagName==='TEXTAREA') el.placeholder=v;
+      else if(el.tagName==='OPTION') el.textContent=v;
+      else el.innerHTML=v;
     }
   });
   // data-t-placeholder за input/textarea без data-t (когато трябва само placeholder да се превежда)
   document.querySelectorAll('[data-t-placeholder]').forEach(el=>{
     const k=el.getAttribute('data-t-placeholder');
-    if(t[k]!==undefined) el.placeholder=t[k];
+    const v=tr(k);
+    if(v!==undefined) el.placeholder=v;
   });
   // Hero title special handling
   const heroT=document.getElementById('heroTitle');
@@ -3324,6 +3421,29 @@ function applyTranslations(lang){
   updateChatButton(t);
   // Reset chat messages on lang change
   document.getElementById('chatMessages').innerHTML='';
+  // Update language dropdown option names (translate language names to current UI language)
+  const langNames={
+    bg:{bg:'Български',en:'Английски',de:'Немски',fr:'Френски',es:'Испански',it:'Италиански',ro:'Румънски',pl:'Полски',el:'Гръцки',ru:'Руски',tr:'Турски',pt:'Португалски',nl:'Холандски',uk:'Украински'},
+    en:{bg:'Bulgarian',en:'English',de:'German',fr:'French',es:'Spanish',it:'Italian',ro:'Romanian',pl:'Polish',el:'Greek',ru:'Russian',tr:'Turkish',pt:'Portuguese',nl:'Dutch',uk:'Ukrainian'},
+    fr:{bg:'Bulgare',en:'Anglais',de:'Allemand',fr:'Français',es:'Espagnol',it:'Italien',ro:'Roumain',pl:'Polonais',el:'Grec',ru:'Russe',tr:'Turc',pt:'Portugais',nl:'Néerlandais',uk:'Ukrainien'},
+    de:{bg:'Bulgarisch',en:'Englisch',de:'Deutsch',fr:'Französisch',es:'Spanisch',it:'Italienisch',ro:'Rumänisch',pl:'Polnisch',el:'Griechisch',ru:'Russisch',tr:'Türkisch',pt:'Portugiesisch',nl:'Niederländisch',uk:'Ukrainisch'},
+    es:{bg:'Búlgaro',en:'Inglés',de:'Alemán',fr:'Francés',es:'Español',it:'Italiano',ro:'Rumano',pl:'Polaco',el:'Griego',ru:'Ruso',tr:'Turco',pt:'Portugués',nl:'Holandés',uk:'Ucraniano'},
+    it:{bg:'Bulgaro',en:'Inglese',de:'Tedesco',fr:'Francese',es:'Spagnolo',it:'Italiano',ro:'Rumeno',pl:'Polacco',el:'Greco',ru:'Russo',tr:'Turco',pt:'Portoghese',nl:'Olandese',uk:'Ucraino'},
+    ro:{bg:'Bulgară',en:'Engleză',de:'Germană',fr:'Franceză',es:'Spaniolă',it:'Italiană',ro:'Română',pl:'Poloneză',el:'Greacă',ru:'Rusă',tr:'Turcă',pt:'Portugheză',nl:'Olandeză',uk:'Ucraineană'},
+    pl:{bg:'Bułgarski',en:'Angielski',de:'Niemiecki',fr:'Francuski',es:'Hiszpański',it:'Włoski',ro:'Rumuński',pl:'Polski',el:'Grecki',ru:'Rosyjski',tr:'Turecki',pt:'Portugalski',nl:'Holenderski',uk:'Ukraiński'},
+    ru:{bg:'Болгарский',en:'Английский',de:'Немецкий',fr:'Французский',es:'Испанский',it:'Итальянский',ro:'Румынский',pl:'Польский',el:'Греческий',ru:'Русский',tr:'Турецкий',pt:'Португальский',nl:'Нидерландский',uk:'Украинский'},
+    tr:{bg:'Bulgarca',en:'İngilizce',de:'Almanca',fr:'Fransızca',es:'İspanyolca',it:'İtalyanca',ro:'Rumence',pl:'Lehçe',el:'Yunanca',ru:'Rusça',tr:'Türkçe',pt:'Portekizce',nl:'Felemenkçe',uk:'Ukraynaca'},
+    pt:{bg:'Búlgaro',en:'Inglês',de:'Alemão',fr:'Francês',es:'Espanhol',it:'Italiano',ro:'Romeno',pl:'Polonês',el:'Grego',ru:'Russo',tr:'Turco',pt:'Português',nl:'Holandês',uk:'Ucraniano'},
+    nl:{bg:'Bulgaars',en:'Engels',de:'Duits',fr:'Frans',es:'Spaans',it:'Italiaans',ro:'Roemeens',pl:'Pools',el:'Grieks',ru:'Russisch',tr:'Turks',pt:'Portugees',nl:'Nederlands',uk:'Oekraïens'},
+    uk:{bg:'Болгарська',en:'Англійська',de:'Німецька',fr:'Французька',es:'Іспанська',it:'Італійська',ro:'Румунська',pl:'Польська',el:'Грецька',ru:'Російська',tr:'Турецька',pt:'Португальська',nl:'Голландська',uk:'Українська'},
+    el:{bg:'Βουλγαρικά',en:'Αγγλικά',de:'Γερμανικά',fr:'Γαλλικά',es:'Ισπανικά',it:'Ιταλικά',ro:'Ρουμανικά',pl:'Πολωνικά',el:'Ελληνικά',ru:'Ρωσικά',tr:'Τουρκικά',pt:'Πορτογαλικά',nl:'Ολλανδικά',uk:'Ουκρανικά'}
+  };
+  const lnMap=langNames[lang]||langNames.en;
+  document.querySelectorAll('option[data-lang-code]').forEach(opt=>{
+    const code=opt.getAttribute('data-lang-code');
+    if(lnMap[code]) opt.textContent=lnMap[code];
+  });
+
   // Update template names
   document.querySelectorAll('[data-tpl-id]').forEach(el=>{
     const id=parseInt(el.getAttribute('data-tpl-id'));
